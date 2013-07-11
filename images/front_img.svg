@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1178"
+   height="657.53638"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.2 r9819"
+   sodipodi:docname="front_img.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="296.19472"
+     inkscape:cy="290.99703"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="746"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(138,440.06641)">
+    <image
+       sodipodi:absref="D:\amit\Dropbox\YoavAmitAides\text\articles\iccp2013\images\recon1_nolabel.png"
+       xlink:href="recon1_nolabel.png"
+       width="1178"
+       height="486"
+       id="image2993"
+       x="-138"
+       y="-440.06641" />
+    <image
+       sodipodi:absref="D:\amit\Dropbox\YoavAmitAides\text\articles\iccp2013\images\ref_img37.png"
+       xlink:href="ref_img37.png"
+       transform="matrix(0.97108178,0.23874709,-0.65055169,0.75946198,0,0)"
+       width="192.15523"
+       height="173.12526"
+       id="image3065"
+       x="533.48987"
+       y="-114.89414" />
+    <image
+       sodipodi:absref="D:\amit\Dropbox\YoavAmitAides\text\articles\iccp2013\images\ref_img43.png"
+       xlink:href="ref_img43.png"
+       transform="matrix(0.97108178,0.23874709,-0.65055169,0.75946198,0,0)"
+       width="192.15523"
+       height="173.12526"
+       id="image3004"
+       x="341.05444"
+       y="-100.86083" />
+    <image
+       sodipodi:absref="D:\amit\Dropbox\YoavAmitAides\text\articles\iccp2013\images\ref_img45.png"
+       xlink:href="ref_img45.png"
+       transform="matrix(0.97108178,0.23874709,-0.65055169,0.75946198,0,0)"
+       width="192.15523"
+       height="173.12526"
+       id="image3015"
+       x="148.61905"
+       y="-86.827522" />
+    <image
+       sodipodi:absref="D:\amit\Dropbox\YoavAmitAides\text\articles\iccp2013\images\ref_img34.png"
+       xlink:href="ref_img34.png"
+       transform="matrix(0.97108178,0.23874709,-0.65055169,0.75946198,0,0)"
+       width="192.15523"
+       height="173.12526"
+       id="image3043"
+       x="-43.816368"
+       y="-72.794212" />
+  </g>
+</svg>

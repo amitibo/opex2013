@@ -4,7 +4,14 @@
 \section{Monte Carlo Simulations}
 \label{sec:monte-carlo-simul}
 
-\todo[inline]{Write the Monte-Carlo section}
+We used Monte Carlo (MC) photon tracing, and implemented the algorithm with matlab code, using Parallel for loop (parfor loop, with 8 workers in our case), to accelerate the simulations. 
+We simulate backward MC, it means that we trace photons from the detector to source. In our case the detector is the equidistant camera, and the source is the sun. We consider sun parallel illuminate the top of the atmosphere, so the photons who exit the atmosphere in sun direction, it’s the only photons that contribute to the image. We don't consider periodic atmosphere so we stop tracing photons that exit the atmosphere from the sides (except photons who goes to the sun), and stop tracing photons who hits the ground. Photons absorption by atmospheric particles we treat with Russian roulette method~\cite{Buras2011}.
+The simulation requires camera definition; in this definition, at each pixel on image plane, we calculate the leaving photon direction (MC model is backward). In standard simulation we have 128x128 pixels and we shoot 10000 photons from each pixel, and in each pixel we apply Uniform Supersampling [] . 
+After the photon leaves the camera in determined direction, it starts his traveling in the atmosphere.
+As mentioned before, the atmosphere is inhomogeneous media, and we divide this media to uniform grid. When photon travel in the media it passes a lot of grid cells, and the calculations of photon path becomes very  
+To accelerate MC simulation we use local estimation (LE) method []. In this method a Weight of LE calculated at each scatter event 
+ We prepare a pre-computed table that contains the probabilities that photon will scatter to the sun without any additional scattering
+
 
 \end{document}
 % -----------------------------------------------------------

@@ -282,12 +282,12 @@ does not apply.
 Consider \cref{fig:groundgrid}.  Ground-based wide-angle sky-cameras
 capture the sky lightfield from below. Per viewpoint, the view azimuth
 and elevation angles (relative to the zenith and north) are
-encapsulated in the vector ${\bf{\Theta}}$.  A raw image is $i_{\bf
-  x}({\bf{\Theta}})$: a camera's location ${\bf x}$ is fixed, while
-any pixel in a frame represents an angle ${\bf{\Theta}}$.  The
-measured radiance in all locations ${\bf x}$ and angles
-${\bf{\Theta}}$ is the {\em lightfield} $I({\bf
-  x},{\bf{\Theta}})$. Individual images are slices of the lightfield.
+encapsulated in the vector ${\bm{\Theta}}$.  A raw image is $i_{\bm
+  x}({\bm{\Theta}})$: a camera's location ${\bm x}$ is fixed, while
+any pixel in a frame represents an angle ${\bm{\Theta}}$.  The
+measured radiance in all locations ${\bm x}$ and angles
+${\bm{\Theta}}$ is the {\em lightfield} $I({\bm
+  x},{\bm{\Theta}})$. Individual images are slices of the lightfield.
 
 Under single-scattering approximation, radiative transfer has three
 steps (\cref{fig:groundgrid}):
@@ -373,9 +373,9 @@ and
 The number of voxels is $N_{\rm voxels}$. All their associated
 variables are concatenated into columns stack vectors, each $N_{\rm
   voxels}$ long. Aerosol densities and cross sections in all voxels
-are stored in the respective vectors ${\bf n}$ and
+are stored in the respective vectors ${\bm n}$ and
 $\vect{\sigma}$. Define a $N_{\rm voxels}\times N_{\rm voxels}$ sparse
-matrix ${\bf D}^{\mathrm{Sun \rightarrow voxel}}$, whose element
+matrix ${\bm D}^{\mathrm{Sun \rightarrow voxel}}$, whose element
 $(k,q)$ is
 \begin{equation}
   D^{\mathrm{Sun \rightarrow voxel}}(k,q) =
@@ -393,8 +393,8 @@ $(k,q)$ is
 aerosols (See \cref{fig:projection})a:
 \begin{equation}
   \vect{\tau}_{\rm SR}^{\rm aerosol}=
-  {\bf D}^{\mathrm{Sun \rightarrow voxel}}
-  (\vect{\sigma} \odot {\bf n})
+  {\bm D}^{\mathrm{Sun \rightarrow voxel}}
+  (\vect{\sigma} \odot {\bm n})
   \label{eq:tauSRvec1}
 \end{equation}
 where the operator $\odot$ denotes the Hadamard (element-wise)
@@ -431,11 +431,11 @@ and
 aerosols:
 \begin{equation}
   \vect{\tau}_{{\rm LOS}_c}^{\rm aerosol}=
-  {\bf D}^{\mathrm{voxel \rightarrow cam}}_c
-  (\vect{\sigma} \odot {\bf n})
+  {\bm D}^{\mathrm{voxel \rightarrow cam}}_c
+  (\vect{\sigma} \odot {\bm n})
   \label{eq:tauLOSvec1}
 \end{equation}
-Here ${\bf D}^{\mathrm{voxel \rightarrow cam}}_c$ is a $N_{\rm
+Here ${\bm D}^{\mathrm{voxel \rightarrow cam}}_c$ is a $N_{\rm
   voxels}\times N_{\rm voxels}$ sparse matrix whose element $(k,q)$ is
 \begin{equation}
   D^{\mathrm{voxel \rightarrow cam}}_c(k,q) =
@@ -452,13 +452,13 @@ Here ${\bf D}^{\mathrm{voxel \rightarrow cam}}_c$ is a $N_{\rm
 Similarly, \cref{eq:lSRair} leads to a vector of LOS optical depths
 due to air, $\vect{\tau}_{{\rm LOS}_c}^{\rm air}$.
 
-The fixed sparse matrices ${\bf D}^{\mathrm{Sun \rightarrow voxel}}$
-and ${\bf D}^{\mathrm{voxel \rightarrow cam}}_c$ are compounded to a
+The fixed sparse matrices ${\bm D}^{\mathrm{Sun \rightarrow voxel}}$
+and ${\bm D}^{\mathrm{voxel \rightarrow cam}}_c$ are compounded to a
 single matrix
 \begin{equation}
-  {\bf D}_c=
-  {\bf D}^{\mathrm{Sun \rightarrow voxel}}+
-  {\bf D}^{\mathrm{voxel \rightarrow cam}}_c
+  {\bm D}_c=
+  {\bm D}^{\mathrm{Sun \rightarrow voxel}}+
+  {\bm D}^{\mathrm{voxel \rightarrow cam}}_c
   \;\;.
   \label{eq:Dtotal}
 \end{equation}
@@ -481,11 +481,11 @@ the total optical depths corresponding to LOSs (of camera $c$) and SRs
 that cross all voxels comprise the vector
 \begin{equation}
   \vect{\tau}_c= \vect{\tau}_c^{\rm air}
-  + {\bf D}_c (\vect{\sigma} \odot {\bf n})
+  + {\bm D}_c (\vect{\sigma} \odot {\bm n})
   \;\;.
   \label{eq:tautotal}
 \end{equation}
-This vector depends on the variables $\vect{\sigma}$ and ${\bf n}$
+This vector depends on the variables $\vect{\sigma}$ and ${\bm n}$
 (See~\cref{fig:projection}a).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -507,11 +507,11 @@ by
   \tilde{\vect{\alpha}}^{\rm air}_c &=
   \vect{\beta}^{\rm air} \odot P^{\rm air}(\vect{\Phi}^{\rm scatter}_c) \nonumber \\
   \tilde{\vect{\alpha}}^{\rm aerosol}_c &= \vect{\varpi}\odot
-  \vect{\sigma} \odot {\bf n} \odot P^{\rm aerosol}_{\bf
+  \vect{\sigma} \odot {\bm n} \odot P^{\rm aerosol}_{\bm
     g}(\vect{\Phi}^{\rm scatter}_c)
   \label{eq:alpha_matrix}
 \end{align}
-The vector ${\bf g}$ column-stacks the anisotropy parameter of the
+The vector ${\bm g}$ column-stacks the anisotropy parameter of the
 phase function, in all voxels. We use this notation, to indicate a
 parametric phase function as in \cref{eq:aerosol_scatter}.
 
@@ -535,7 +535,7 @@ contributed by the voxel is
 where $L^{\rm TOA}$ is the radiance at the TOA. A column-stack vector
 of all voxel contributions is
 \begin{equation}
-  {\bf p}_c= L^{\rm TOA}
+  {\bm p}_c= L^{\rm TOA}
   [\tilde{\vect{\alpha}}^{\rm air}_c + \tilde{\vect{\alpha}}^{\rm aerosol}_c]
   \odot e^{-\vect{\tau}_c}
   \;\;.
@@ -558,34 +558,34 @@ voxels, and oblivious to all the rest~(\cref{fig:projection}b).
 \end{figure}
 Thus light power captured at a pixel is a weighted sum of the power
 $p_c(k)$ from all voxels.  This linear sum is formulated by a matrix
-operation over ${\bf p}_c$. The measured image is column-stacked to a
+operation over ${\bm p}_c$. The measured image is column-stacked to a
 vector $N_{\rm pix}$ long. It is given by
 \begin{equation}
-  {\bf i}_c= {\vect{\Pi}}_c{\bf p}_c
+  {\bm i}_c= {\vect{\Pi}}_c{\bm p}_c
   \;\;.
   \label{eq:IcP}
 \end{equation}
 
 Combining \cref{eq:tautotal,eq:pc,eq:IcP}, the captured image is thus
 \begin{align}
-  {\bf i}_c= L^{\rm TOA} {\vect{\Pi}}_c \left\{
+  {\bm i}_c= L^{\rm TOA} {\vect{\Pi}}_c \left\{
     (\tilde{\vect{\alpha}}^{\rm air}_c + \tilde{\vect{\alpha}}^{\rm
-      aerosol}_c) \odot e^{-[\vect{\tau}_c^{\rm air} + {\bf D}_c
-      (\vect{\sigma} \odot {\bf n})]} \right\}
+      aerosol}_c) \odot e^{-[\vect{\tau}_c^{\rm air} + {\bm D}_c
+      (\vect{\sigma} \odot {\bm n})]} \right\}
   \label{eq:bigIc}
 \end{align}
 
 To simplify the case in study, let us assume there is only a single
 type of aerosol over a scene. Hence, the three-element vector
 $[{\sigma}^{\rm aerosol},\varpi^{\rm aerosol},g]$ is uniform across
-the scene, but the density distribution ${\bf n}$ is variable. Then,
+the scene, but the density distribution ${\bm n}$ is variable. Then,
 \cref{eq:bigIc} degenerates to
 \begin{align}
-  {\bf i}_c= L^{\rm TOA} {\vect{\Pi}}_c \Big\{ e^{-(\vect{\tau}_c^{\rm
-      air} + {\sigma}^{\rm aerosol} {\bf D}_c {\bf n}) }\odot
+  {\bm i}_c= L^{\rm TOA} {\vect{\Pi}}_c \Big\{ e^{-(\vect{\tau}_c^{\rm
+      air} + {\sigma}^{\rm aerosol} {\bm D}_c {\bm n}) }\odot
   [\tilde{\vect{\alpha}}^{\rm air}_c + 
   \varpi^{\rm aerosol}\sigma^{\rm aerosol} P^{\rm
-    aerosol}_g(\vect{\Phi}^{\rm scatter}_c) \odot{\bf n} ] \Big\} .
+    aerosol}_g(\vect{\Phi}^{\rm scatter}_c) \odot{\bm n} ] \Big\} .
   \label{eq:bigIA}
 \end{align}
 
@@ -610,9 +610,9 @@ In general terms, the variables are the set
 \begin{equation}
   {\cal V}\equiv
   \left\{
-    {\bf n},
+    {\bm n},
     \left\{
-      \vect{\varpi}_{\lambda},\vect{\sigma}_{\lambda},{\bf g}_{\lambda}
+      \vect{\varpi}_{\lambda},\vect{\sigma}_{\lambda},{\bm g}_{\lambda}
     \right\}_{\lambda}
   \right\}
   \;\;,
@@ -626,7 +626,7 @@ variables is in principle \mbox{$|{\cal V}|=N_{\rm voxels}(1+3N_{\rm
 Prior knowledge reduces the unknowns. For simplicity we assume a
 single aerosol type dominates a scene. Furthermore, in the following
 section we assume that we know the type of the particle. Hence, we
-focus here on retrieving ${\bf n}$.
+focus here on retrieving ${\bm n}$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -635,48 +635,48 @@ focus here on retrieving ${\bf n}$.
 
 The recovery task is phrased as optimization of an objective function,
 that fits the image-formation model (\cref{eq:bigIc,eq:bigIA}) to
-measured photographs $\{ {\bf i}^{\rm measured}_c\}_{c=1}^{N_{\rm
+measured photographs $\{ {\bm i}^{\rm measured}_c\}_{c=1}^{N_{\rm
     views}}$:
 \begin{equation}
   \label{eq:minobjectiveA}
-  \hat{\bf n} =
-  \argmin_{{\bf n}} F({\bf n})
+  \hat{\bm n} =
+  \argmin_{{\bm n}} F({\bm n})
 \end{equation}
 where
 \begin{equation}
   \label{eq:objectiveA}
-  F({\bf n})
+  F({\bm n})
   = \sum_{c=1}^{N_{\rm views}}
-  \| {\bf i}^{\rm measured}_c - {\bf i}_c({\bf n})\|^2_2
+  \| {\bm i}^{\rm measured}_c - {\bm i}_c({\bm n})\|^2_2
 \end{equation}
 This is solved using standard optimization tools.  The gradient of $F$
-with respect to ${\bf n}$ is
+with respect to ${\bm n}$ is
 \begin{align}
-  \Grad{{\bf n}} F = -2\sum_{c=1}^{N_{\rm views}}
-  \transpose{\left[{\bf J}_{{\bf i}_c}({\bf n})\right]} [{\bf i}^{\rm
-    measured}_c - {\bf i}_c({\bf n})] \;.
+  \Grad{{\bm n}} F = -2\sum_{c=1}^{N_{\rm views}}
+  \transpose{\left[{\bm J}_{{\bm i}_c}({\bm n})\right]} [{\bm i}^{\rm
+    measured}_c - {\bm i}_c({\bm n})] \;.
   \label{eq:gradient1}
 \end{align}
-Here the matrix ${\bf J}_{{\bf i}_c}({\bf n})$ is the Jacobian of the
-vector ${\bf i}_c$ with respect to ${\bf n}$. A close-form expression
+Here the matrix ${\bm J}_{{\bm i}_c}({\bm n})$ is the Jacobian of the
+vector ${\bm i}_c$ with respect to ${\bm n}$. A close-form expression
 of our Jacobian is
 \begin{align}
-  {\bf J}_{{\bf i}_c}({\bf n}) &= L^{\rm TOA}({\bf A}-{\bf B}){\bf C}
+  {\bm J}_{{\bm i}_c}({\bm n}) &= L^{\rm TOA}({\bm A}-{\bm B}){\bm C}
   ,
   \label{eq:gradient2}
 \end{align}
 where
 \begin{align}
   \label{eq:gradient3}
-  {\bf A} &= \varpi^{\rm aerosol}\sigma^{\rm aerosol}
+  {\bm A} &= \varpi^{\rm aerosol}\sigma^{\rm aerosol}
   \OpDiag{ P_g^{\rm aerosol}(\vect{\Phi}^{\rm scatter}_c)} \nonumber\\
-  {\bf B} &= {\sigma}^{\rm aerosol}\transpose{{\bf D}_c} \nonumber\\
+  {\bm B} &= {\sigma}^{\rm aerosol}\transpose{{\bm D}_c} \nonumber\\
   & \;\;\; \OpDiag{[\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm
       aerosol}\sigma^{\rm aerosol} P^{\rm aerosol}_g(\vect{\Phi}^{\rm
-      scatter}_c) \odot{\bf n}
+      scatter}_c) \odot{\bm n}
     ]} \nonumber \\
-  {\bf C} &= \OpDiag{\exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm
-      aerosol} {\bf D}_c {\bf n})]} \transpose{{\vect{\Pi}}_c}
+  {\bm C} &= \OpDiag{\exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm
+      aerosol} {\bm D}_c {\bm n})]} \transpose{{\vect{\Pi}}_c}
 \end{align}
 For a detailed derivation of \cref{eq:gradient2,eq:gradient3}, we
 refer the reader to \cref{sec:gradient-derivation}.
@@ -747,7 +747,7 @@ multiple ellipsoids suspended.  Then
 The true aerosol distribution is then
 \begin{equation}
   \label{eq:ntrue}
-  {\bf n}^{\rm true}={\bf w}_1\odot {\bf w}_2  .
+  {\bm n}^{\rm true}={\bm w}_1\odot {\bm w}_2  .
   \hspace{-0.05cm}
 \end{equation}
 As an example, we created a {\em Haze Blobs} scene using two ellipsoid
@@ -802,7 +802,7 @@ gradient-based algorithm and varying all the rendered images) took
 \SI{\approx 7}{\second}.
 
 \noindent{\bf Optimization}: We used the L-BFGS-B
-algorithm~\cite{BFGS}. The algorithm was initialized by ${\bf
+algorithm~\cite{BFGS}. The algorithm was initialized by ${\bm
   n}=0$. Satisfactory convergence occurred in several thousand
 iterations, taking a couple of hours to complete in total.
 
@@ -820,8 +820,8 @@ from the random noise in the images. To quantify the results, we use a
 relative error measure based on the $\ell_1$ norm
 \begin{equation}
   \label{eq:ndiff}
-  \epsilon=\frac{\| \hat{\bf n}  - {\bf n}^{\rm true} \|_1}
-  {\| {\bf n}^{\rm true} \|_1} ,
+  \epsilon=\frac{\| \hat{\bm n}  - {\bm n}^{\rm true} \|_1}
+  {\| {\bm n}^{\rm true} \|_1} ,
   \hspace{-0.05cm}
 \end{equation}
 It is equivalent to the aerosol mass that is over and under-estimated
@@ -881,6 +881,11 @@ questions and solutions would rise.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  Appendix  %%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Gradient Derivation}
@@ -890,41 +895,41 @@ Here we detail the derivation of the gradient of the objective
 function:
 \begin{equation}
   \label{eq:objectiveA}
-  F({\bf n})
+  F({\bm n})
   = \sum_{c=1}^{N_{\rm views}}
-  \| {\bf i}^{\rm measured}_c - {\bf i}_c({\bf n})\|^2_2
+  \| {\bm i}^{\rm measured}_c - {\bm i}_c({\bm n})\|^2_2
 \end{equation}
-Here ${\bf i}^{\rm measured}_c$ is the image captured by camera $c$
-and ${\bf i}_c({\bf n})$ is an image modeled from the viewpoint of
-camera $c$ according to the density distribution ${\bf n}$. In
-\cref{sec:captured-image} article we show that ${\bf i}_c({\bf n})$
+Here ${\bm i}^{\rm measured}_c$ is the image captured by camera $c$
+and ${\bm i}_c({\bm n})$ is an image modeled from the viewpoint of
+camera $c$ according to the density distribution ${\bm n}$. In
+\cref{sec:captured-image} article we show that ${\bm i}_c({\bm n})$
 can be expressed by
 \begin{align}
-  {\bf i}_c= L^{\rm TOA} {\vect{\Pi}}_c \Big\{ e^{-(\vect{\tau}_c^{\rm
-      air} + {\sigma}^{\rm aerosol} {\bf D}_c {\bf n}) }\odot
+  {\bm i}_c= L^{\rm TOA} {\vect{\Pi}}_c \Big\{ e^{-(\vect{\tau}_c^{\rm
+      air} + {\sigma}^{\rm aerosol} {\bm D}_c {\bm n}) }\odot
   \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;
   \nonumber \\
   [\tilde{\vect{\alpha}}^{\rm air}_c + %\right.
   \varpi^{\rm aerosol}\sigma^{\rm aerosol} P^{\rm
-    aerosol}_g(\vect{\Phi}^{\rm scatter}_c) \odot{\bf n} ] \Big\} .
+    aerosol}_g(\vect{\Phi}^{\rm scatter}_c) \odot{\bm n} ] \Big\} .
   \label{eq:bigIA}
 \end{align}
 
-The gradient of $F$ with respect to ${\bf n}$ is
+The gradient of $F$ with respect to ${\bm n}$ is
 \begin{align}
-  \Grad{{\bf n}} F = -2\sum_{c=1}^{N_{\rm views}}
-  \transpose{\left[{\bf J}_{{\bf i}_c}({\bf n})\right]} [{\bf i}^{\rm
-    measured}_c - {\bf i}_c({\bf n})] \;.
+  \Grad{{\bm n}} F = -2\sum_{c=1}^{N_{\rm views}}
+  \transpose{\left[{\bm J}_{{\bm i}_c}({\bm n})\right]} [{\bm i}^{\rm
+    measured}_c - {\bm i}_c({\bm n})] \;.
   \label{eq:gradient1}
 \end{align}
-Here the matrix ${\bf J}_{{\bf i}_c}({\bf n})$ is the Jacobian of the
-vector ${\bf i}_c$ with respect to ${\bf n}$. Element $(\Theta,k)$ of
-this matrix differentiates the intensity in pixel ${\bf \Theta}$ (in
+Here the matrix ${\bm J}_{{\bm i}_c}({\bm n})$ is the Jacobian of the
+vector ${\bm i}_c$ with respect to ${\bm n}$. Element $(\Theta,k)$ of
+this matrix differentiates the intensity in pixel ${\bm \Theta}$ (in
 viewpoint $c$) with variation of the density at voxel $k$, i.e.,
-$\partial i_c({\bf \Theta})/\partial{n^{\rm aerosol}(k)}$.
+$\partial i_c({\bm \Theta})/\partial{n^{\rm aerosol}(k)}$.
 
-In order to describe the derivation of the Jacobian ${\bf J}_{{\bf
-    i}_c}({\bf n})$, we first show some results relating to
+In order to describe the derivation of the Jacobian ${\bm J}_{{\bm
+    i}_c}({\bm n})$, we first show some results relating to
 differentiation. Let $\vect{n}$ be a vector of length $q$. Let
 $\vect{g}(\vect{n})$ be a vector function: it outputs a vector of
 length $r$. Let $\mat{B}$ be a $q \times r$ matrix and
@@ -945,10 +950,10 @@ elements of $\vect{v}$. Using \cref{eq:partial2} we can calculate
 \begin{align}
   \label{eq:partial4}
   \PartDeriv{\exp^{-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm aerosol}
-      {\bf D}_c {\bf n})}}
+      {\bm D}_c {\bm n})}}
   {\vect{n}} &= - {\sigma}^{\rm aerosol}\transpose{\OpDistance_c} \,
   \OpDiag{\exp^{-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm aerosol}
-      {\bf D}_c {\bf n})}}
+      {\bm D}_c {\bm n})}}
 \end{align}
 In \cref{eq:partial4} we assume that $\vect{\tau}_c^{\rm air}$ is
 known and constant.
@@ -967,7 +972,7 @@ Then,
 \begin{align}
   \label{eq:partial3}
   \PartDeriv{\, \varpi^{\rm aerosol}\sigma^{\rm aerosol} P^{\rm
-      aerosol}_g(\vect{\Phi}^{\rm scatter}_c) \odot{\bf n}}{\vect{n}}
+      aerosol}_g(\vect{\Phi}^{\rm scatter}_c) \odot{\bm n}}{\vect{n}}
   =
   \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;
   \nonumber \\
@@ -979,22 +984,22 @@ Then,
 Based on \cref{eq:partial4,eq:partial1,eq:partial3} we can derive a
 close-form expression for the Jacobian of \cref{eq:bigIA}:
 \begin{align}
-  {\bf J}_{{\bf i}_c}({\bf n}) &= L^{\rm TOA}({\bf A}-{\bf B}){\bf C}
+  {\bm J}_{{\bm i}_c}({\bm n}) &= L^{\rm TOA}({\bm A}-{\bm B}){\bm C}
   ,
   \label{eq:gradient2}
 \end{align}
 where
 \begin{align}
   \label{eq:gradient3}
-  {\bf A} &= \varpi^{\rm aerosol}\sigma^{\rm aerosol}
+  {\bm A} &= \varpi^{\rm aerosol}\sigma^{\rm aerosol}
   \OpDiag{ P_g^{\rm aerosol}(\vect{\Phi}^{\rm scatter}_c)} \nonumber\\
-  {\bf B} &= {\sigma}^{\rm aerosol}\transpose{{\bf D}_c} \nonumber\\
+  {\bm B} &= {\sigma}^{\rm aerosol}\transpose{{\bm D}_c} \nonumber\\
   & \;\;\; \OpDiag{[\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm
       aerosol}\sigma^{\rm aerosol} P^{\rm aerosol}_g(\vect{\Phi}^{\rm
-      scatter}_c) \odot{\bf n}
+      scatter}_c) \odot{\bm n}
     ]} \nonumber \\
-  {\bf C} &= \OpDiag{\exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm
-      aerosol} {\bf D}_c {\bf n})]} \transpose{{\vect{\Pi}}_c}
+  {\bm C} &= \OpDiag{\exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm
+      aerosol} {\bm D}_c {\bm n})]} \transpose{{\vect{\Pi}}_c}
 \end{align}
 
 

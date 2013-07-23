@@ -135,9 +135,7 @@ recover this 3D medium using measured and modeled lightfields
     \includegraphics[width=\linewidth]{images/groundtomog24.pdf}
   \end{center}
   \caption{\small Lightfield imaging through a volumetric distribution
-    in the atmosphere, using ground-based cameras. Our tomographic
-    reconstruction follows the acquisition. The atmosphere is analyzed
-    in a voxel grid.}
+    in the atmosphere, using ground-based cameras.}
   \label{fig:groundgrid}
 \end{figure*}
 Projecting this large object to various directions is similar to
@@ -387,45 +385,24 @@ extinction and scattering by air molecules are modeled by
 \section{Methodology}
 \label{sec:methodology}
 
-The atmosphere has a non-uniform distribution of scattering
-aerosols. We seek to recover this 3D volumetric distribution. To solve
-this problem, we formulate a process analogous to tomographic
-reconstruction. The scene is projected to multiple directions. Thus, a
-system captures integrated radiance as a function of direction and 2D
-projected location. Any voxel in the atmosphere contributes to the
-integrated radiance in multiple directional measurements
-(Fig.~\ref{fig:groundgrid}). The measurements then provide a large
-number of constraints, to recover the distribution: the density and
-type of aerosols, per voxel.
-Earth's radiation is sampled both spatially and angularly from
-space~\cite{breon,diner,Martonchikc,vanMol}. However, current
-multiview spaceborne systems are very coarse. For example, aerosol
-retrieval in the most complex instrument, MISR, requires spatial
-blocks that are about $17\times 17$km wide, each observed from just 9
-views along-track. This practically leads to vertical radiative
-transfer analysis, degenerating atmospheric analysis to
-1D. Experimental airborne instruments under
-development~\cite{baxter,dinerDavis10} may provide better, if still
-coarse resolution once they are operational.
-
 We believe that high resolution atmospheric recovery can be achieved
 by a large set of ground-based wide-angle~\cite{Cossairt2011,
   Peleg01omnistereo:panoramic, Koppal:2011:WMS:2191740.2192152}
-sky-cameras, looking upwards and capturing the sky lightfield.
-Moreover, satellites image close to the orbit track (a 1D array of
-viewpoints). In contrast, land-based cameras can form a 2D set of
-viewpoints~\cite{DBLP:journals/pieee/SnavelySGSS10} as easy or hard as
-a 1D grid~\cite{Joshi06naturalvideo}. However, before designing and
-setting up such a very large scale system requires assessment of many
-details that had not been explored. These include camera
-specifications needed to recover typical distributions. Hence, a major
-theoretic and numerical research phase is ahead.
-
-This paper takes the first step, of formulating this principle and
+sky-cameras, looking upwards and capturing the sky lightfield.  This
+paper takes the first step, of formulating this principle and
 demonstrating feasibility using realistic simulations. The formulation
 of this paper can also apply to multiview images that are captured
 from satellites, for future spaceborne instruments of this capacity.
 
+We simulate image acquisition using Monte Carlo simulations
+(\cref{sec:monte-carlo-simul}).  Monte carlo model multiple scattering
+and therefore enable simulating realistic scenarios. Our
+reconstruction algorithm is based on the Single-Scattering model
+(\cref{sec:single-scatt-model}). The Single-Scattering approximation
+enables state the solution to the Radiative Transform in a closed
+form. This closed is beneficial to us as it enables us to invert the
+model and thus recover the underlying atmosphere
+(\cref{sec:inverse-problem}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -750,12 +727,6 @@ the scene, but the density distribution ${\bm n}$ is variable. Then,
   \label{eq:bigIA}
 \end{align}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subfile{monte_carlo}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -855,6 +826,39 @@ refer the reader to \cref{sec:gradient-derivation}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Monte Carlo RT}
+\label{sec:monte-carlo-simul}
+
+Monte Carlo (MC) methods enable rigorous modeling of photon
+propagation in the atmosphere. The radiative transfer is expressed as
+probability distributions which describe the distance travelled by the
+photon between scatterings and the angle of deflection at each
+scatter.  This enables simulating multiple scattering and produce
+realistic results.  MC simulations can be made arbitrarily accurate by
+increasing the number of photons.  Another advantage of the MC methods
+is that they are highly parallelable.
+
+The MC simulations use the same atmosphere grid described in
+\cref{sec:single-scatt-model}. we use backward MC, i.e. photons are
+traced from the detector to the sun. Photons are emitted from each
+pixel of the camera in the direction determined by the camera
+model. The optical distance that the photon travels before scattering
+is determined according to the Beer-Lambert law~\cref{eq:beer-lambert}
+and the inversion sampling method. Once the optical distance is
+determined the ``real'' distance is determined by summing the optical
+depth of the discrete voxels (\cref{sec:optical-depth}) along the
+photon direction till the desired optical distance is reached.  At
+each scattering event, first the type of aerosol is determined by
+sampling the different aerosols distributions inside the voxel. The
+new direction is determined by inverse sampling the phase function of
+the relevant aerosols: Rayleigh, \cref{eq:rayleighP} or
+Henyey-Greenstein \cref{eq:aerosol_scatter}.  To accelerate the MC we
+use the local estimation (LE) method.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Simulations}
 \label{sec:simul}
 
@@ -869,10 +873,13 @@ ratios of $L^{\rm TOA}_{\rm R}:L^{\rm TOA}_{\rm G}:L^{\rm TOA}_{\rm
 
 \noindent{\bf Dimensions}: The domain of sky we simulate and recover
 has area of \SI{50 x 50}{\km}, and it extends from the ground up to
-altitude of \SI{10}{\km}. This volume is divided to a \num{50 x 50 x
-  100} grid, where each voxel has area of \SI{1 x 1}{\km} and vertical
-thickness of \SI{100}{\metre}. The dimension of the problem is thus
-$250,000$ variables.
+altitude of \SI{10}{\km}. This volume is divided into a rectilinear
+grid. We used different grid sizes from \num{50 x 50 x 100} grid,
+where each voxel has area of \SI{1 x 1}{\km} and vertical thickness of
+\SI{100}{\metre} and down to num{10 x 10 x 20} grid, where each voxel
+has area of \SI{5 x 5}{\km} and vertical thickness of
+\SI{500}{\metre}. The different grid sizes determine the number of
+variables.
 
 \noindent{\bf Aerosol}: We used particle-type 6 from the aerosol list
 in Ref.~\cite{Martonchik2009}. This is a spherical non-absorbing
@@ -889,16 +896,11 @@ We simulated various spatial distributions. All were set as a product
 of two functions. The first function is an exponential
 decay~\cite{Levi1980} with altitude $h(k)$ of voxel $k$,
 \begin{align}
-  w_1[h(k)] = \frac{1} {\sigma^{\rm aerosol}_{\rm G} \mathrm{MFP^{sea
-        level}}} \exp\left[-\frac{h(k)}{H^\mathrm{aerosol}}\right],
+  w_1[h(k)] = \frac{1} {n^{sea level}}
+  \exp\left[-\frac{h(k)}{H^\mathrm{aerosol}}\right],
 \end{align}
 where $H^\mathrm{aerosol}=2$~\si{\km}. This expresses a general trend
-of reduced atmospheric density with height. Here the mean free path
-(MFP) of the aerosols layer at sea level was set to \linebreak
-\mbox{$\mathrm{MFP^{sea level}}=1/5$~\si{\per\km}}.
-
-\todo[inline]{Update the quantities above especially the visibility or
-  fix the images}
+of reduced atmospheric density with height.
 
 The second function, $w_2$, expresses a clustered nature of aerosol
 ``clouds''. We define blobs in the form of 3D ellipsoids. There may be
@@ -926,9 +928,9 @@ blobs (\cref{fig:simulation1}a):
 \begin{figure} \centering
   \yoavcomment{\includegraphics[width=\columnwidth]{images/simulation1}}
   \caption{\small [a] Simulated 3D aerosol distribution composed of
-    {\em Haze Blobs}. [b] Its reconstruction. Color represents aerosol
-    density. The density units are $10^{15}~{\rm particles}/{\rm
-      cm}^3.$}
+    {\em Haze Blobs} and [b] its reconstruction. Color represents
+    aerosol density. The density units are $10^{15}~{\rm
+      particles}/{\rm cm}^3.$}
   \label{fig:simulation1}
 \end{figure}
 the first is centered at altitude \SI{3.3}{\km}, and has horizontal
@@ -939,17 +941,15 @@ lateral width of \SI{24}{\km} and vertical thickness of
 the vertical ones. This is consistent with scales of atmospheric
 aerosol distributions.
 
-\noindent{\bf Cameras}: Each ground-based camera has a hemispherical
-field of view, capturing the entire sky from its viewpoint. We used
-100 viewpoints on a grid, each view \SI{\approx 4.4}{\km} from its
-neighbors.  The resolution of each camera is low: \num{128 x 128}
-pixels, expressing the fact that cloudless (yet hazy) sky images are
-rather smooth, hence there is no need for high image resolution. Each
-pixel has full-well depth of 40000 electrons, which corresponds to the
-brightest pixel value. Each measurement has photon noise, which is
-Poissonian distributed, according to each image-pixel value $i_c$ and
-the full-well depth. For example, \cref{fig:simulation-results1}a
-shows an example of a modeled photograph
+\noindent{\bf Cameras}: The cameras are created by the MC simulations.
+Each ground-based camera has a hemispherical field of view, capturing
+the entire sky from its viewpoint. Again, we used different numbers of
+cameras ranging from 100 viewpoints to 12. The cameras are arranged on
+a grid.  The resolution of each camera is low, expressing the fact
+that cloudless (yet hazy) sky images are rather smooth, hence there is
+no need for high image resolution.  For example,
+\cref{fig:simulation-results1}b shows an example of a modeled
+photograph
 \begin{figure}
   \centering
   \yoavcomment{\def\svgwidth{0.7\columnwidth}\input{images/ref_images.pdf_tex}}
@@ -965,12 +965,9 @@ of the {\em Haze Blobs} scene that corresponds to
 
 \noindent{\bf Computer}: We had access to an SGI-TNN cluster computer
 that has 88 computer nodes consisting of two 2.40 GHz six-Core Xeon
-with 8GB DDR3 memory per core. Out of it, we used 8 nodes,
-corresponding to 96 cores. Each core was dedicated to rendering a
-modeled image (in each interaction) as if captured by one of the 95
-cameras. Each iteration (varying the model according to the
-gradient-based algorithm and varying all the rendered images) took
-\SI{\approx 7}{\second}.
+with 8GB DDR3 memory per core. The number of cures used is depends
+on the size of the simulations. Each core was dedicated to rendering a
+modeled image.
 
 \noindent{\bf Optimization}: We used the L-BFGS-B
 algorithm~\cite{BFGS}. The algorithm was initialized by ${\bm

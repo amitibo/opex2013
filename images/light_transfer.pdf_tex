@@ -57,7 +57,7 @@
     \put(0.69675521,0.43168863){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.18632049\unitlength}\raggedright Radiance Map\end{minipage}}}%
     \put(0.76265439,0.06863062){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.12547921\unitlength}\centering camera c\end{minipage}}}%
     \put(0.52788992,0.04013536){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.16231188\unitlength}\raggedright camera sensor\end{minipage}}}%
-    \put(0.61363341,0.07418532){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.154765\unitlength}\raggedright pixel ${\bf \Theta}$\end{minipage}}}%
+    \put(0.61363341,0.07418532){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.154765\unitlength}\raggedright pixel ${\bm \Theta}$\end{minipage}}}%
     \put(0.62309871,0.28950984){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.16407539\unitlength}\centering contribution of\\ voxel k\end{minipage}}}%
     \put(0.2307001,0.01752531){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.07419839\unitlength}\raggedright (a)\end{minipage}}}%
     \put(0.74838584,0.01752531){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.07419839\unitlength}\raggedright (b)\end{minipage}}}%

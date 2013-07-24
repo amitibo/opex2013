@@ -924,15 +924,7 @@ The true aerosol distribution is then
   \hspace{-0.05cm}
 \end{equation}
 As an example, we created a {\em Haze Blobs} scene using two ellipsoid
-blobs (\cref{fig:simulation1}a):
-\begin{figure} \centering
-  \yoavcomment{\includegraphics[width=\columnwidth]{images/simulation1}}
-  \caption{\small [a] Simulated 3D aerosol distribution composed of
-    {\em Haze Blobs} and [b] its reconstruction. Color represents
-    aerosol density. The density units are $10^{15}~{\rm
-      particles}/{\rm cm}^3.$}
-  \label{fig:simulation1}
-\end{figure}
+blobs (\cref{fig:two_clouds_sim}a):
 the first is centered at altitude \SI{3.3}{\km}, and has horizontal
 width of \SI{32}{\km} and vertical thickness of \SI{2.8}{\km}. The
 second ellipsoid is centered at altitude \SI{6.6}{\km}, and has
@@ -961,7 +953,7 @@ photograph
   \label{fig:simulation-results1}
 \end{figure}
 of the {\em Haze Blobs} scene that corresponds to
-\cref{fig:simulation1}a.
+\cref{fig:two_clouds_sim}a.
 
 \noindent{\bf Computer}: We had access to an SGI-TNN cluster computer
 that has 88 computer nodes consisting of two 2.40 GHz six-Core Xeon
@@ -981,8 +973,8 @@ iterations, taking a couple of hours to complete in total.
 \label{sec:optimization-results}
 
 An iso-surface visualization of the original {\em Haze Blobs}
-distribution is shown in \cref{fig:simulation1}a, while the recovered
-3D distribution is visualized in \cref{fig:simulation1}b. The
+distribution is shown in \cref{fig:two_clouds_sim}a, while the recovered
+3D distribution is visualized in \cref{fig:two_clouds_sim}b. The
 distributions appear consistent, though there are errors that stem
 from the random noise in the images. To quantify the results, we use a
 relative error measure based on the $\ell_1$ norm
@@ -990,28 +982,36 @@ relative error measure based on the $\ell_1$ norm
   \label{eq:ndiff}
   \epsilon=\frac{\| \hat{\bm n}  - {\bm n}^{\rm true} \|_1}
   {\| {\bm n}^{\rm true} \|_1} ,
-  \hspace{-0.05cm}
 \end{equation}
 It is equivalent to the aerosol mass that is over and under-estimated
 in all voxels, relative to the total aerosol mass in the scene.  In
 the {\em Haze Blobs} case, $\epsilon=0.202$.
 
-We created a {\em Haze Front} scene. \cref{fig:simulation2}a shows an
+We created a {\em Haze Front} scene. \cref{fig:front_sim}a shows an
 iso-surface visualization of this distribution.
 \begin{figure}
   \centering
-  \yoavcomment{\includegraphics[width=\columnwidth]{images/simulation2}}
+  \yoavcomment{\includegraphics[width=\columnwidth]{images/two_clouds}}
+  \caption{\small [a] Simulated 3D aerosol distribution composed of
+    {\em Haze Blobs} and [b] its reconstruction. Color represents
+    aerosol density. The density units are $10^{6}~{\rm
+      particles}/{\rm m}^3.$}
+  \label{fig:two_clouds_sim}
+\end{figure}
+\begin{figure}
+  \centering
+  \yoavcomment{\includegraphics[width=\columnwidth]{images/front}}
   \caption{\small [a] Simulated 3D aerosol distribution composed of a
     {\em Haze Front}. [b] Its reconstruction. Color represents aerosol
-    density. The density units are $10^{15}~{\rm particles}/{\rm
-      cm}^3.$}
-  \label{fig:simulation2}
+    density. The density units are $10^{6}~{\rm particles}/{\rm
+      m}^3.$}
+  \label{fig:front_sim}
 \end{figure}
 Here an ellipsoid degenerated to an elliptic cylinder that partly
 enters the analyzed volume. It is centered at altitude \SI{5}{\km},
 has vertical thickness of \SI{4}{\km} and length of \SI{32}{\km} (only
 part of which enters the volume). The haze front stretches across the
-width of the volume.  \cref{fig:simulation2}b visualizes the recovered
+width of the volume.  \cref{fig:front_sim}b visualizes the recovered
 3D distribution of this scene. For the {\em Haze Front},
 $\epsilon=0.198$.
 

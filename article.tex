@@ -64,6 +64,10 @@
 \newcommand{\yoavcomment}[1]{}
 \renewcommand{\yoavcomment}[1]{#1} % Comment to remove images
 
+\newcommand\authnote[1]{\textsuperscript{\normalfont#1}}
+\newcommand\affilnote[1]{\textsuperscript{\normalfont#1}}
+\providecommand\textsuperscript[1]{$^{#1}$}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%% begin %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -76,11 +80,12 @@
 
 \title{Sky Tomography for 3D Aerosol Distribution Recovery}
 
-\author{Amit~Aides and Yoav~Y.~Schechner and Vadim~Holodovsky}
+\author{Amit~Aides,\authnote{1*} Yoav~Y.~Schechner,\authnote{1} Vadim~Holodovsky\authnote{1} and Michael~J.~Garay\authnote{2}}
 
-\address{Electrical Engineering Dept., Technion - Israel Inst. Tech., \\ Haifa 32000, Israel}
+\address{\affilnote{1}Electrical Engineering Department, Technion - Israel Institute of Technology, Haifa 32000, Israel\\
+\affilnote{2}Jet Propulsion Laboratory, California Institute of Technology, Pasadena, CA 91109, USA}
 
-\email{amitibo@tx.technion.ac.il} %% email address is required
+\email{\authnote{*}amitibo@tx.technion.ac.il} %% email address is required
 
 % \homepage{http:...} %% author's URL, if desired
 

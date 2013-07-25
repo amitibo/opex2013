@@ -16,6 +16,7 @@
 \usepackage{bm}
 \usepackage{enumerate}
 \usepackage[]{todonotes} % Add option [disable] to hide all todo notes.
+\usepackage{xfrac}
 
 %\usepackage{ae} %%for Computer Modern fonts
 
@@ -50,6 +51,7 @@
 \newcommand{\OpCumsum}{\bm{\mathcal{C}}}
 \newcommand{\OpInt}{\bm{\mathcal{I}}}
 \newcommand{\OpCamera}{\bm{\mathcal{P}}}
+\newcommand{\Mask}{\bm{M}}
 \newcommand{\OpDiag}[1]{\mathrm{diag}\left\{#1\right\}}
 \newcommand{\Grad}[1]{\bm{\triangledown_{#1}}}
 \newcommand{\argmin}{\mathrm{arg}\min}
@@ -62,7 +64,7 @@
 \newcommand{\transpose}[1]{{#1}^\intercal}
 \newcommand{\derivsym}[1]{\,d{#1}}
 \newcommand{\yoavcomment}[1]{}
-%\renewcommand{\yoavcomment}[1]{#1} % Comment to remove images
+\renewcommand{\yoavcomment}[1]{#1} % Comment to remove images
 
 \newcommand\authnote[1]{\textsuperscript{\normalfont#1}}
 \newcommand\affilnote[1]{\textsuperscript{\normalfont#1}}
@@ -100,14 +102,14 @@
 \begin{abstract}
   Aerosols effect climate, health and aviation.  Currently, their
   retrieval assumes a plane-parallel atmosphere and solely vertical
-  radiative transfer. We propose a principle to recover the atmosphere
+  radiative transfer (RT). We propose a principle to recover the atmosphere
   as it really is: a three dimensional (3D), volumetric, transparent
   huge object. Tomography is the key to recovery. The process involves
   acquiring the sky lightfield by multi-view wide-angle photography on
   a very large scale. The tomography model is distinct, as the light
   source is unidirectional and uncontrolled, while off-axis scattering
   dominates the images.  We formulate an image formation model based
-  on 3D radiative transfer. Model inversion is done using optimization
+  on 3D RT. Model inversion is done using optimization
   methods, exploiting a closed-form gradient which we derive for the
   model-fit cost function. The problem is complex but tractable and
   parallelizable, eventually estimating the 3D aerosol distribution.
@@ -169,7 +171,7 @@ are thus more difficult to recover. We focus on them.  In remote
 sensing~\cite{diner}, imaging through air is associated with {\em
   atmospheric correction}, based on {\em aerosol retrieval}. In this
 discipline, the atmosphere is often assumed to be plane-parallel, for
-simplicity, using only 1D vertical radiative transfer. Consequently
+simplicity, using only 1D vertical RT. Consequently
 state-of-the-art aerosol retrieval is done in distinct large lateral
 blocks~\cite{Martonchikc} with limited height
 resolution~\cite{kalashnikova}. We, however, seek high resolution 3D
@@ -293,11 +295,9 @@ However, photographs of the atmosphere are a mixture of {\em
 \noindent {\bf Extinction}: Sun rays (SR) irradiate a small volume
 that includes particles of a certain type.  Each particle has an {\em
   extinction cross section} $\sigma$ (units \si{\meter\squared}) for
-interacting with the irradiance. The volume includes many particles of
-this type. The denser the volume, the stronger is the extinction.  The
-density of the particles is $n$ (units
-\si[sticky-per]{\per\cubic\metre}). Per unit volume, the {\em
-  extinction coefficient} $\beta$ (units \si{\per\meter}) is
+interacting with the irradiance. The density of the particles is $n$
+(units \si[sticky-per]{\per\cubic\metre}). Per unit volume, the {\em
+  extinction coefficient} $\beta$ is
 \begin{align}
   \beta= \sigma n \;.
   \label{eq:extinctc}
@@ -317,7 +317,7 @@ The optical depth aggregates in extended propagation:
 Through an attenuating volume, the {\em transmittance} exponentially
 decays with the optical depth:
 \begin{align}
-  t=\exp^{-\tau}
+  t=\exp(-\tau)
   \label{eq:beer-lambert}
 \end{align}
 
@@ -325,19 +325,18 @@ decays with the optical depth:
 irradiance is by absorption and scattering. The weight of scattering
 (to all directions), relative to the total extinction is given by the
 unitless {\em single scattering albedo} $\varpi$ of the particle. The
-{\em scattering coefficient} $\alpha$ (units \si{\per\meter}) is
+{\em scattering coefficient} $\alpha$ is
 \begin{align}
   \alpha= \varpi\beta=\varpi \sigma n \;.
   \label{eq:alph}
 \end{align}
-Scattering is generally anisotropic. Its angular distribution is
-determined by a {\em phase function} $P$. Part of the light scatters
-towards a camera's line of sight (LOS), as illustrated in
-\cref{fig:groundgrid}. The angle between the SR and LOS is the
-scattering angle $\Phi^{\rm scatter}$. The phase function $P(\Phi^{\rm
-  scatter})$ is normalized: its integral over all solid angles is
-unit. The {\em angular scattering coefficient} $\tilde\alpha$ (units
-\si[sticky-per]{\per\meter\steradian}) is
+The angular distribution of scattering is determined by a {\em phase
+  function} $P$. Part of the light scatters towards a camera's LOS, as
+illustrated in \cref{fig:groundgrid}. The angle between the SR and LOS
+is the scattering angle $\Phi^{\rm scatter}$. The phase function
+$P(\Phi^{\rm scatter})$ is normalized: its integral over all solid
+angles is unit. The {\em angular scattering coefficient}
+$\tilde\alpha$ (units \si[sticky-per]{\per\meter\steradian}) is
 \begin{align}
   \tilde\alpha(\Phi^{\rm scatter}) = \varpi\beta P(\Phi^{\rm scatter})
   = \varpi \sigma n P(\Phi^{\rm scatter}).
@@ -347,20 +346,17 @@ unit. The {\em angular scattering coefficient} $\tilde\alpha$ (units
 The phase function is often approximated by a parametric expression,
 as the Henyey-Greenstein~\cite{Cornette1995} function,
 \begin{align}
-  P_g(\Phi^{\rm scatter})\approx \frac{3} {8\pi} \frac{(1 -
-    g^2)(1+\mu^2)} {(2+g^2)(1 + g^2 - 2g\mu)^\frac{3}{2}}
+  P_g(\Phi^{\rm scatter})\approx \sfrac{3}{8\pi} (1 - g^2)(1+\mu^2)
+  (2+g^2)^{-1}(1 + g^2 - 2g\mu)^{\sfrac{-3}{2}}
   \label{eq:aerosol_scatter}
 \end{align}
-where $g$ is an {\em anisotropy parameter} and
-\begin{align}
-  \mu\equiv \cos \Phi^{\rm scatter}.
-  \label{eq:mu}
-\end{align}
+where $g$ is an {\em anisotropy parameter} and $\mu\equiv \cos \Phi^{\rm scatter}$.
+\\
 
 \noindent {\bf Air molecules}: Scattering by air molecules follows the
 {\em Rayleigh} model:
 \begin{align}
-  P^{\rm air}\left[\mu(k)\right] &\approx \frac{3}{16\pi}(1+\mu^2)
+  P^{\rm air}\left[\mu(k)\right] &\approx \sfrac{3}{16\pi}(1+\mu^2)
   \label{eq:rayleighP}
 \end{align}
 and $\varpi^{\rm air}$=1. Air molecular density $n^{\rm air}$ falls
@@ -370,7 +366,7 @@ characteristic~\cite{Levi1980} falloff height $H^\mathrm{air}=8\
 extinction and scattering by air molecules are modeled by
 \begin{align}
   \alpha^{\rm air}(h, \lambda)=\beta^{\rm air}(h, \lambda) \approxeq
-  \frac{1.09 \times 10^{-3}}{\lambda^4}
+  1.09 \times 10^{-3}\lambda^{-4}
   \exp(-h/H^\mathrm{air}) %\left[-\frac{h}{H^\mathrm{air}}\right].
   \label{eq:rayleighbeta}
 \end{align}
@@ -382,25 +378,25 @@ extinction and scattering by air molecules are modeled by
 \label{sec:methodology}
 
 We believe that high resolution atmospheric recovery can be achieved
-by a large set of ground-based wide-angle~\cite{Cossairt2011,
+by a set of ground-based wide-angle~\cite{Cossairt2011,
   Peleg01omnistereo:panoramic, Koppal:2011:WMS:2191740.2192152}
-sky-cameras, looking upward and capturing the sky lightfield.  This
-paper takes the first step, of formulating this principle and
+sky-cameras, looking upward, performing integral imaging of the sky.
+This paper takes the first step, of formulating this principle and
 demonstrating feasibility using realistic simulations. The formulation
 of this paper can also apply to multiview images that are captured
 from satellites, for future spaceborne instruments of this capacity.
 
-Our reconstruction algorithm is based on the
-Single-Scattering model (\cref{sec:single-scatt-model}). The
-Single-Scattering approximation enables stating an analytic solution
-to the Radiative Transfer in a closed form. This closed form is
-beneficial to us as it enables us to invert the model and thus recover
-the underlying atmosphere (\cref{sec:inverse-problem}). We validate
-our reconstruction method by applying it on 'Realistic' images.
-We simulate image acquisition using Monte Carlo (MC) simulations
-(\cref{sec:monte-carlo-simul}).  The monte carlo method models
-multiple scattering and therefore enables simulating realistic
-scenarios. 
+We simulate RT through the atmosphere using two models. The first is
+based on Monte Carlo (MC) methods (\cref{sec:monte-carlo-simul}) and
+models Multiple-Scattering. Therefore it enables simulating realistic
+scenarios.  The second model uses the Single-Scattering approximation
+(\cref{sec:single-scatt-model}). It is less accurate than the MC model
+but it enables stating an analytic solution to the RT in a closed
+form. This closed form is beneficial to us as it enables us to invert
+the model and thus recover the underlying atmosphere
+(\cref{sec:inverse-problem}). To mimic realistic scenarios, we apply
+the reconstruction algorithm on images simulated by the MC model.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -777,7 +773,7 @@ where
   \label{eq:objectiveA}
   F({\bm n})
   = \sum_{c=1}^{N_{\rm views}}
-  \| {\bm i}^{\rm measured}_c - {\bm i}_c({\bm n})\|^2_2 + \eta \cdot \Psi({\bm n})
+  \| \Mask \roundy{{\bm i}^{\rm measured}_c - {\bm i}_c({\bm n})}\|^2_2 + \eta \cdot \Psi({\bm n})
 \end{equation}
 Here $\Psi({\bm n})$ is a regularization term that expresses some
 prior knowledge on the solution and $\eta$ is the regularization
@@ -787,6 +783,8 @@ coefficient.  We enforce smoothness of the solution by using the
   \label{eq:regularizer}
   \Psi({\bm n}) = \| \nabla^2{\bm n}\|^2_2
 \end{equation}
+We use $\Mask$ as a weight map to mask the influence of the sun and
+the horizon. These regions are prone to dominant multiple scattering.
 We solve~\cref{eq:minobjectiveA} using standard optimization tools.
 The gradient of $F$ with respect to ${\bm n}$ is
 \begin{align}
@@ -834,7 +832,7 @@ photon between scatterings and the angle of deflection at each
 scatter.  This enables simulating multiple scattering and produce
 realistic results.  MC simulations can be made arbitrarily accurate by
 increasing the number of photons.  Another advantage of the MC methods
-is that they are highly parallelable.
+is that they are highly parallelizable.
 
 The MC simulations use the same atmosphere grid described in
 \cref{sec:single-scatt-model}. we use backward MC, i.e. photons are

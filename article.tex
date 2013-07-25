@@ -62,7 +62,7 @@
 \newcommand{\transpose}[1]{{#1}^\intercal}
 \newcommand{\derivsym}[1]{\,d{#1}}
 \newcommand{\yoavcomment}[1]{}
-\renewcommand{\yoavcomment}[1]{#1} % Comment to remove images
+%\renewcommand{\yoavcomment}[1]{#1} % Comment to remove images
 
 \newcommand\authnote[1]{\textsuperscript{\normalfont#1}}
 \newcommand\affilnote[1]{\textsuperscript{\normalfont#1}}
@@ -80,10 +80,12 @@
 
 \title{Sky Tomography for 3D Aerosol Distribution Recovery}
 
-\author{Amit~Aides,\authnote{1*} Yoav~Y.~Schechner,\authnote{1} Vadim~Holodovsky\authnote{1} and Michael~J.~Garay\authnote{2}}
+\author{Amit~Aides,\authnote{1*} Yoav~Y.~Schechner,\authnote{1}
+  Vadim~Holodovsky\authnote{1} and Michael~J.~Garay\authnote{2}}
 
 \address{\affilnote{1}Electrical Engineering Department, Technion - Israel Institute of Technology, Haifa 32000, Israel\\
-\affilnote{2}Jet Propulsion Laboratory, California Institute of Technology, Pasadena, CA 91109, USA}
+  \affilnote{2}Jet Propulsion Laboratory, California Institute of
+  Technology, Pasadena, CA 91109, USA}
 
 \email{\authnote{*}amitibo@tx.technion.ac.il} %% email address is required
 
@@ -111,17 +113,17 @@
   parallelizable, eventually estimating the 3D aerosol distribution.
 \end{abstract}
 
-\ocis{(000.0000) General.} % REPLACE WITH CORRECT OCIS CODES FOR YOUR ARTICLE
+\ocis{(000.0000)
+  General.} % REPLACE WITH CORRECT OCIS CODES FOR YOUR ARTICLE
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%% References %%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\bibliography{article}{}
-\bibliographystyle{osajnl}
+\bibliography{article}{} \bibliographystyle{osajnl}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%  body  %%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% body %%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introduction}
@@ -137,7 +139,7 @@ recover this 3D medium using measured and modeled lightfields
 (Fig.~\ref{fig:groundgrid}).
 \begin{figure*}[t!]
   \begin{center}
-    \includegraphics[width=\linewidth]{images/groundtomog24.pdf}
+    \yoavcomment{\includegraphics[width=\linewidth]{images/groundtomog24.pdf}}
   \end{center}
   \caption{\small Lightfield imaging through a volumetric distribution
     in the atmosphere, using ground-based cameras.}
@@ -174,8 +176,8 @@ resolution~\cite{kalashnikova}. We, however, seek high resolution 3D
 recovery. Computational photography offers new ways to peer into
 media. In addition to active descattering~\cite{fuchs,kim,Ng1948} and
 recovery of refractive transparent objects~\cite{ihrke}, overcoming
-the atmosphere~\cite{Joshi2010,Zhu2013} to view ground objects
-was studied in horizontal, fixed
+the atmosphere~\cite{Joshi2010,Zhu2013} to view ground objects was
+studied in horizontal, fixed
 views~\cite{fattal,he,Chen,kratz,narasimhan2,oakley,Hschechner2,tan}. In
 this paper, however, the medium itself, at all relevant altitudes is
 the object of interest.
@@ -220,20 +222,9 @@ setups. Our proposed research deals with huge scale, up to Earth's
 size. Capturing the lightfield in very large scales requires uncommon
 sensors. Sampling Earth both spatially and angularly is done by the
 Multiangle Imaging SpectroRadiometer (MISR)~\cite{Martonchikc} from
-space (\cref{fig:misr}), the Airborne Multiangle SpectroPolarimetric
+space, the Airborne Multiangle SpectroPolarimetric
 Imager (AirMSPI)~\cite{dinerDavis10}, and other spaceborne and
 airborne instruments.
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=0.90\textwidth]{misr.pdf}
-  \caption{\small{[Left] NASA's MISR instrument, developed by the Jet
-      Propulsion Laboratory (JPL), provides multiangular,
-      multispectral images of Earth.  It scans Earth from 9 view
-      angles, at resolution of $\approx 300$m.  [Right] A series of
-      MISR images from different viewing angles showing an assortment
-      of clouds over Florida.}  }
-  \label{fig:misr}
-\end{figure}
 
 Dehazing strives to improve quality of images taken through a
 semi-transparent medium, be it murky liquid~\cite{kim,fuchs},
@@ -393,21 +384,23 @@ extinction and scattering by air molecules are modeled by
 We believe that high resolution atmospheric recovery can be achieved
 by a large set of ground-based wide-angle~\cite{Cossairt2011,
   Peleg01omnistereo:panoramic, Koppal:2011:WMS:2191740.2192152}
-sky-cameras, looking upwards and capturing the sky lightfield.  This
+sky-cameras, looking upward and capturing the sky lightfield.  This
 paper takes the first step, of formulating this principle and
 demonstrating feasibility using realistic simulations. The formulation
 of this paper can also apply to multiview images that are captured
 from satellites, for future spaceborne instruments of this capacity.
 
-We simulate image acquisition using Monte Carlo simulations
-(\cref{sec:monte-carlo-simul}).  Monte carlo model multiple scattering
-and therefore enable simulating realistic scenarios. Our
-reconstruction algorithm is based on the Single-Scattering model
-(\cref{sec:single-scatt-model}). The Single-Scattering approximation
-enables state the solution to the Radiative Transform in a closed
-form. This closed is beneficial to us as it enables us to invert the
-model and thus recover the underlying atmosphere
-(\cref{sec:inverse-problem}).
+Our reconstruction algorithm is based on the
+Single-Scattering model (\cref{sec:single-scatt-model}). The
+Single-Scattering approximation enables stating an analytic solution
+to the Radiative Transfer in a closed form. This closed form is
+beneficial to us as it enables us to invert the model and thus recover
+the underlying atmosphere (\cref{sec:inverse-problem}). We validate
+our reconstruction method by applying it on 'Realistic' images.
+We simulate image acquisition using Monte Carlo (MC) simulations
+(\cref{sec:monte-carlo-simul}).  The monte carlo method models
+multiple scattering and therefore enables simulating realistic
+scenarios. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -726,9 +719,9 @@ the scene, but the density distribution ${\bm n}$ is variable. Then,
 \begin{align}
   {\bm i}_c= L^{\rm TOA} {\vect{\Pi}}_c \Big\{ e^{-(\vect{\tau}_c^{\rm
       air} + {\sigma}^{\rm aerosol} {\bm D}_c {\bm n}) }\odot
-  [\tilde{\vect{\alpha}}^{\rm air}_c + 
-  \varpi^{\rm aerosol}\sigma^{\rm aerosol} P^{\rm
-    aerosol}_g(\vect{\Phi}^{\rm scatter}_c) \odot{\bm n} ] \Big\} .
+  [\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm aerosol}\sigma^{\rm
+    aerosol} P^{\rm aerosol}_g(\vect{\Phi}^{\rm scatter}_c) \odot{\bm
+    n} ] \Big\} .
   \label{eq:bigIA}
 \end{align}
 
@@ -929,14 +922,13 @@ The true aerosol distribution is then
   \hspace{-0.05cm}
 \end{equation}
 As an example, we created a {\em Haze Blobs} scene using two ellipsoid
-blobs (\cref{fig:two_clouds_sim}a):
-the first is centered at altitude \SI{3.3}{\km}, and has horizontal
-width of \SI{32}{\km} and vertical thickness of \SI{2.8}{\km}. The
-second ellipsoid is centered at altitude \SI{6.6}{\km}, and has
-lateral width of \SI{24}{\km} and vertical thickness of
-\SI{2.1}{\km}. Note that the horizontal widths are much larger than
-the vertical ones. This is consistent with scales of atmospheric
-aerosol distributions.
+blobs (\cref{fig:two_clouds_sim}a): the first is centered at altitude
+\SI{3.3}{\km}, and has horizontal width of \SI{32}{\km} and vertical
+thickness of \SI{2.8}{\km}. The second ellipsoid is centered at
+altitude \SI{6.6}{\km}, and has lateral width of \SI{24}{\km} and
+vertical thickness of \SI{2.1}{\km}. Note that the horizontal widths
+are much larger than the vertical ones. This is consistent with scales
+of atmospheric aerosol distributions.
 
 \noindent{\bf Cameras}: The cameras are created by the MC simulations.
 Each ground-based camera has a hemispherical field of view, capturing
@@ -949,12 +941,14 @@ no need for high image resolution.  For example,
 photograph
 \begin{figure}
   \centering
-  \yoavcomment{\def\svgwidth{0.7\columnwidth}\input{images/ref_images.pdf_tex}}
+  \yoavcomment{\def\svgwidth{0.95\columnwidth}\input{images/ref_images.pdf_tex}}
   \caption{\small [a] Photograph of a sky that includes {\em Haze
       Blobs} rendered using the single-scattering model.  A yellow dot
     marks the Sun location. Dashed white circles mark elevation
     angles.  [b] Photograph of the same sky and view point rendered
-    using the MCRT simulation (\cref{sec:monte-carlo-simul}).}
+    using the MCRT simulation (\cref{sec:monte-carlo-simul}).
+    [c] Cross section along the 
+  }
   \label{fig:simulation-results1}
 \end{figure}
 of the {\em Haze Blobs} scene that corresponds to
@@ -962,8 +956,8 @@ of the {\em Haze Blobs} scene that corresponds to
 
 \noindent{\bf Computer}: We had access to an SGI-TNN cluster computer
 that has 88 computer nodes consisting of two 2.40 GHz six-Core Xeon
-with 8GB DDR3 memory per core. The number of cures used is depends
-on the size of the simulations. Each core was dedicated to rendering a
+with 8GB DDR3 memory per core. The number of cures used is depends on
+the size of the simulations. Each core was dedicated to rendering a
 modeled image.
 
 \noindent{\bf Optimization}: We used the L-BFGS-B
@@ -978,11 +972,12 @@ iterations, taking a couple of hours to complete in total.
 \label{sec:optimization-results}
 
 An iso-surface visualization of the original {\em Haze Blobs}
-distribution is shown in \cref{fig:two_clouds_sim}a, while the recovered
-3D distribution is visualized in \cref{fig:two_clouds_sim}b. The
-distributions appear consistent, though there are errors that stem
-from the random noise in the images. To quantify the results, we use a
-relative error measure based on the $\ell_1$ norm
+distribution is shown in \cref{fig:two_clouds_sim}a, while the
+recovered 3D distribution is visualized in
+\cref{fig:two_clouds_sim}b. The distributions appear consistent,
+though there are errors that stem from the random noise in the
+images. To quantify the results, we use a relative error measure based
+on the $\ell_1$ norm
 \begin{equation}
   \label{eq:ndiff}
   \epsilon=\frac{\| \hat{\bm n}  - {\bm n}^{\rm true} \|_1}
@@ -1054,7 +1049,7 @@ questions and solutions would rise.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%  Appendix  %%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%% Appendix %%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \appendix
 

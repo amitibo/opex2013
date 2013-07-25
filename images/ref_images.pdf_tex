@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{888.25791016bp}%
+    \setlength{\unitlength}{1440.40898438bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,9 +48,10 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.54056203)%
+  \begin{picture}(1,0.32869727)%
     \put(0,0){\includegraphics[width=\unitlength]{ref_images.pdf}}%
-    \put(0.22879354,0.03768309){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.15954182\unitlength}\raggedright (a)\end{minipage}}}%
-    \put(0.72623676,0.03768309){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.15954182\unitlength}\raggedright (b)\end{minipage}}}%
+    \put(0.1364388,0.02323806){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.09838475\unitlength}\raggedright (a)\end{minipage}}}%
+    \put(0.44319742,0.02323806){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.09838475\unitlength}\raggedright (b)\end{minipage}}}%
+    \put(0.79856217,0.02323806){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.09838475\unitlength}\raggedright (c)\end{minipage}}}%
   \end{picture}%
 \endgroup%

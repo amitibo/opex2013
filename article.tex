@@ -582,7 +582,7 @@ contributed by the voxel is
 \begin{equation}
   p_c(k)= L^{\rm TOA}
   [\tilde{\alpha}^{\rm air}_c(k) + \tilde{\alpha}^{\rm aerosol}_c(k)]
-  e^{-\tau_c(k)}
+  \exp\{-\tau_c(k)\}
   \;\;,
   \label{eq:ick}
 \end{equation}
@@ -591,7 +591,7 @@ of all voxel contributions is
 \begin{equation}
   {\bm p}_c= L^{\rm TOA}
   [\tilde{\vect{\alpha}}^{\rm air}_c + \tilde{\vect{\alpha}}^{\rm aerosol}_c]
-  \odot e^{-\vect{\tau}_c}
+  \odot \exp\{-\vect{\tau}_c\}
   \;\;.
   \label{eq:pc}
 \end{equation}
@@ -624,8 +624,8 @@ Combining \cref{eq:tautotal,eq:pc,eq:IcP}, the captured image is thus
 \begin{align}
   {\bm i}_c= L^{\rm TOA} {\vect{\Pi}}_c \left\{
     (\tilde{\vect{\alpha}}^{\rm air}_c + \tilde{\vect{\alpha}}^{\rm
-      aerosol}_c) \odot e^{-[\vect{\tau}_c^{\rm air} + {\bm D}_c
-      (\vect{\sigma} \odot {\bm n})]} \right\}
+      aerosol}_c) \odot \exp\{-[\vect{\tau}_c^{\rm air} + {\bm D}_c
+      (\vect{\sigma} \odot {\bm n})]\} \right\}
   \label{eq:bigIc}
 \end{align}
 
@@ -635,8 +635,8 @@ $[{\sigma}^{\rm aerosol},\varpi^{\rm aerosol},g]$ is uniform across
 the scene, but the density distribution ${\bm n}$ is variable. Then,
 \cref{eq:bigIc} degenerates to
 \begin{align}
-  {\bm i}_c= L^{\rm TOA} {\vect{\Pi}}_c \Big\{ e^{-(\vect{\tau}_c^{\rm
-      air} + {\sigma}^{\rm aerosol} {\bm D}_c {\bm n}) }\odot
+  {\bm i}_c= L^{\rm TOA} {\vect{\Pi}}_c \Big\{ \exp\{-(\vect{\tau}_c^{\rm
+      air} + {\sigma}^{\rm aerosol} {\bm D}_c {\bm n})\}\odot
   [\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm aerosol}\sigma^{\rm
     aerosol} P^{\rm aerosol}_g(\vect{\Phi}^{\rm scatter}_c) \odot{\bm
     n} ] \Big\} .
@@ -687,17 +687,17 @@ In general terms, the variables are the set \mbox{$\left\{{\bm
         g}_{\lambda}\right\}_{\lambda}\right\}$} where $\lambda$
 denotes the spectral (color) channel.  There are $N_{\rm spectral}$
 spectral channels.  Thus, the number of unknown variables is in
-principle \mbox{$|{\cal V}|=N_{\rm voxels}(1+3N_{\rm spectral})$}.
+principle \mbox{$N_{\rm voxels}(1+3N_{\rm spectral})$}.
 
 Prior knowledge reduces the unknowns. For simplicity we assume a
 single aerosol type dominates a scene. Furthermore, in the following
-section we assume that we know the type of the particle. Hence, we
-focus here on retrieving ${\bm n}$.
+section we assume that we know the type of the particle
+\cite{Martonchik2009}. Hence, we focus here on retrieving ${\bm n}$.
 
 The recovery task is phrased as optimization of an objective function,
 that fits the image-formation model (\cref{eq:bigIc,eq:bigIA}) to
-measured photographs $\{ {\bm i}^{\rm measured}_c\}_{c=1}^{N_{\rm
-    views}}$:
+$N_{\rm views}$ measured photographs $\{ {\bm i}^{\rm
+measured}_c\}_{c=1}^{N_{\rm views}}$:
 \begin{equation}
   \label{eq:minobjectiveA}
   \hat{\bm n} =

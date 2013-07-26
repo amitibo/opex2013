@@ -410,13 +410,14 @@ the reconstruction algorithm on images simulated by the MC model.
 \section{Single-Scattering Model}
 \label{sec:single-scatt-model}
 
-A forward model takes as input the aerosol distribution, and outputs
-images as if captured at various viewpoints.  In a
-\emph{single-scattering} model, any SR changes direction only once on
-the way to the camera. This model is valid in atmospheres that are not
-very dense: inside fog and clouds this model does not apply.  Under
-single-scattering approximation, radiative transfer has three steps
-(\cref{fig:groundgrid}):
+The atmosphere is discretized into a grid of volume elements (voxels).
+A forward model takes as input the aerosol distribution over the grid
+of voxels, and outputs images as if captured at various viewpoints.
+In a \emph{single-scattering} model, any SR changes direction only
+once on the way to the camera. This model is valid in atmospheres that
+are not very dense: inside fog and clouds this model does not apply.
+Under single-scattering approximation, radiative transfer has three
+steps (\cref{fig:groundgrid}):
 \begin{inparaenum}[\hfill\bfseries a\upshape)]
 \item \label{itm:first} Attenuation of a SR propagating from the top
   of the atmosphere (TOA) to voxel $k$.
@@ -436,34 +437,12 @@ scattering coefficient at voxel $k$, described in
 \subsection{Optical Depth}
 \label{sec:optical-depth}
 
-An infinitesimal volume contains aerosols. The extinction and
-scattering coefficients due to aerosols in this volume are,
-respectively
-\begin{equation}
-  \beta^{\rm aerosol}=\sigma^{\rm aerosol} n^{\rm aerosol}
-  \;\;,\;\;
-  \alpha^{\rm aerosol}=\varpi^{\rm aerosol} \beta^{\rm aerosol}
-  \;.
-  \label{eq:betaer}
-\end{equation}
-The infinitesimal volume contain also air molecules. Hence, the
-overall extinction and scattering coefficients in this small volume
-are, respectively
-\begin{equation}
-  \beta=\beta^{\rm air}+\beta^{\rm aerosol}
-  \;\;,\;\;
-  \alpha=\alpha^{\rm air}+\alpha^{\rm aerosol}
-  \;.
-  \label{eq:betair}
-\end{equation}
-
 Any voxel generally contains both air molecules and aerosols. Voxels
-are indexed by $k$ or $q$. As approximation, assume that within any
-voxel, the molecular parameters $\{ \beta^{\rm air}(k),\alpha^{\rm
-  air}(k)\}$ and the aerosol parameters $\{ \sigma^{\rm
-  aerosol}(k),\varpi^{\rm aerosol}(k), n^{\rm aerosol}(k),g(k)\}$ are
-constants, e.g., corresponding to the value at each voxel
-center. These parameters may change between voxels.
+are indexed by $k$ or $q$. We assume that within any voxel, the
+molecular parameters $\{ \beta^{\rm air}(k),\alpha^{\rm air}(k)\}$ and
+the aerosol parameters $\{ \sigma^{\rm aerosol}(k),\varpi^{\rm
+  aerosol}(k), n^{\rm aerosol}(k),g(k)\}$ are constants, e.g.,
+corresponding to the value at each voxel center.
 
 A voxel's vertical geometric thickness is $\Delta z$.  The Sun zenith
 angle is $\Phi^{\rm SR}$. Denote a SR line segment between the TOA and

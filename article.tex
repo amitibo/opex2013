@@ -553,17 +553,17 @@ Column-stacking all voxels yields the vector representation of all
 scattering angles in the domain, $\vect{\Phi}^{\rm scatter}_c$ per
 camera $c$. Similarly, the single-scattering albdeos $\varpi^{\rm
   aerosol}$ in all voxels are stacked to vector $\vect{\varpi}$.
-Using \cref{eq:alphabasic,eq:rayleighP,eq:betaer,eq:betair}, the
+Using \cref{eq:alphabasic,eq:rayleighP}, the
 angular scattering coefficients across the domain are expressed in
 vector form by
-\begin{align}
-  \tilde{\vect{\alpha}}^{\rm air}_c &=
-  \vect{\beta}^{\rm air} \odot P^{\rm air}(\vect{\Phi}^{\rm scatter}_c) \nonumber \\
-  \tilde{\vect{\alpha}}^{\rm aerosol}_c &= \vect{\varpi}\odot
+\begin{equation}
+  \tilde{\vect{\alpha}}^{\rm air}_c =
+  \vect{\beta}^{\rm air} \odot P^{\rm air}(\vect{\Phi}^{\rm scatter}_c)\;,\quad
+  \tilde{\vect{\alpha}}^{\rm aerosol}_c = \vect{\varpi}\odot
   \vect{\sigma} \odot {\bm n} \odot P^{\rm aerosol}_{\bm
     g}(\vect{\Phi}^{\rm scatter}_c)
   \label{eq:alpha_matrix}
-\end{align}
+\end{equation}
 The vector ${\bm g}$ column-stacks the anisotropy parameter of the
 phase function, in all voxels. We use this notation, to indicate a
 parametric phase function as in \cref{eq:aerosol_scatter}.

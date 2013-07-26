@@ -43,15 +43,17 @@
 \def\@@number#1{#1}
 \makeatother
 
+\DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
+
 %
 % Some new commands I use in this text
 %
-\newcommand{\OpSphere}{\bm{\mathcal{S}}}
-\newcommand{\OpRot}{\bm{\mathcal{R}}}
-\newcommand{\OpDistance}{\bm{\mathcal{D}}}
-\newcommand{\OpCumsum}{\bm{\mathcal{C}}}
-\newcommand{\OpInt}{\bm{\mathcal{I}}}
-\newcommand{\OpCamera}{\bm{\mathcal{P}}}
+\newcommand{\OpSphere}{\mathbfcal{S}}
+\newcommand{\OpRot}{\mathbfcal{R}}
+\newcommand{\OpDistance}{\mathbfcal{D}}
+\newcommand{\OpCumsum}{\mathbfcal{C}}
+\newcommand{\OpInt}{\mathbfcal{I}}
+\newcommand{\OpCamera}{\mathbfcal{P}}
 \newcommand{\Mask}{\bm{M}}
 \newcommand{\OpDiag}[1]{\mathrm{diag}\left\{#1\right\}}
 \newcommand{\Grad}[1]{\bm{\triangledown_{#1}}}
@@ -410,14 +412,15 @@ the reconstruction algorithm on images simulated by the MC model.
 \section{Single-Scattering Model}
 \label{sec:single-scatt-model}
 
-The atmosphere is discretized into a grid of volume elements (voxels).
-A forward model takes as input the aerosol distribution over the grid
-of voxels, and outputs images as if captured at various viewpoints.
-In a \emph{single-scattering} model, any SR changes direction only
-once on the way to the camera. This model is valid in atmospheres that
-are not very dense: inside fog and clouds this model does not apply.
-Under single-scattering approximation, radiative transfer has three
-steps (\cref{fig:groundgrid}):
+The atmosphere is discretized into a grid of $N_{\rm voxels}$ volume
+elements (voxels).  A forward model takes as input the aerosol
+distribution over the grid of voxels, and outputs images as if
+captured at various viewpoints.  In a \emph{single-scattering} model,
+any SR changes direction only once on the way to the camera. This
+model is valid in atmospheres that are not very dense: inside fog and
+clouds this model does not apply.  Under single-scattering
+approximation, radiative transfer has three steps
+(\cref{fig:groundgrid}):
 \begin{inparaenum}[\hfill\bfseries a\upshape)]
 \item \label{itm:first} Attenuation of a SR propagating from the top
   of the atmosphere (TOA) to voxel $k$.
@@ -446,46 +449,15 @@ corresponding to the value at each voxel center.
 
 A voxel's vertical geometric thickness is $\Delta z$.  The Sun zenith
 angle is $\Phi^{\rm SR}$. Denote a SR line segment between the TOA and
-the center of voxel $k$ by $[{\rm SR},k]$. This SR intersects voxel
-$q$. The geometric length of this intersection line segment is $l_{\rm
-  SR}(q)$ which depends on $\Delta z$, $\Phi^{\rm SR}$ and $q$.
-Following \cref{eq:tau,eq:betair}, the optical depth between the TOA
-and voxel $k$ is
+the center of voxel $k$ by $[{\rm SR},k]$ (See
+\cref{fig:groundgrid}). This SR intersects voxel $q$. The geometric
+length of this intersection line segment is $l_{\rm SR}(q)$ which
+depends on $\Delta z$, $\Phi^{\rm SR}$ and $q$.  We now define a
+$N_{\rm voxels}\times N_{\rm voxels}$ matrix $\OpDistance^{\mathrm{Sun
+    \rightarrow voxel}}$, whose element $(k,q)$ represents $l_{\rm
+  SR}(q)$:
 \begin{equation}
-  \tau_{\rm SR}(k)= \sum_{q \in[{\rm SR},k]} \beta(q) l_{\rm SR}(q) \;\;.
-  \label{eq:lSRn}
-\end{equation}
-Based on \cref{eq:betaer,eq:betair,eq:lSRn},
-\begin{equation}
-  \tau_{\rm SR}(k)=
-  \tau_{\rm SR}^{\rm air}(k) +  \tau_{\rm SR}^{\rm aerosol}(k)
-  \;\;,
-  \label{eq:lSRaa}
-\end{equation}
-where
-\begin{equation}
-  \tau_{\rm SR}^{\rm air}(k)=
-  \sum_{q \in[{\rm SR},k]}
-  \beta^{\rm air}(q)  l_{\rm SR}(q)
-  \label{eq:lSRair}
-\end{equation}
-and
-\begin{equation}
-  \tau_{\rm SR}^{\rm aerosol}(k)
-  \sum_{q \in[{\rm SR},k]}
-  \sigma^{\rm aerosol}(q) n^{\rm aerosol}(q) l_{\rm SR}(q)
-  \label{eq:lSRaeros}
-\end{equation}
-
-The number of voxels is $N_{\rm voxels}$. All their associated
-variables are concatenated into columns stack vectors, each $N_{\rm
-  voxels}$ long. Aerosol densities and cross sections in all voxels
-are stored in the respective vectors ${\bm n}$ and
-$\vect{\sigma}$. Define a $N_{\rm voxels}\times N_{\rm voxels}$ sparse
-matrix ${\bm D}^{\mathrm{Sun \rightarrow voxel}}$, whose element
-$(k,q)$ is
-\begin{equation}
-  D^{\mathrm{Sun \rightarrow voxel}}(k,q) =
+  \OpDistance^{\mathrm{Sun \rightarrow voxel}}(k,q) =
   \left\{
     \begin{array}{ll}
       l_{\rm SR}(q) & \mbox{ if $q \in[{\rm SR},k]$} \\
@@ -493,62 +465,36 @@ $(k,q)$ is
       \label{eq:Dsv}
     \end{array}
   \right.
-  .
   \hspace{-0.05cm}
 \end{equation}
-\cref{eq:lSRaeros,eq:Dsv} lead to a vector of SR optical depths due to
-aerosols (See \cref{fig:projection})a:
+Note that matrix $\OpDistance^{\mathrm{Sun \rightarrow voxel}}$ is
+sparse.  Following \cref{eq:tau}, the optical depth between the TOA
+and voxel $k$ is
 \begin{equation}
-  \vect{\tau}_{\rm SR}^{\rm aerosol}=
-  {\bm D}^{\mathrm{Sun \rightarrow voxel}}
-  (\vect{\sigma} \odot {\bm n})
-  \label{eq:tauSRvec1}
+  \tau_{\rm SR}(k)= \sum_{q \in[{\rm SR},k]} \beta(q) l_{\rm SR}(q) \;\;.
+  \label{eq:lSRn}
 \end{equation}
-where the operator $\odot$ denotes the Hadamard (element-wise)
-product. Similarly, \cref{eq:lSRair} leads to a vector of SR optical
-depths due to air, $\vect{\tau}_{\rm SR}^{\rm air}$.
+We can write \cref{eq:lSRn} using matrix notation
+\begin{equation}
+  \vect{\tau}_{\rm SR}=\OpDistance^{\mathrm{Sun \rightarrow voxel}} \vect{\beta}
+  \label{eq:tau_matrix}
+\end{equation}
+Here $\vect{\tau}_{\rm SR}$ and $\vect{\beta}$ are column stack vector
+representation of $\tau_{\rm SR}(k)$ and $\beta(q)$, respectively.
 
 Analogously, for camera $c$, denote by $[{\rm LOS}_c,k]$ a LOS bounded
-between the camera and the center of voxel $k$. The LOS zenith angle
-is $\Phi^{\rm LOS}_c$.  This LOS intersects voxel $q$. The geometric
-length of this intersection line segment is $l_{\rm LOS_c}(q)$which
-depends on $\Delta z$, $\Phi^{{\rm LOS}_c}$ and $q$.  Analogously to
-\cref{eq:lSRaa,eq:lSRair,eq:lSRaeros}, the optical depth along a LOS
-to $k$ is
+between the camera and the center of voxel $k$ (see
+\cref{fig:groundgrid}).  The LOS zenith angle is $\Phi^{\rm LOS}_c$.
+This LOS intersects voxel $q$. The geometric length of this
+intersection line segment is $l_{\rm LOS_c}(q)$which depends on
+$\Delta z$, $\Phi^{{\rm LOS}_c}$ and $q$.  Analogously to
+\cref{eq:Dsv}, we define a $N_{\rm voxels}\times N_{\rm voxels}$
+sparse matrix whose element $(k,q)$ is
 \begin{equation}
-  \tau_{{\rm LOS}_c}(k)=
-  \tau_{{\rm LOS}_c}^{\rm air}(k) +  \tau_{{\rm LOS}_c}^{\rm aerosol}(k)
-  \;\;,
-  \label{eq:lLOSaerot}
-\end{equation}
-where
-\begin{equation}
-  \tau_{{\rm LOS}_c}^{\rm air}(k)=
-  \sum_{q \in[{\rm LOS}_c,k]}
-  \beta^{\rm air}(q)  l_{\rm LOS_c}(q)
-  \label{eq:lLOSair}
-\end{equation}
-and
-\begin{align}
-  \label{eq:lLOSaeros}
-  \tau_{{\rm LOS}_c}^{\rm aerosol}(k) = \sum_{q \in[{\rm LOS}_c,k]}
-  \sigma^{\rm aerosol}(q) n^{\rm aerosol}(q) l_{\rm LOS_c}(q).
-\end{align}
-\cref{eq:lLOSaeros} leads to a vector of LOS optical depths due to
-aerosols:
-\begin{equation}
-  \vect{\tau}_{{\rm LOS}_c}^{\rm aerosol}=
-  {\bm D}^{\mathrm{voxel \rightarrow cam}}_c
-  (\vect{\sigma} \odot {\bm n})
-  \label{eq:tauLOSvec1}
-\end{equation}
-Here ${\bm D}^{\mathrm{voxel \rightarrow cam}}_c$ is a $N_{\rm
-  voxels}\times N_{\rm voxels}$ sparse matrix whose element $(k,q)$ is
-\begin{equation}
-  D^{\mathrm{voxel \rightarrow cam}}_c(k,q) =
+  \OpDistance^{\mathrm{voxel \rightarrow cam}}_c(k,q) =
   \left\{
     \begin{array}{ll}
-      l_{\rm LOS_c}(q) & \mbox{ if $q \in[{\rm LOS}_c,k]$} \\
+      l_{{\rm LOS}_c}(q) & \mbox{ if $q \in[{\rm LOS}_c,k]$} \\
       0  & \mbox{ otherwise}
       \label{eq:Dvc}
     \end{array}
@@ -556,44 +502,45 @@ Here ${\bm D}^{\mathrm{voxel \rightarrow cam}}_c$ is a $N_{\rm
   .
   \hspace{-0.05cm}
 \end{equation}
-Similarly, \cref{eq:lSRair} leads to a vector of LOS optical depths
-due to air, $\vect{\tau}_{{\rm LOS}_c}^{\rm air}$.
-
-The fixed sparse matrices ${\bm D}^{\mathrm{Sun \rightarrow voxel}}$
-and ${\bm D}^{\mathrm{voxel \rightarrow cam}}_c$ are compounded to a
-single matrix
+The optical depth along a LOS to $k$ is
+\begin{equation}
+  \vect{\tau}_{{\rm LOS}_c} = \OpDistance^{\mathrm{voxel \rightarrow
+      cam}} \vect{\beta}
+  \label{eq:lLOSn}
+\end{equation}
+Here $\vect{\tau}_{\rm SR}$ is a column stack vector representation of
+$\tau_{{\rm LOS}_c}(k)$.  The SR and LOS paths of each voxel $k$ can
+be joined to a single path from the TOA to camera $c$ giving
 \begin{equation}
   {\bm D}_c=
   {\bm D}^{\mathrm{Sun \rightarrow voxel}}+
   {\bm D}^{\mathrm{voxel \rightarrow cam}}_c
+  \quad\text{ and }\quad
+  \vect{\tau}_c=
+  \vect{\tau}_{\rm SR}+
+  \vect{\tau}_{{\rm LOS}_c}
   \;\;.
-  \label{eq:Dtotal}
+  \label{eq:D_tau_total}
 \end{equation}
-Similarly, the molecular optical depths along all trajectories between
-the sun, each voxel and camera $c$ are compounded to a vector
-\begin{equation}
-  \vect{\tau}_c^{\rm air}=
-  \vect{\tau}_{\rm SR}^{\rm air}+
-  \vect{\tau}_{{\rm LOS}_c}^{\rm air}
-  \;\;.
-  \label{eq:tauairtotal}
-\end{equation}
-Using \cref{eq:rayleighbeta} for $\beta^{\rm air}$ in all voxels, the
-vector $\vect{\tau}_c^{\rm air}$ is fixed. Thus $\vect{\tau}_c^{\rm
-  air}$ can be calculated once, per sun zenith angle.
 
-Using
-\cref{eq:lSRaa,eq:tauSRvec1,eq:lLOSair,eq:tauLOSvec1,eq:Dtotal,eq:tauairtotal},
-the total optical depths corresponding to LOSs (of camera $c$) and SRs
-that cross all voxels comprise the vector
+We discern between air molecules and other aerosols and therefore
+write $ \vect{\tau}_c= \vect{\tau}_c^{\rm air} + \vect{\tau}_c^{\rm
+  aerosol}$.  Using \cref{eq:rayleighbeta} for $\beta^{\rm air}$ in
+all voxels, the vector $\vect{\tau}_c^{\rm air}$ is fixed. Thus
+$\vect{\tau}_c^{\rm air}$ can be calculated once, per sun zenith
+angle. Given \cref{eq:extinctc}, the total optical depths
+corresponding to LOSs (of camera $c$) and SRs that cross all voxels
+comprise the vector
 \begin{equation}
   \vect{\tau}_c= \vect{\tau}_c^{\rm air}
   + {\bm D}_c (\vect{\sigma} \odot {\bm n})
   \;\;.
   \label{eq:tautotal}
 \end{equation}
-This vector depends on the variables $\vect{\sigma}$ and ${\bm n}$
-(See~\cref{fig:projection}a).
+where the operator $\odot$ denotes the Hadamard (element-wise)
+product. This vector depends on the variables $\vect{\sigma}$ and
+${\bm n}$, the aerosol extinction and density at each voxel
+respectively.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -601,15 +548,14 @@ This vector depends on the variables $\vect{\sigma}$ and ${\bm n}$
 \label{sec:scattering}
 
 Per camera $c$ and voxel $k$, the lines $[{\rm SR},k]$ and $[{\rm
-  LOS}_c,k]$ intersect at a fixed angle $\Phi^{\rm scatter}_c(k)$,
-which is pre-calculated.  Column-stacking all voxels yields the vector
-representation of all scattering angles in the domain,
-$\vect{\Phi}^{\rm scatter}_c$ per camera $c$. Similarly, the
-single-scattering albdeos $\varpi^{\rm aerosol}$ in all voxels are
-stacked to vector $\vect{\varpi}$.  Using
-\cref{eq:alphabasic,eq:rayleighP,eq:betaer,eq:betair}, the angular
-scattering coefficients across the domain are expressed in vector form
-by
+  LOS}_c,k]$ intersect at a fixed angle $\Phi^{\rm scatter}_c(k)$.
+Column-stacking all voxels yields the vector representation of all
+scattering angles in the domain, $\vect{\Phi}^{\rm scatter}_c$ per
+camera $c$. Similarly, the single-scattering albdeos $\varpi^{\rm
+  aerosol}$ in all voxels are stacked to vector $\vect{\varpi}$.
+Using \cref{eq:alphabasic,eq:rayleighP,eq:betaer,eq:betair}, the
+angular scattering coefficients across the domain are expressed in
+vector form by
 \begin{align}
   \tilde{\vect{\alpha}}^{\rm air}_c &=
   \vect{\beta}^{\rm air} \odot P^{\rm air}(\vect{\Phi}^{\rm scatter}_c) \nonumber \\

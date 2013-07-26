@@ -394,16 +394,27 @@ where $\lambda$ is the wavelength, in microns.
 \label{sec:methodology}
 
 Consider a set of ground-based wide-angle cameras
- %~\cite{Cossairt2011, Peleg01omnistereo:panoramic, Koppal:2011:WMS:2191740.2192152}
-looking upwards (\cref{fig:groundgrid}). The set performs {\em integral imaging}~\cite{integral} of the sky. Per viewpoint, the view azimuth and elevation angles (relative to the zenith and north) are
-encapsulated in the vector ${\bm{\Theta}}$. Any camera $c$ is at a distinct fixed location ${\bm x}$, capturing raw image $i_c({\bm{\Theta}})$. This paper takes the first step, of formulating
-a principle of recovering the 3D atmospheric aerosols distribution, using such data. To show feasibility, we perform radiative transfer using two different forward models, enabling cross-validation.
-A forward model takes as input the 3D aerosol distribution, and outputs images as if
-captured at various viewpoints. One model uses Monte Carlo (MC) methods (\cref{sec:monte-carlo-simul}): it is stochastic, slow but naturally expresses multiple-scattering. Hence, this approach simulates realistic
-scenes of arbitrary complexity.  The second model uses the single-Scattering approximation
-(\cref{sec:single-scatt-model}). It is less accurate than MC, but derives an analytic closed
-form solution to the radiative transfer. This closed form enables simple inversion of
-the model, to estimate the underlying atmosphere (\cref{sec:inverse-problem}).
+% ~\cite{Cossairt2011, Peleg01omnistereo:panoramic,
+% Koppal:2011:WMS:2191740.2192152}
+looking upwards (\cref{fig:groundgrid}). The set performs {\em
+  integral imaging}~\cite{integral} of the sky. Per viewpoint, the
+view azimuth and elevation angles (relative to the zenith and north)
+are encapsulated in the vector ${\bm{\Theta}}$. Any camera $c$ is at a
+distinct fixed location ${\bm x}$, capturing raw image
+$i_c({\bm{\Theta}})$. This paper takes the first step, of formulating
+a principle of recovering the 3D atmospheric aerosols distribution,
+using such data. To show feasibility, we perform radiative transfer
+using two different forward models, enabling cross-validation.  A
+forward model takes as input the 3D aerosol distribution, and outputs
+images as if captured at various viewpoints. One model uses Monte
+Carlo (MC) methods (\cref{sec:monte-carlo-simul}): it is stochastic,
+slow but naturally expresses multiple-scattering. Hence, this approach
+simulates realistic scenes of arbitrary complexity.  The second model
+uses the single-Scattering approximation
+(\cref{sec:single-scatt-model}). It is less accurate than MC, but
+derives an analytic closed form solution to the radiative
+transfer. This closed form enables simple inversion of the model, to
+estimate the underlying atmosphere (\cref{sec:inverse-problem}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -412,16 +423,18 @@ the model, to estimate the underlying atmosphere (\cref{sec:inverse-problem}).
 \label{sec:single-scatt-model}
 
 The atmosphere is discretized into a grid of $N_{\rm voxels}$ volume
-elements (voxels), indexed by $k$ or $q$. In a \emph{single-scattering} model,
-any SR changes direction only once on the way to a camera. This
-model is valid in atmospheres that are not very dense: inside fog and
-clouds this model does not apply. In this model, radiative transfer has three steps
-(\cref{fig:groundgrid}): ({\tt i}) Attenuation of a SR propagating from the top
-  of the atmosphere (TOA) to voxel $k$. ~({\tt ii}) Light scattering at voxel $k$, towards a
-  camera. ~({\tt iii}) Light attenuation on the LOS from voxel $k$ to
-  the camera.~~
-Steps~{\tt i},{\tt iii} involve the optical depth along the light path to and from voxel $k$, as analyzed in \cref{sec:optical-depth}.  Step~{\tt ii} involves the scattering coefficient at voxel $k$, described in
-\cref{sec:scattering}.
+elements (voxels), indexed by $k$ or $q$. In a
+\emph{single-scattering} model, any SR changes direction only once on
+the way to a camera. This model is valid in atmospheres that are not
+very dense: inside fog and clouds this model does not apply. In this
+model, radiative transfer has three steps (\cref{fig:groundgrid}):
+({\tt i}) Attenuation of a SR propagating from the top of the
+atmosphere (TOA) to voxel $k$. ~({\tt ii}) Light scattering at voxel
+$k$, towards a camera. ~({\tt iii}) Light attenuation on the LOS from
+voxel $k$ to the camera.~~ Steps~{\tt i},{\tt iii} involve the optical
+depth along the light path to and from voxel $k$, as analyzed in
+\cref{sec:optical-depth}.  Step~{\tt ii} involves the scattering
+coefficient at voxel $k$, described in \cref{sec:scattering}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -431,11 +444,11 @@ Steps~{\tt i},{\tt iii} involve the optical depth along the light path to and fr
 A voxel's vertical geometric thickness is $\Delta z$.  The Sun zenith
 angle is $\Phi^{\rm SR}$. Denote a SR line segment between the TOA and
 the center of voxel $k$ by $[{\rm SR},k]$ (See
-\cref{fig:groundgrid}). This SR intersects voxel $q$. The intersection line segment has geometric
-length $l_{\rm SR}(q)$, which depends on $\Delta z$, $\Phi^{\rm SR}$ and $q$.  Define a
-$N_{\rm voxels}\times N_{\rm voxels}$ matrix $\OpDistance^{\mathrm{Sun
-    \rightarrow voxel}}$, whose element $(k,q)$ represents $l_{\rm
-  SR}(q)$:
+\cref{fig:groundgrid}). This SR intersects voxel $q$. The intersection
+line segment has geometric length $l_{\rm SR}(q)$, which depends on
+$\Delta z$, $\Phi^{\rm SR}$ and $q$.  Define a $N_{\rm voxels}\times
+N_{\rm voxels}$ matrix $\OpDistance^{\mathrm{Sun \rightarrow voxel}}$,
+whose element $(k,q)$ represents $l_{\rm SR}(q)$:
 \begin{equation}
   \OpDistance^{\mathrm{Sun \rightarrow voxel}}(k,q) =
   \left\{
@@ -447,8 +460,7 @@ $N_{\rm voxels}\times N_{\rm voxels}$ matrix $\OpDistance^{\mathrm{Sun
   \right.
   \hspace{-0.05cm}
 \end{equation}
-The matrix $\OpDistance^{\mathrm{Sun \rightarrow voxel}}$ is
-sparse.
+The matrix $\OpDistance^{\mathrm{Sun \rightarrow voxel}}$ is sparse.
 Analogously, for camera $c$, denote by $[{\rm LOS}_c,k]$ a LOS bounded
 between the camera and the center of voxel $k$ (see
 \cref{fig:groundgrid}).  The LOS zenith angle is $\Phi^{\rm LOS}_c$.
@@ -470,27 +482,27 @@ sparse matrix whose element $(k,q)$ is
   \hspace{-0.05cm}
 \end{equation}
 
-Any voxel generally contains both air molecules and aerosols.  We assume that within any voxel, the
-molecular parameters $\{ \beta^{\rm air}(k),\alpha^{\rm air}(k)\}$ and
-the aerosol parameters $\{ \sigma^{\rm aerosol}(k),\varpi^{\rm
-  aerosol}(k), n^{\rm aerosol}(k),g(k)\}$ are constants, e.g.,
-corresponding to the value at each voxel center.
-Following \cref{eq:tau}, the optical depth between the TOA
-and voxel $k$ is
+Any voxel generally contains both air molecules and aerosols.  We
+assume that within any voxel, the molecular parameters $\{ \beta^{\rm
+  air}(k),\alpha^{\rm air}(k)\}$ and the aerosol parameters $\{
+\sigma^{\rm aerosol}(k),\varpi^{\rm aerosol}(k), n^{\rm
+  aerosol}(k),g(k)\}$ are constants, e.g., corresponding to the value
+at each voxel center.  Following \cref{eq:tau}, the optical depth
+between the TOA and voxel $k$ is
 \begin{equation}
   \tau_{\rm SR}(k)= \sum_{q \in[{\rm SR},k]} \beta(q) l_{\rm SR}(q) \;\;.
   \label{eq:lSRn}
 \end{equation}
-We can write \cref{eq:lSRn} using matrix notation,
-  $\vect{\tau}_{\rm SR}=\OpDistance^{\mathrm{Sun \rightarrow voxel}} \vect{\beta}$,
-where $\vect{\tau}_{\rm SR}$ and $\vect{\beta}$ are column stack vector
-representations of $\tau_{\rm SR}(k)$ and $\beta(q)$, respectively. Similarly,
-the optical depth along a LOS to voxel $k$ is expressed by element $k$ of
-  $\vect{\tau}_{{\rm LOS}_c} = \OpDistance^{\mathrm{voxel \rightarrow
-      cam}} \vect{\beta}$
-Here $\vect{\tau}_{{\rm LOS}_c}$ is a column stack vector representation of
-$\tau_{{\rm LOS}_c}(k)$.  The SR and LOS paths joining at each voxel can
-form a single path from the TOA to camera $c$, yielding
+We can write \cref{eq:lSRn} using matrix notation, $\vect{\tau}_{\rm
+  SR}=\OpDistance^{\mathrm{Sun \rightarrow voxel}} \vect{\beta}$,
+where $\vect{\tau}_{\rm SR}$ and $\vect{\beta}$ are column stack
+vector representations of $\tau_{\rm SR}(k)$ and $\beta(q)$,
+respectively. Similarly, the optical depth along a LOS to voxel $k$ is
+expressed by element $k$ of $\vect{\tau}_{{\rm LOS}_c} =
+\OpDistance^{\mathrm{voxel \rightarrow cam}} \vect{\beta}$ Here
+$\vect{\tau}_{{\rm LOS}_c}$ is a column stack vector representation of
+$\tau_{{\rm LOS}_c}(k)$.  The SR and LOS paths joining at each voxel
+can form a single path from the TOA to camera $c$, yielding
 \begin{equation}
   {\bm D}_c=
   {\bm D}^{\mathrm{Sun \rightarrow voxel}}+
@@ -533,9 +545,8 @@ Column-stacking all voxels yields the vector representation of all
 scattering angles in the domain, $\vect{\Phi}^{\rm scatter}_c$ per
 camera $c$. Similarly, the single-scattering albdeos $\varpi^{\rm
   aerosol}$ in all voxels are stacked to vector $\vect{\varpi}$.
-Using \cref{eq:alphabasic,eq:rayleighP}, the
-angular scattering coefficients across the domain are expressed in
-vector form by
+Using \cref{eq:alphabasic,eq:rayleighP}, the angular scattering
+coefficients across the domain are expressed in vector form by
 \begin{equation}
   \tilde{\vect{\alpha}}^{\rm air}_c =
   \vect{\beta}^{\rm air} \odot P^{\rm air}(\vect{\Phi}^{\rm scatter}_c)\;,\quad
@@ -544,8 +555,8 @@ vector form by
     g}(\vect{\Phi}^{\rm scatter}_c) \;.
   \label{eq:alpha_matrix}
 \end{equation}
-The vector ${\bm g}$ column-stacks the aerosol anisotropy parameter of the
-phase function, in all voxels. This notation indicates a
+The vector ${\bm g}$ column-stacks the aerosol anisotropy parameter of
+the phase function, in all voxels. This notation indicates a
 parametric phase function as in \cref{eq:aerosol_scatter}.
 
 
@@ -578,17 +589,17 @@ of all voxel contributions is
 A camera pixel collects light from a narrow cone in the
 atmosphere. The cone includes some voxels, intersects with some other
 voxels, and oblivious to all the rest~(\cref{fig:projection}b).
-%\begin{figure}
-%  \centering
-%  \yoavcomment{\def\svgwidth{0.8\columnwidth}\input{images/light_transfer.pdf_tex}}
-%  \caption{\small [a] Irradiance of voxel $k$ is attenuated by voxels
-%    above it on a SR. The scattered radiance from voxel $k$ is then
-%    attenuated by voxels below it on a LOS to camera $c$.  [b] An
-%    image pixel captures light emanating in a cone in space. Voxels
-%    that fully or partially fall in this cone are sensed by the
-%    pixel.}
-%  \label{fig:projection}
-%\end{figure}
+% \begin{figure}
+%   \centering
+%   \yoavcomment{\def\svgwidth{0.8\columnwidth}\input{images/light_transfer.pdf_tex}}
+%   \caption{\small [a] Irradiance of voxel $k$ is attenuated by
+%   voxels above it on a SR. The scattered radiance from voxel $k$ is
+%   then attenuated by voxels below it on a LOS to camera $c$.  [b] An
+%   image pixel captures light emanating in a cone in space. Voxels
+%   that fully or partially fall in this cone are sensed by the
+%   pixel.}
+%   \label{fig:projection}
+% \end{figure}
 Thus light power captured at a pixel is a weighted sum of the power
 $p_c(k)$ from all voxels.  This linear sum is formulated by a matrix
 operation over ${\bm p}_c$. The measured image is column-stacked to a
@@ -604,7 +615,7 @@ Combining \cref{eq:tautotal,eq:pc,eq:IcP}, the captured image is thus
   {\bm i}_c= L^{\rm TOA} {\vect{\Pi}}_c \left\{
     (\tilde{\vect{\alpha}}^{\rm air}_c + \tilde{\vect{\alpha}}^{\rm
       aerosol}_c) \odot \exp\{-[\vect{\tau}_c^{\rm air} + {\bm D}_c
-      (\vect{\sigma} \odot {\bm n})]\} \right\}
+    (\vect{\sigma} \odot {\bm n})]\} \right\}
   \label{eq:bigIc}
 \end{align}
 
@@ -614,11 +625,11 @@ $[{\sigma}^{\rm aerosol},\varpi^{\rm aerosol},g]$ is uniform across
 the scene, but the density distribution ${\bm n}$ is variable. Then,
 \cref{eq:bigIc} degenerates to
 \begin{align}
-  {\bm i}_c= L^{\rm TOA} {\vect{\Pi}}_c \Big\{ \exp\{-(\vect{\tau}_c^{\rm
-      air} + {\sigma}^{\rm aerosol} {\bm D}_c {\bm n})\}\odot
-  [\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm aerosol}\sigma^{\rm
-    aerosol} P^{\rm aerosol}_g(\vect{\Phi}^{\rm scatter}_c) \odot{\bm
-    n} ] \Big\} .
+  {\bm i}_c= L^{\rm TOA} {\vect{\Pi}}_c \Big\{
+  \exp\{-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm aerosol} {\bm D}_c
+  {\bm n})\}\odot [\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm
+    aerosol}\sigma^{\rm aerosol} P^{\rm aerosol}_g(\vect{\Phi}^{\rm
+    scatter}_c) \odot{\bm n} ] \Big\} .
   \label{eq:bigIA}
 \end{align}
 
@@ -676,7 +687,7 @@ section we assume that we know the type of the particle
 The recovery task is phrased as optimization of an objective function,
 that fits the image-formation model (\cref{eq:bigIc,eq:bigIA}) to
 $N_{\rm views}$ measured photographs $\{ {\bm i}^{\rm
-measured}_c\}_{c=1}^{N_{\rm views}}$:
+  measured}_c\}_{c=1}^{N_{\rm views}}$:
 \begin{equation}
   \label{eq:minobjectiveA}
   \hat{\bm n} =
@@ -691,18 +702,18 @@ where
 \end{equation}
 Here $\Psi({\bm n})$ is a regularization term that expresses some
 prior knowledge on the solution and $\eta$ is the regularization
-coefficient.
-We use $\Mask$ as a weight map to mask the influence of the sun and
-the horizon. These regions are prone to dominant multiple scattering.
-One common measurement of smoothness are the second order derivatives.
-These can be calculated using the \emph{Laplacian} operator, $\nabla^2$.
-We enforce smoothness of the solution by minimizing the signal energy
-of the \emph{Laplacian} of the signal
+coefficient.  We use $\Mask$ as a weight map to mask the influence of
+the sun and the horizon. These regions are prone to dominant multiple
+scattering.  One common measurement of smoothness are the second order
+derivatives.  These can be calculated using the \emph{Laplacian}
+operator, $\nabla^2$.  We enforce smoothness of the solution by
+minimizing the signal energy of the \emph{Laplacian} of the signal
 \begin{equation}
   \label{eq:regularizer}
   \Psi({\bm n}) = \| \nabla^2{\bm n}\|^2_2 = \| \Laplacian{\bm n}\|^2_2
 \end{equation}
-where $\Laplacian$ is a matrix representation of the \emph{Laplacian} operator.
+where $\Laplacian$ is a matrix representation of the \emph{Laplacian}
+operator.
 
 We solve~\cref{eq:minobjectiveA} using standard optimization tools.
 The gradient of $F$ with respect to ${\bm n}$ is
@@ -714,28 +725,12 @@ The gradient of $F$ with respect to ${\bm n}$ is
   \label{eq:gradient1}
 \end{align}
 Here the matrix ${\bm J}_{{\bm i}_c}({\bm n})$ is the Jacobian of the
-vector ${\bm i}_c$ with respect to ${\bm n}$. A close-form expression of
-our Jacobian is
-\begin{align}
-  {\bm J}_{{\bm i}_c}({\bm n}) &= L^{\rm TOA}({\bm A}-{\bm B}){\bm C}
-  ,
-  \label{eq:gradient2}
-\end{align}
-where
-\begin{align}
-  \label{eq:gradient3}
-  {\bm A} &= \varpi^{\rm aerosol}\sigma^{\rm aerosol}
-  \OpDiag{ P_g^{\rm aerosol}(\vect{\Phi}^{\rm scatter}_c)} \nonumber\\
-  {\bm B} &= {\sigma}^{\rm aerosol}\transpose{{\bm D}_c} \nonumber\\
-  & \;\;\; \OpDiag{[\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm
-      aerosol}\sigma^{\rm aerosol} P^{\rm aerosol}_g(\vect{\Phi}^{\rm
-      scatter}_c) \odot{\bm n}
-    ]} \nonumber \\
-  {\bm C} &= \OpDiag{\exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm
-      aerosol} {\bm D}_c {\bm n})]} \transpose{{\vect{\Pi}}_c}
-\end{align}
-For a detailed derivation of \cref{eq:gradient2,eq:gradient3}, we
-refer the reader to \cref{sec:gradient-derivation}.
+vector ${\bm i}_c$ with respect to ${\bm n}$.  Element $(\Theta,k)$ of
+this matrix differentiates the intensity in pixel ${\bm \Theta}$ (in
+viewpoint $c$) with variation of the density at voxel $k$, i.e.,
+$\partial i_c({\bm \Theta})/\partial{n^{\rm aerosol}(k)}$.  A
+close-form expression of our Jacobian and its detailed derivation is
+given in \cref{sec:gradient-derivation}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -942,45 +937,8 @@ questions and solutions would rise.
 \section{Gradient Derivation}
 \label{sec:gradient-derivation}
 
-Here we detail the derivation of the gradient of the objective
-function:
-\begin{equation}
-  \label{eq:objectiveA}
-  F({\bm n})
-  = \sum_{c=1}^{N_{\rm views}}
-  \| {\bm i}^{\rm measured}_c - {\bm i}_c({\bm n})\|^2_2
-\end{equation}
-Here ${\bm i}^{\rm measured}_c$ is the image captured by camera $c$
-and ${\bm i}_c({\bm n})$ is an image modeled from the viewpoint of
-camera $c$ according to the density distribution ${\bm n}$. In
-\cref{sec:captured-image} article we show that ${\bm i}_c({\bm n})$
-can be expressed by
-\begin{align}
-  {\bm i}_c= L^{\rm TOA} {\vect{\Pi}}_c \Big\{ e^{-(\vect{\tau}_c^{\rm
-      air} + {\sigma}^{\rm aerosol} {\bm D}_c {\bm n}) }\odot
-  \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;
-  \nonumber \\
-  [\tilde{\vect{\alpha}}^{\rm air}_c + %\right.
-  \varpi^{\rm aerosol}\sigma^{\rm aerosol} P^{\rm
-    aerosol}_g(\vect{\Phi}^{\rm scatter}_c) \odot{\bm n} ] \Big\} .
-  \label{eq:bigIA}
-\end{align}
-
-The gradient of $F$ with respect to ${\bm n}$ is
-\begin{align}
-  \Grad{{\bm n}} F = -2\sum_{c=1}^{N_{\rm views}}
-  \transpose{\left[{\bm J}_{{\bm i}_c}({\bm n})\right]} [{\bm i}^{\rm
-    measured}_c - {\bm i}_c({\bm n})] \;.
-  \label{eq:gradient1}
-\end{align}
-Here the matrix ${\bm J}_{{\bm i}_c}({\bm n})$ is the Jacobian of the
-vector ${\bm i}_c$ with respect to ${\bm n}$. Element $(\Theta,k)$ of
-this matrix differentiates the intensity in pixel ${\bm \Theta}$ (in
-viewpoint $c$) with variation of the density at voxel $k$, i.e.,
-$\partial i_c({\bm \Theta})/\partial{n^{\rm aerosol}(k)}$.
-
-In order to describe the derivation of the Jacobian ${\bm J}_{{\bm
-    i}_c}({\bm n})$, we first show some results relating to
+Here we detail the derivation of the Jacobian ${\bm J}_{{\bm
+    i}_c}({\bm n})$ from \cref{eq:gradient1}. First show some results relating to
 differentiation. Let $\vect{n}$ be a vector of length $q$. Let
 $\vect{g}(\vect{n})$ be a vector function: it outputs a vector of
 length $r$. Let $\mat{B}$ be a $q \times r$ matrix and

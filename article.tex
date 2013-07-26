@@ -54,7 +54,8 @@
 \newcommand{\OpCumsum}{\mathbfcal{C}}
 \newcommand{\OpInt}{\mathbfcal{I}}
 \newcommand{\OpCamera}{\mathbfcal{P}}
-\newcommand{\Mask}{\bm{M}}
+\newcommand{\Mask}{\mathbfcal{M}}
+\newcommand{\Laplacian}{\mathbfcal{L}}
 \newcommand{\OpDiag}[1]{\mathrm{diag}\left\{#1\right\}}
 \newcommand{\Grad}[1]{\bm{\triangledown_{#1}}}
 \newcommand{\argmin}{\mathrm{arg}\min}
@@ -645,40 +646,53 @@ the scene, but the density distribution ${\bm n}$ is variable. Then,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Monte Carlo RT}
+\label{sec:monte-carlo-simul}
+
+Monte Carlo (MC) methods enable rigorous modeling of photon
+propagation in the atmosphere. The radiative transfer is expressed as
+probability distributions which describe the distance travelled by the
+photon between scatterings and the angle of deflection at each
+scatter.  This enables simulating multiple scattering and produce
+realistic results.  MC simulations can be made arbitrarily accurate by
+increasing the number of photons.  Another advantage of the MC methods
+is that they are highly parallelizable.
+
+The MC simulations use the same atmosphere grid described in
+\cref{sec:single-scatt-model}. we use backward MC, i.e. photons are
+traced from the detector to the sun. Photons are emitted from each
+pixel of the camera in the direction determined by the camera
+model. The optical distance that the photon travels before scattering
+is determined according to the Beer-Lambert law~\cref{eq:beer-lambert}
+and the inversion sampling method. Once the optical distance is
+determined the ``real'' distance is determined by summing the optical
+depth of the discrete voxels (\cref{sec:optical-depth}) along the
+photon direction till the desired optical distance is reached.  At
+each scattering event, first the type of aerosol is determined by
+sampling the different aerosols distributions inside the voxel. The
+new direction is determined by inverse sampling the phase function of
+the relevant aerosols: Rayleigh, \cref{eq:rayleighP} or
+Henyey-Greenstein \cref{eq:aerosol_scatter}.  To accelerate the MC we
+use the local estimation (LE) method.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Inverse Problem}
 \label{sec:inverse-problem}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Unknowns and Prior Knowledge}
-\label{sec:prior}
-
-In general terms, the variables are the set
-\begin{equation}
-  {\cal V}\equiv
-  \left\{
-    {\bm n},
-    \left\{
-      \vect{\varpi}_{\lambda},\vect{\sigma}_{\lambda},{\bm g}_{\lambda}
-    \right\}_{\lambda}
-  \right\}
-  \;\;,
-  \label{eq:calV}
-\end{equation}
-where $\lambda$ denotes the spectral (color) channel.  There are
-$N_{\rm spectral}$ spectral channels.  Thus, the number of unknown
-variables is in principle \mbox{$|{\cal V}|=N_{\rm voxels}(1+3N_{\rm
-    spectral})$}.
+In general terms, the variables are the set \mbox{$\left\{{\bm
+      n},\left\{\vect{\varpi}_{\lambda},\vect{\sigma}_{\lambda},{\bm
+        g}_{\lambda}\right\}_{\lambda}\right\}$} where $\lambda$
+denotes the spectral (color) channel.  There are $N_{\rm spectral}$
+spectral channels.  Thus, the number of unknown variables is in
+principle \mbox{$|{\cal V}|=N_{\rm voxels}(1+3N_{\rm spectral})$}.
 
 Prior knowledge reduces the unknowns. For simplicity we assume a
 single aerosol type dominates a scene. Furthermore, in the following
 section we assume that we know the type of the particle. Hence, we
 focus here on retrieving ${\bm n}$.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Objective Function}
-\label{sec:objective-function}
 
 The recovery task is phrased as optimization of an objective function,
 that fits the image-formation model (\cref{eq:bigIc,eq:bigIA}) to
@@ -739,39 +753,6 @@ where
 \end{align}
 For a detailed derivation of \cref{eq:gradient2,eq:gradient3}, we
 refer the reader to \cref{sec:gradient-derivation}.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Monte Carlo RT}
-\label{sec:monte-carlo-simul}
-
-Monte Carlo (MC) methods enable rigorous modeling of photon
-propagation in the atmosphere. The radiative transfer is expressed as
-probability distributions which describe the distance travelled by the
-photon between scatterings and the angle of deflection at each
-scatter.  This enables simulating multiple scattering and produce
-realistic results.  MC simulations can be made arbitrarily accurate by
-increasing the number of photons.  Another advantage of the MC methods
-is that they are highly parallelizable.
-
-The MC simulations use the same atmosphere grid described in
-\cref{sec:single-scatt-model}. we use backward MC, i.e. photons are
-traced from the detector to the sun. Photons are emitted from each
-pixel of the camera in the direction determined by the camera
-model. The optical distance that the photon travels before scattering
-is determined according to the Beer-Lambert law~\cref{eq:beer-lambert}
-and the inversion sampling method. Once the optical distance is
-determined the ``real'' distance is determined by summing the optical
-depth of the discrete voxels (\cref{sec:optical-depth}) along the
-photon direction till the desired optical distance is reached.  At
-each scattering event, first the type of aerosol is determined by
-sampling the different aerosols distributions inside the voxel. The
-new direction is determined by inverse sampling the phase function of
-the relevant aerosols: Rayleigh, \cref{eq:rayleighP} or
-Henyey-Greenstein \cref{eq:aerosol_scatter}.  To accelerate the MC we
-use the local estimation (LE) method.
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

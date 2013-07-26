@@ -278,7 +278,7 @@ of biological tissue, optical tomography uses diffusive approximation
 in the image formation model.  Another method, based on scattering, is
 the X-Ray Scatter CT~\cite{Aviles2011} which measures the absorption
 and scattering coefficients of the medium separately.
- 
+
 However, the formulation of our problem is {\em different} than prior
 situations. Most tomography setups have a controlled and/or
 multidirectional radiation source~\cite{messer}. In contrast, our
@@ -298,22 +298,12 @@ However, photographs of the atmosphere are a mixture of {\em
 
 \noindent {\bf Extinction}: Sun rays (SR) irradiate a small volume
 that includes particles of a certain type.  Each particle has an {\em
-  extinction cross section} $\sigma$ (units \si{\meter\squared}) for
-interacting with the irradiance. The density of the particles is $n$
-(units \si[sticky-per]{\per\cubic\metre}). Per unit volume, the {\em
-  extinction coefficient} $\beta$ is
-\begin{align}
-  \beta= \sigma n \;.
-  \label{eq:extinctc}
-\end{align}
+  extinction cross section} $\sigma$ for
+interacting with the irradiance. The density of the particles is $n$. Per unit volume, the {\em extinction coefficient} is $\beta= \sigma n$.
 The volume has infinitesimal length $dl$. Then, the relative portion
-of extinct SR irradiance is the unitless differential {\em optical
-  depth}
-\begin{align}
-  d\tau= \beta dl=\sigma n dl \;.
-  \label{eq:extinct}
-\end{align}
-The optical depth aggregates in extended propagation:
+of extinct SR irradiance is the unitless differential optical
+  depth, $d\tau= \beta dl=\sigma n dl$.
+The {\em optical depth} aggregates in extended propagation:
 \begin{align}
   \tau= \int d\tau=\int \beta dl=\int \sigma n dl \;.
   \label{eq:tau}
@@ -335,12 +325,11 @@ unitless {\em single scattering albedo} $\varpi$ of the particle. The
   \label{eq:alph}
 \end{align}
 The angular distribution of scattering is determined by a {\em phase
-  function} $P$. Part of the light scatters towards a camera's LOS, as
+  function} $P$, which is normalized: its integral over all solid
+angles is unit. Part of the light scatters towards a camera's LOS, as
 illustrated in \cref{fig:groundgrid}. The angle between the SR and LOS
-is the scattering angle $\Phi^{\rm scatter}$. The phase function
-$P(\Phi^{\rm scatter})$ is normalized: its integral over all solid
-angles is unit. The {\em angular scattering coefficient}
-$\tilde\alpha$ (units \si[sticky-per]{\per\meter\steradian}) is
+is the scattering angle $\Phi^{\rm scatter}$. The {\em angular scattering coefficient}
+$\tilde\alpha$ is
 \begin{align}
   \tilde\alpha(\Phi^{\rm scatter}) = \varpi\beta P(\Phi^{\rm scatter})
   = \varpi \sigma n P(\Phi^{\rm scatter}).
@@ -358,22 +347,24 @@ where $g$ is an {\em anisotropy parameter} and $\mu\equiv \cos \Phi^{\rm scatter
 \\
 
 \noindent {\bf Air molecules}: Scattering by air molecules follows the
-{\em Rayleigh} model:
+{\em Rayleigh} model. The phase function is
 \begin{align}
-  P^{\rm air}\left[\mu(k)\right] &\approx \sfrac{3}{16\pi}(1+\mu^2)
+  P^{\rm air}\left[\mu\right] &\approx \sfrac{3}{16\pi}(1+\mu^2)
   \label{eq:rayleighP}
 \end{align}
-and $\varpi^{\rm air}$=1. Air molecular density $n^{\rm air}$ falls
+and the single scattering albedo is $\varpi^{\rm air}$=1. Air molecular density $n^{\rm air}$ falls
 off approximately exponentially with altitude, with a
 characteristic~\cite{Levi1980} falloff height $H^\mathrm{air}=8\
-\si{\km}$. Consequently~\cite{Levi1980}, the coefficients for
+\si{\km}$. Thus~\cite{Levi1980}, the coefficients for
 extinction and scattering by air molecules can be modeled by
 \begin{align}
   \alpha^{\rm air}(h, \lambda)=\beta^{\rm air}(h, \lambda) \approxeq
   1.09 \times 10^{-3}\lambda^{-4}
-  \exp(-h/H^\mathrm{air}) %\left[-\frac{h}{H^\mathrm{air}}\right].
+  \exp(-h/H^\mathrm{air}) 
+  \;,%\left[-\frac{h}{H^\mathrm{air}}\right].
   \label{eq:rayleighbeta}
 \end{align}
+where $\lambda$ is the wavelength, in microns. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -381,59 +372,34 @@ extinction and scattering by air molecules can be modeled by
 \section{Methodology}
 \label{sec:methodology}
 
-We believe that high resolution atmospheric recovery can be achieved
-by a set of ground-based wide-angle~\cite{Cossairt2011,
-  Peleg01omnistereo:panoramic, Koppal:2011:WMS:2191740.2192152}
-sky-cameras, looking upward, performing integral imaging of the sky.
-Consider \cref{fig:groundgrid}.  Ground-based wide-angle sky-cameras
-capture the sky lightfield from below. Per viewpoint, the view azimuth
-and elevation angles (relative to the zenith and north) are
-encapsulated in the vector ${\bm{\Theta}}$.  A raw image is $i_{\bm
-  c}({\bm{\Theta}})$: a camera's location ${\bm x}$ is fixed, while
-any pixel in a frame represents an angle ${\bm{\Theta}}$.  The
-measured radiance in all locations ${\bm x}$ and angles
-${\bm{\Theta}}$ is the {\em lightfield} $I({\bm
-  x},{\bm{\Theta}})$.This paper takes the first step, of formulating
-this principle and demonstrating feasibility using realistic
-simulations.  We simulate RT through the atmosphere using two
-models. The first is based on Monte Carlo (MC) methods
-(\cref{sec:monte-carlo-simul}) and models
-Multiple-Scattering. Therefore it enables simulating realistic
-scenarios.  The second model uses the Single-Scattering approximation
-(\cref{sec:single-scatt-model}). It is less accurate than the MC model
-but it enables stating an analytic solution to the RT in a closed
-form. This closed form is beneficial to us as it enables us to invert
-the model and thus recover the underlying atmosphere
-(\cref{sec:inverse-problem}). To mimic realistic scenarios, we apply
-the reconstruction algorithm on images simulated by the MC model.
+Consider a set of ground-based wide-angle cameras
+ %~\cite{Cossairt2011, Peleg01omnistereo:panoramic, Koppal:2011:WMS:2191740.2192152}
+looking upwards (\cref{fig:groundgrid}). The set performs {\em integral imaging}~\cite{integral} of the sky. Per viewpoint, the view azimuth and elevation angles (relative to the zenith and north) are
+encapsulated in the vector ${\bm{\Theta}}$. Any camera $c$ is at a distinct fixed location ${\bm x}$, capturing raw image $i_c({\bm{\Theta}})$. This paper takes the first step, of formulating
+a principle of recovering the 3D atmospheric aerosols distribution, using such data. To show feasibility, we perform radiative transfer using two different forward models, enabling cross-validation.
+A forward model takes as input the 3D aerosol distribution, and outputs images as if
+captured at various viewpoints. One model uses Monte Carlo (MC) methods (\cref{sec:monte-carlo-simul}): it is stochastic, slow but naturally expresses multiple-scattering. Hence, this approach simulates realistic
+scenes of arbitrary complexity.  The second model uses the single-Scattering approximation
+(\cref{sec:single-scatt-model}). It is less accurate than MC, but derives an analytic closed
+form solution to the radiative transfer. This closed form enables simple inversion of 
+the model, to estimate the underlying atmosphere (\cref{sec:inverse-problem}). 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Single-Scattering Model}
+\section{Single-Scattering Forward Model}
 \label{sec:single-scatt-model}
 
 The atmosphere is discretized into a grid of $N_{\rm voxels}$ volume
-elements (voxels).  A forward model takes as input the aerosol
-distribution over the grid of voxels, and outputs images as if
-captured at various viewpoints.  In a \emph{single-scattering} model,
-any SR changes direction only once on the way to the camera. This
+elements (voxels), indexed by $k$ or $q$. In a \emph{single-scattering} model,
+any SR changes direction only once on the way to a camera. This
 model is valid in atmospheres that are not very dense: inside fog and
-clouds this model does not apply.  Under single-scattering
-approximation, radiative transfer has three steps
-(\cref{fig:groundgrid}):
-\begin{inparaenum}[\hfill\bfseries a\upshape)]
-\item \label{itm:first} Attenuation of a SR propagating from the top
-  of the atmosphere (TOA) to voxel $k$.
-\item \label{itm:second} Light scattering at voxel $k$, towards a
-  camera.
-\item \label{itm:third} Light attenuation on the LOS from voxel $k$ to
-  the camera.
-\end{inparaenum}
-Steps \ref{itm:first} and \ref{itm:third} involve the optical depth
-along the light path to and from voxel $k$, analyzed in
-\cref{sec:optical-depth}.  Step \ref{itm:second} involves the
-scattering coefficient at voxel $k$, described in
+clouds this model does not apply. In this model, radiative transfer has three steps
+(\cref{fig:groundgrid}): ({\tt i}) Attenuation of a SR propagating from the top
+  of the atmosphere (TOA) to voxel $k$. ~({\tt ii}) Light scattering at voxel $k$, towards a
+  camera. ~({\tt iii}) Light attenuation on the LOS from voxel $k$ to
+  the camera.~~
+Steps~{\tt i},{\tt iii} involve the optical depth along the light path to and from voxel $k$, as analyzed in \cref{sec:optical-depth}.  Step~{\tt ii} involves the scattering coefficient at voxel $k$, described in
 \cref{sec:scattering}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -441,19 +407,11 @@ scattering coefficient at voxel $k$, described in
 \subsection{Optical Depth}
 \label{sec:optical-depth}
 
-Any voxel generally contains both air molecules and aerosols. Voxels
-are indexed by $k$ or $q$. We assume that within any voxel, the
-molecular parameters $\{ \beta^{\rm air}(k),\alpha^{\rm air}(k)\}$ and
-the aerosol parameters $\{ \sigma^{\rm aerosol}(k),\varpi^{\rm
-  aerosol}(k), n^{\rm aerosol}(k),g(k)\}$ are constants, e.g.,
-corresponding to the value at each voxel center.
-
 A voxel's vertical geometric thickness is $\Delta z$.  The Sun zenith
 angle is $\Phi^{\rm SR}$. Denote a SR line segment between the TOA and
 the center of voxel $k$ by $[{\rm SR},k]$ (See
-\cref{fig:groundgrid}). This SR intersects voxel $q$. The geometric
-length of this intersection line segment is $l_{\rm SR}(q)$ which
-depends on $\Delta z$, $\Phi^{\rm SR}$ and $q$.  We now define a
+\cref{fig:groundgrid}). This SR intersects voxel $q$. The intersection line segment has geometric
+length $l_{\rm SR}(q)$, which depends on $\Delta z$, $\Phi^{\rm SR}$ and $q$.  Define a
 $N_{\rm voxels}\times N_{\rm voxels}$ matrix $\OpDistance^{\mathrm{Sun
     \rightarrow voxel}}$, whose element $(k,q)$ represents $l_{\rm
   SR}(q)$:
@@ -468,26 +426,13 @@ $N_{\rm voxels}\times N_{\rm voxels}$ matrix $\OpDistance^{\mathrm{Sun
   \right.
   \hspace{-0.05cm}
 \end{equation}
-Note that matrix $\OpDistance^{\mathrm{Sun \rightarrow voxel}}$ is
-sparse.  Following \cref{eq:tau}, the optical depth between the TOA
-and voxel $k$ is
-\begin{equation}
-  \tau_{\rm SR}(k)= \sum_{q \in[{\rm SR},k]} \beta(q) l_{\rm SR}(q) \;\;.
-  \label{eq:lSRn}
-\end{equation}
-We can write \cref{eq:lSRn} using matrix notation
-\begin{equation}
-  \vect{\tau}_{\rm SR}=\OpDistance^{\mathrm{Sun \rightarrow voxel}} \vect{\beta}
-  \label{eq:tau_matrix}
-\end{equation}
-Here $\vect{\tau}_{\rm SR}$ and $\vect{\beta}$ are column stack vector
-representation of $\tau_{\rm SR}(k)$ and $\beta(q)$, respectively.
-
+The matrix $\OpDistance^{\mathrm{Sun \rightarrow voxel}}$ is
+sparse.  
 Analogously, for camera $c$, denote by $[{\rm LOS}_c,k]$ a LOS bounded
 between the camera and the center of voxel $k$ (see
 \cref{fig:groundgrid}).  The LOS zenith angle is $\Phi^{\rm LOS}_c$.
-This LOS intersects voxel $q$. The geometric length of this
-intersection line segment is $l_{\rm LOS_c}(q)$which depends on
+Suppose this LOS intersects voxel $q$. The geometric length of this
+intersection line segment is $l_{\rm LOS_c}(q)$ which depends on
 $\Delta z$, $\Phi^{{\rm LOS}_c}$ and $q$.  Analogously to
 \cref{eq:Dsv}, we define a $N_{\rm voxels}\times N_{\rm voxels}$
 sparse matrix whose element $(k,q)$ is
@@ -503,15 +448,28 @@ sparse matrix whose element $(k,q)$ is
   .
   \hspace{-0.05cm}
 \end{equation}
-The optical depth along a LOS to $k$ is
+
+Any voxel generally contains both air molecules and aerosols.  We assume that within any voxel, the
+molecular parameters $\{ \beta^{\rm air}(k),\alpha^{\rm air}(k)\}$ and
+the aerosol parameters $\{ \sigma^{\rm aerosol}(k),\varpi^{\rm
+  aerosol}(k), n^{\rm aerosol}(k),g(k)\}$ are constants, e.g.,
+corresponding to the value at each voxel center.
+Following \cref{eq:tau}, the optical depth between the TOA
+and voxel $k$ is
 \begin{equation}
-  \vect{\tau}_{{\rm LOS}_c} = \OpDistance^{\mathrm{voxel \rightarrow
-      cam}} \vect{\beta}
-  \label{eq:lLOSn}
+  \tau_{\rm SR}(k)= \sum_{q \in[{\rm SR},k]} \beta(q) l_{\rm SR}(q) \;\;.
+  \label{eq:lSRn}
 \end{equation}
-Here $\vect{\tau}_{\rm SR}$ is a column stack vector representation of
-$\tau_{{\rm LOS}_c}(k)$.  The SR and LOS paths of each voxel $k$ can
-be joined to a single path from the TOA to camera $c$ giving
+We can write \cref{eq:lSRn} using matrix notation,
+  $\vect{\tau}_{\rm SR}=\OpDistance^{\mathrm{Sun \rightarrow voxel}} \vect{\beta}$,
+where $\vect{\tau}_{\rm SR}$ and $\vect{\beta}$ are column stack vector
+representations of $\tau_{\rm SR}(k)$ and $\beta(q)$, respectively. Similarly, 
+the optical depth along a LOS to voxel $k$ is expressed by element $k$ of 
+  $\vect{\tau}_{{\rm LOS}_c} = \OpDistance^{\mathrm{voxel \rightarrow
+      cam}} \vect{\beta}$
+Here $\vect{\tau}_{{\rm LOS}_c}$ is a column stack vector representation of
+$\tau_{{\rm LOS}_c}(k)$.  The SR and LOS paths joining at each voxel can
+form a single path from the TOA to camera $c$, yielding
 \begin{equation}
   {\bm D}_c=
   {\bm D}^{\mathrm{Sun \rightarrow voxel}}+
@@ -540,7 +498,7 @@ comprise the vector
 \end{equation}
 where the operator $\odot$ denotes the Hadamard (element-wise)
 product. This vector depends on the variables $\vect{\sigma}$ and
-${\bm n}$, the aerosol extinction and density at each voxel
+${\bm n}$, the aerosol extinction and density at each voxel,
 respectively.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -562,11 +520,11 @@ vector form by
   \vect{\beta}^{\rm air} \odot P^{\rm air}(\vect{\Phi}^{\rm scatter}_c)\;,\quad
   \tilde{\vect{\alpha}}^{\rm aerosol}_c = \vect{\varpi}\odot
   \vect{\sigma} \odot {\bm n} \odot P^{\rm aerosol}_{\bm
-    g}(\vect{\Phi}^{\rm scatter}_c)
+    g}(\vect{\Phi}^{\rm scatter}_c) \;.
   \label{eq:alpha_matrix}
 \end{equation}
-The vector ${\bm g}$ column-stacks the anisotropy parameter of the
-phase function, in all voxels. We use this notation, to indicate a
+The vector ${\bm g}$ column-stacks the aerosol anisotropy parameter of the
+phase function, in all voxels. This notation indicates a
 parametric phase function as in \cref{eq:aerosol_scatter}.
 
 
@@ -851,7 +809,7 @@ photograph
     marks the Sun location. Dashed white circles mark elevation
     angles.  [b] Photograph of the same sky and view point rendered
     using the MCRT simulation (\cref{sec:monte-carlo-simul}).
-    [c] Cross section along the 
+    [c] Cross section along the
   }
   \label{fig:simulation-results1}
 \end{figure}

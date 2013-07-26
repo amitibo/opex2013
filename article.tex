@@ -296,6 +296,27 @@ However, photographs of the atmosphere are a mixture of {\em
 \section{Theoretical Background}
 \label{sec:theor-backgr}
 
+%An infinitesimal volume contains aerosols. The extinction and
+%scattering coefficients due to aerosols in this volume are,
+%respectively
+%\begin{equation}
+%  \beta^{\rm aerosol}=\sigma^{\rm aerosol} n^{\rm aerosol}
+%  \;\;,\;\;
+%  \alpha^{\rm aerosol}=\varpi^{\rm aerosol} \beta^{\rm aerosol}
+%  \;.
+%  \label{eq:betaer}
+%\end{equation}
+%The infinitesimal volume contain also air molecules. Hence, the
+%overall extinction and scattering coefficients in this small volume
+%are, respectively
+%\begin{equation}
+%  \beta=\beta^{\rm air}+\beta^{\rm aerosol}
+%  \;\;,\;\;
+%  \alpha=\alpha^{\rm air}+\alpha^{\rm aerosol}
+%  \;.
+%  \label{eq:betair}
+%\end{equation}
+
 \noindent {\bf Extinction}: Sun rays (SR) irradiate a small volume
 that includes particles of a certain type.  Each particle has an {\em
   extinction cross section} $\sigma$ for
@@ -360,11 +381,11 @@ extinction and scattering by air molecules can be modeled by
 \begin{align}
   \alpha^{\rm air}(h, \lambda)=\beta^{\rm air}(h, \lambda) \approxeq
   1.09 \times 10^{-3}\lambda^{-4}
-  \exp(-h/H^\mathrm{air}) 
+  \exp(-h/H^\mathrm{air})
   \;,%\left[-\frac{h}{H^\mathrm{air}}\right].
   \label{eq:rayleighbeta}
 \end{align}
-where $\lambda$ is the wavelength, in microns. 
+where $\lambda$ is the wavelength, in microns.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -381,8 +402,8 @@ A forward model takes as input the 3D aerosol distribution, and outputs images a
 captured at various viewpoints. One model uses Monte Carlo (MC) methods (\cref{sec:monte-carlo-simul}): it is stochastic, slow but naturally expresses multiple-scattering. Hence, this approach simulates realistic
 scenes of arbitrary complexity.  The second model uses the single-Scattering approximation
 (\cref{sec:single-scatt-model}). It is less accurate than MC, but derives an analytic closed
-form solution to the radiative transfer. This closed form enables simple inversion of 
-the model, to estimate the underlying atmosphere (\cref{sec:inverse-problem}). 
+form solution to the radiative transfer. This closed form enables simple inversion of
+the model, to estimate the underlying atmosphere (\cref{sec:inverse-problem}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -427,7 +448,7 @@ $N_{\rm voxels}\times N_{\rm voxels}$ matrix $\OpDistance^{\mathrm{Sun
   \hspace{-0.05cm}
 \end{equation}
 The matrix $\OpDistance^{\mathrm{Sun \rightarrow voxel}}$ is
-sparse.  
+sparse.
 Analogously, for camera $c$, denote by $[{\rm LOS}_c,k]$ a LOS bounded
 between the camera and the center of voxel $k$ (see
 \cref{fig:groundgrid}).  The LOS zenith angle is $\Phi^{\rm LOS}_c$.
@@ -463,8 +484,8 @@ and voxel $k$ is
 We can write \cref{eq:lSRn} using matrix notation,
   $\vect{\tau}_{\rm SR}=\OpDistance^{\mathrm{Sun \rightarrow voxel}} \vect{\beta}$,
 where $\vect{\tau}_{\rm SR}$ and $\vect{\beta}$ are column stack vector
-representations of $\tau_{\rm SR}(k)$ and $\beta(q)$, respectively. Similarly, 
-the optical depth along a LOS to voxel $k$ is expressed by element $k$ of 
+representations of $\tau_{\rm SR}(k)$ and $\beta(q)$, respectively. Similarly,
+the optical depth along a LOS to voxel $k$ is expressed by element $k$ of
   $\vect{\tau}_{{\rm LOS}_c} = \OpDistance^{\mathrm{voxel \rightarrow
       cam}} \vect{\beta}$
 Here $\vect{\tau}_{{\rm LOS}_c}$ is a column stack vector representation of
@@ -557,17 +578,17 @@ of all voxel contributions is
 A camera pixel collects light from a narrow cone in the
 atmosphere. The cone includes some voxels, intersects with some other
 voxels, and oblivious to all the rest~(\cref{fig:projection}b).
-\begin{figure}
-  \centering
-  \yoavcomment{\def\svgwidth{0.8\columnwidth}\input{images/light_transfer.pdf_tex}}
-  \caption{\small [a] Irradiance of voxel $k$ is attenuated by voxels
-    above it on a SR. The scattered radiance from voxel $k$ is then
-    attenuated by voxels below it on a LOS to camera $c$.  [b] An
-    image pixel captures light emanating in a cone in space. Voxels
-    that fully or partially fall in this cone are sensed by the
-    pixel.}
-  \label{fig:projection}
-\end{figure}
+%\begin{figure}
+%  \centering
+%  \yoavcomment{\def\svgwidth{0.8\columnwidth}\input{images/light_transfer.pdf_tex}}
+%  \caption{\small [a] Irradiance of voxel $k$ is attenuated by voxels
+%    above it on a SR. The scattered radiance from voxel $k$ is then
+%    attenuated by voxels below it on a LOS to camera $c$.  [b] An
+%    image pixel captures light emanating in a cone in space. Voxels
+%    that fully or partially fall in this cone are sensed by the
+%    pixel.}
+%  \label{fig:projection}
+%\end{figure}
 Thus light power captured at a pixel is a weighted sum of the power
 $p_c(k)$ from all voxels.  This linear sum is formulated by a matrix
 operation over ${\bm p}_c$. The measured image is column-stacked to a
@@ -670,7 +691,7 @@ where
 \end{equation}
 Here $\Psi({\bm n})$ is a regularization term that expresses some
 prior knowledge on the solution and $\eta$ is the regularization
-coefficient. 
+coefficient.
 We use $\Mask$ as a weight map to mask the influence of the sun and
 the horizon. These regions are prone to dominant multiple scattering.
 One common measurement of smoothness are the second order derivatives.

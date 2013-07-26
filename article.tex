@@ -712,26 +712,30 @@ where
 \end{equation}
 Here $\Psi({\bm n})$ is a regularization term that expresses some
 prior knowledge on the solution and $\eta$ is the regularization
-coefficient.  We enforce smoothness of the solution by using the
-\emph{Laplacian} operator.
-\begin{equation}
-  \label{eq:regularizer}
-  \Psi({\bm n}) = \| \nabla^2{\bm n}\|^2_2
-\end{equation}
+coefficient. 
 We use $\Mask$ as a weight map to mask the influence of the sun and
 the horizon. These regions are prone to dominant multiple scattering.
+One common measurement of smoothness are the second order derivatives.
+These can be calculated using the \emph{Laplacian} operator, $\nabla^2$.
+We enforce smoothness of the solution by minimizing the signal energy
+of the \emph{Laplacian} of the signal
+\begin{equation}
+  \label{eq:regularizer}
+  \Psi({\bm n}) = \| \nabla^2{\bm n}\|^2_2 = \| \Laplacian{\bm n}\|^2_2
+\end{equation}
+where $\Laplacian$ is a matrix representation of the \emph{Laplacian} operator.
+
 We solve~\cref{eq:minobjectiveA} using standard optimization tools.
 The gradient of $F$ with respect to ${\bm n}$ is
 \begin{align}
   \Grad{{\bm n}} F = -2\sum_{c=1}^{N_{\rm views}}
   \transpose{\left[{\bm J}_{{\bm i}_c}({\bm n})\right]} [{\bm i}^{\rm
     measured}_c - {\bm i}_c({\bm n})] + 2 \cdot \eta \cdot
-  \nabla^2\nabla^2{\bm n} \;.
+  \Laplacian^T\Laplacian{\bm n} \;.
   \label{eq:gradient1}
 \end{align}
 Here the matrix ${\bm J}_{{\bm i}_c}({\bm n})$ is the Jacobian of the
-vector ${\bm i}_c$ with respect to ${\bm n}$, and we make use of the
-symmetry of the \emph{Laplacian} operator. A close-form expression of
+vector ${\bm i}_c$ with respect to ${\bm n}$. A close-form expression of
 our Jacobian is
 \begin{align}
   {\bm J}_{{\bm i}_c}({\bm n}) &= L^{\rm TOA}({\bm A}-{\bm B}){\bm C}

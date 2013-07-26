@@ -572,7 +572,7 @@ contributed by the voxel is
 \begin{equation}
   p_c(k)= L^{\rm TOA}
   [\tilde{\alpha}^{\rm air}_c(k) + \tilde{\alpha}^{\rm aerosol}_c(k)]
-  \exp\{-\tau_c(k)\}
+  \exp[-\tau_c(k)]
   \;\;,
   \label{eq:ick}
 \end{equation}
@@ -581,14 +581,13 @@ of all voxel contributions is
 \begin{equation}
   {\bm p}_c= L^{\rm TOA}
   [\tilde{\vect{\alpha}}^{\rm air}_c + \tilde{\vect{\alpha}}^{\rm aerosol}_c]
-  \odot \exp\{-\vect{\tau}_c\}
+  \odot \exp(-\vect{\tau}_c)
   \;\;.
   \label{eq:pc}
 \end{equation}
 
 A camera pixel collects light from a narrow cone in the
-atmosphere. The cone includes some voxels, intersects with some other
-voxels, and oblivious to all the rest~(\cref{fig:projection}b).
+atmosphere. The cone contains or intersects some voxels, while being oblivious to all the rest~(\cref{fig:projection}b).
 % \begin{figure}
 %   \centering
 %   \yoavcomment{\def\svgwidth{0.8\columnwidth}\input{images/light_transfer.pdf_tex}}
@@ -600,15 +599,16 @@ voxels, and oblivious to all the rest~(\cref{fig:projection}b).
 %   pixel.}
 %   \label{fig:projection}
 % \end{figure}
-Thus light power captured at a pixel is a weighted sum of the power
-$p_c(k)$ from all voxels.  This linear sum is formulated by a matrix
-operation over ${\bm p}_c$. The measured image is column-stacked to a
-vector $N_{\rm pix}$ long. It is given by
+Overall, light power captured at a pixel is a weighted sum of the power
+$p_c(k)$ from all voxels.  This sum is formulated by a matrix
+operation over ${\bm p}_c$:
 \begin{equation}
   {\bm i}_c= {\vect{\Pi}}_c{\bm p}_c
-  \;\;.
+  \;\;,
   \label{eq:IcP}
 \end{equation}
+where ${\bm i}_c$ is the image, column-stacked to a
+vector $N_{\rm pix}$ long.
 
 Combining \cref{eq:tautotal,eq:pc,eq:IcP}, the captured image is thus
 \begin{align}
@@ -619,7 +619,7 @@ Combining \cref{eq:tautotal,eq:pc,eq:IcP}, the captured image is thus
   \label{eq:bigIc}
 \end{align}
 
-To simplify the case in study, let us assume there is only a single
+To simplify the case in study, we focus on situations in which there is only a single
 type of aerosol over a scene. Hence, the three-element vector
 $[{\sigma}^{\rm aerosol},\varpi^{\rm aerosol},g]$ is uniform across
 the scene, but the density distribution ${\bm n}$ is variable. Then,

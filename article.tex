@@ -17,6 +17,7 @@
 \usepackage{enumerate}
 \usepackage[]{todonotes} % Add option [disable] to hide all todo notes.
 \usepackage{xfrac}
+\usepackage{paralist}
 
 %\usepackage{ae} %%for Computer Modern fonts
 
@@ -363,7 +364,7 @@ and $\varpi^{\rm air}$=1. Air molecular density $n^{\rm air}$ falls
 off approximately exponentially with altitude, with a
 characteristic~\cite{Levi1980} falloff height $H^\mathrm{air}=8\
 \si{\km}$. Consequently~\cite{Levi1980}, the coefficients for
-extinction and scattering by air molecules are modeled by
+extinction and scattering by air molecules can be modeled by
 \begin{align}
   \alpha^{\rm air}(h, \lambda)=\beta^{\rm air}(h, \lambda) \approxeq
   1.09 \times 10^{-3}\lambda^{-4}
@@ -381,14 +382,20 @@ We believe that high resolution atmospheric recovery can be achieved
 by a set of ground-based wide-angle~\cite{Cossairt2011,
   Peleg01omnistereo:panoramic, Koppal:2011:WMS:2191740.2192152}
 sky-cameras, looking upward, performing integral imaging of the sky.
-This paper takes the first step, of formulating this principle and
-demonstrating feasibility using realistic simulations. The formulation
-of this paper can also apply to multiview images that are captured
-from satellites, for future spaceborne instruments of this capacity.
-
-We simulate RT through the atmosphere using two models. The first is
-based on Monte Carlo (MC) methods (\cref{sec:monte-carlo-simul}) and
-models Multiple-Scattering. Therefore it enables simulating realistic
+Consider \cref{fig:groundgrid}.  Ground-based wide-angle sky-cameras
+capture the sky lightfield from below. Per viewpoint, the view azimuth
+and elevation angles (relative to the zenith and north) are
+encapsulated in the vector ${\bm{\Theta}}$.  A raw image is $i_{\bm
+  c}({\bm{\Theta}})$: a camera's location ${\bm x}$ is fixed, while
+any pixel in a frame represents an angle ${\bm{\Theta}}$.  The
+measured radiance in all locations ${\bm x}$ and angles
+${\bm{\Theta}}$ is the {\em lightfield} $I({\bm
+  x},{\bm{\Theta}})$.This paper takes the first step, of formulating
+this principle and demonstrating feasibility using realistic
+simulations.  We simulate RT through the atmosphere using two
+models. The first is based on Monte Carlo (MC) methods
+(\cref{sec:monte-carlo-simul}) and models
+Multiple-Scattering. Therefore it enables simulating realistic
 scenarios.  The second model uses the Single-Scattering approximation
 (\cref{sec:single-scatt-model}). It is less accurate than the MC model
 but it enables stating an analytic solution to the RT in a closed
@@ -397,7 +404,6 @@ the model and thus recover the underlying atmosphere
 (\cref{sec:inverse-problem}). To mimic realistic scenarios, we apply
 the reconstruction algorithm on images simulated by the MC model.
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -405,34 +411,24 @@ the reconstruction algorithm on images simulated by the MC model.
 \label{sec:single-scatt-model}
 
 A forward model takes as input the aerosol distribution, and outputs
-images as if captured at various viewpoints.  We use a
-\emph{single-scattering} model, in which any SR changes direction
-(scatters) only once on the way to the camera. This model is valid in
-atmospheres that are not very dense: inside fog and clouds this model
-does not apply.
-
-Consider \cref{fig:groundgrid}.  Ground-based wide-angle sky-cameras
-capture the sky lightfield from below. Per viewpoint, the view azimuth
-and elevation angles (relative to the zenith and north) are
-encapsulated in the vector ${\bm{\Theta}}$.  A raw image is $i_{\bm
-  x}({\bm{\Theta}})$: a camera's location ${\bm x}$ is fixed, while
-any pixel in a frame represents an angle ${\bm{\Theta}}$.  The
-measured radiance in all locations ${\bm x}$ and angles
-${\bm{\Theta}}$ is the {\em lightfield} $I({\bm
-  x},{\bm{\Theta}})$. Individual images are slices of the lightfield.
-
-Under single-scattering approximation, radiative transfer has three
-steps (\cref{fig:groundgrid}):
-\begin{enumerate}
-\item Attenuation of a SR propagating from the top of the atmosphere
-  (TOA) to voxel $k$.
-\item Light scattering at voxel $k$, towards a camera.
-\item Light attenuation on the LOS from voxel $k$ to the camera.
-\end{enumerate}
-
-Steps 1 and 3 involve the optical depth along the light path to and
-from voxel $k$, analyzed in \cref{sec:optical-depth}.  Step 2 involves
-the scattering coefficient at voxel $k$, described in
+images as if captured at various viewpoints.  In a
+\emph{single-scattering} model, any SR changes direction only once on
+the way to the camera. This model is valid in atmospheres that are not
+very dense: inside fog and clouds this model does not apply.  Under
+single-scattering approximation, radiative transfer has three steps
+(\cref{fig:groundgrid}):
+\begin{inparaenum}[\hfill\bfseries a\upshape)]
+\item \label{itm:first} Attenuation of a SR propagating from the top
+  of the atmosphere (TOA) to voxel $k$.
+\item \label{itm:second} Light scattering at voxel $k$, towards a
+  camera.
+\item \label{itm:third} Light attenuation on the LOS from voxel $k$ to
+  the camera.
+\end{inparaenum}
+Steps \ref{itm:first} and \ref{itm:third} involve the optical depth
+along the light path to and from voxel $k$, analyzed in
+\cref{sec:optical-depth}.  Step \ref{itm:second} involves the
+scattering coefficient at voxel $k$, described in
 \cref{sec:scattering}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

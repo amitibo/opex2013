@@ -302,10 +302,10 @@ However, photographs of the atmosphere are a mixture of {\em
 \section{Theoretical Background}
 \label{sec:theor-backgr}
 
-%An infinitesimal volume contains aerosols. The extinction and
-%scattering coefficients due to aerosols in this volume are,
-%respectively
-%\begin{equation}
+% An infinitesimal volume contains aerosols. The extinction and
+% scattering coefficients due to aerosols in this volume are,
+% respectively
+% \begin{equation}
 %  \beta^{\rm aerosol}=\sigma^{\rm aerosol} n^{\rm aerosol}
 %  \;\;,\;\;
 %  \alpha^{\rm aerosol}=\varpi^{\rm aerosol} \beta^{\rm aerosol}
@@ -313,9 +313,9 @@ However, photographs of the atmosphere are a mixture of {\em
 %  \label{eq:betaer}
 %\end{equation}
 %The infinitesimal volume contain also air molecules. Hence, the
-%overall extinction and scattering coefficients in this small volume
-%are, respectively
-%\begin{equation}
+% overall extinction and scattering coefficients in this small volume
+% are, respectively
+% \begin{equation}
 %  \beta=\beta^{\rm air}+\beta^{\rm aerosol}
 %  \;\;,\;\;
 %  \alpha=\alpha^{\rm air}+\alpha^{\rm aerosol}
@@ -324,25 +324,26 @@ However, photographs of the atmosphere are a mixture of {\em
 %\end{equation}
 
 \noindent {\bf Extinction}: Sun rays (SR) irradiate a small volume
-that includes particles of a certain type.
-Each particle has an {\em extinction cross section} for
-interacting with the irradiance. For an aerosol the cross section is denoted $\sigma^{\rm aerosol}$.
-The aerosol density is $n$. Per unit volume, the {\em extinction coefficient} due to aerosols is
-$\beta^{\rm aerosol}= \sigma^{\rm aerosol} n$. In addition, the atmosphere contains air molecules.
+that includes particles of a certain type.  Each particle has an {\em
+  extinction cross section} for interacting with the irradiance. For
+an aerosol the cross section is denoted $\sigma^{\rm aerosol}$.  The
+aerosol density is $n$. Per unit volume, the {\em extinction
+  coefficient} due to aerosols is $\beta^{\rm aerosol}= \sigma^{\rm
+  aerosol} n$. In addition, the atmosphere contains air molecules.
 The extinction coefficient due to the molecules is $\beta^{\rm air}$.
 The volume has infinitesimal length $dl$. Then, the relative portion
-of extinct SR irradiance is the unitless differential optical
-  depth, $d\tau= (\beta^{\rm aerosol}+\beta^{\rm air}) dl$.
-The {\em optical depth} aggregates in extended propagation:
+of extinct SR irradiance is the unitless differential optical depth,
+$d\tau= (\beta^{\rm aerosol}+\beta^{\rm air}) dl$.  The {\em optical
+  depth} aggregates in extended propagation:
 \begin{align}
-  \tau= \int d\tau=\int (\beta^{\rm aerosol}+\beta^{\rm air}) dl
-       =\int (\sigma^{\rm aerosol} n +\beta^{\rm air}) dl
-       = \tau^{\rm air}+ \int \sigma^{\rm aerosol} n dl \;,
+  \tau= \int d\tau=\int (\beta^{\rm aerosol}+\beta^{\rm air}) dl =\int
+  (\sigma^{\rm aerosol} n +\beta^{\rm air}) dl = \tau^{\rm air}+ \int
+  \sigma^{\rm aerosol} n dl \;,
   \label{eq:tau}
 \end{align}
-where $\tau^{\rm air}=\int \beta^{\rm air} dl$.
-Through an attenuating atmosphere, the {\em transmittance} exponentially
-decays with the optical depth:
+where $\tau^{\rm air}=\int \beta^{\rm air} dl$.  Through an
+attenuating atmosphere, the {\em transmittance} exponentially decays
+with the optical depth:
 \begin{align}
   t=\exp(-\tau) \;.
   \label{eq:beer-lambert}
@@ -351,51 +352,72 @@ decays with the optical depth:
 \noindent {\bf Scattering}: Interaction of a single particle with the
 irradiance is by absorption and scattering. The weight of scattering
 (to all directions), relative to the total extinction is given by the
-unitless {\em single scattering albedo} of the particle. For an aerosol,
-the single scattering albedo is denoted $\varpi^{\rm aerosol}$.
-The {\em scattering coefficient} due to aerosols in the volume is
+unitless {\em single scattering albedo} of the particle. For an
+aerosol, the single scattering albedo is denoted $\varpi^{\rm
+  aerosol}$.  The {\em scattering coefficient} due to aerosols in the
+volume is
 \begin{align}
   \alpha^{\rm aerosol}= \varpi^{\rm aerosol}\beta^{\rm aerosol}
-                       =\varpi^{\rm aerosol} \sigma^{\rm aerosol} n \;.
+  =\varpi^{\rm aerosol} \sigma^{\rm aerosol} n \;.
   \label{eq:alph}
 \end{align}
-The angular distribution of scattering by an aerosol is determined by a {\em phase function} $P^{\rm aerosol}$, which is normalized: its integral over all solid angles is unit. Part of the light scatters towards a camera's LOS, as
-illustrated in \cref{fig:groundgrid}. The angle between the SR and LOS
-is the scattering angle $\Phi^{\rm scatter}$. The {\em angular scattering coefficient} due to aerosols is
+The angular distribution of scattering by an aerosol is determined by
+a {\em phase function} $P^{\rm aerosol}$, which is normalized: its
+integral over all solid angles is unit. Part of the light scatters
+towards a camera's LOS, as illustrated in \cref{fig:groundgrid}. The
+angle between the SR and LOS is the scattering angle $\Phi^{\rm
+  scatter}$. The {\em angular scattering coefficient} due to aerosols
+is
 \begin{align}
-  \tilde\alpha^{\rm aerosol}(\Phi^{\rm scatter})
-  =  \alpha^{\rm aerosol} P^{\rm aerosol}(\Phi^{\rm scatter})
-  = \varpi^{\rm aerosol} \sigma^{\rm aerosol} n
-        P^{\rm aerosol}(\Phi^{\rm scatter}).
+  \tilde\alpha^{\rm aerosol}(\Phi^{\rm scatter}) = \alpha^{\rm
+    aerosol} P^{\rm aerosol}(\Phi^{\rm scatter}) = \varpi^{\rm
+    aerosol} \sigma^{\rm aerosol} n P^{\rm aerosol}(\Phi^{\rm
+    scatter}).
   \label{eq:alphabasic}
 \end{align}
 The phase function is often approximated by a parametric expression,
 as the Henyey-Greenstein~\cite{Cornette1995} function,
 \begin{align}
-  P^{\rm aerosol}_g(\Phi^{\rm scatter})\approx \sfrac{3}{8\pi} (1 - g^2)(1+\mu^2)
-  (2+g^2)^{-1}(1 + g^2 - 2g\mu)^{\sfrac{-3}{2}}
+  P^{\rm aerosol}_g(\Phi^{\rm scatter})\approx \sfrac{3}{8\pi} (1 -
+  g^2)(1+\mu^2) (2+g^2)^{-1}(1 + g^2 - 2g\mu)^{\sfrac{-3}{2}}
   \label{eq:aerosol_scatter}
 \end{align}
-where $g$ is an {\em anisotropy parameter} and $\mu\equiv \cos \Phi^{\rm scatter}$.
+where $g$ is an {\em anisotropy parameter} and $\mu\equiv \cos
+\Phi^{\rm scatter}$.
 
 
-Scattering by air molecules follows the
-{\em Rayleigh} model. The phase function is
+Scattering by air molecules follows the {\em Rayleigh} model. The
+phase function is
 \begin{align}
   P^{\rm air}\left[\mu\right] &\approx \sfrac{3}{16\pi}(1+\mu^2)
   \label{eq:rayleighP}
 \end{align}
-and the single scattering albedo in visible light is $\varpi^{\rm air}$=1. Air molecular density falls off approximately exponentially with altitude $h$, with a characteristic~\cite{Levi1980} falloff height $H^\mathrm{air}=8\
-\si{\km}$. Thus~\cite{Levi1980}, the coefficients for
-extinction and scattering by air molecules can be modeled by
+and the single scattering albedo in visible light is $\varpi^{\rm
+  air}$=1. Air molecular density falls off approximately exponentially
+with altitude $h$, with a characteristic~\cite{Levi1980} falloff
+height $H^\mathrm{air}=8\ \si{\km}$. Thus~\cite{Levi1980}, the
+coefficients for extinction and scattering by air molecules can be
+modeled by
 \begin{align}
   \alpha^{\rm air}(h, \lambda)=\beta^{\rm air}(h, \lambda) \approxeq
-  1.09 \times 10^{-3}\lambda^{-4}
-  \exp(-h/H^\mathrm{air})
+  1.09 \times 10^{-3}\lambda^{-4} \exp(-h/H^\mathrm{air})
   \;,%\left[-\frac{h}{H^\mathrm{air}}\right].
   \label{eq:rayleighbeta}
 \end{align}
 where $\lambda$ is the wavelength, in microns.
+\\
+
+\noindent {\bf Inverse Transform Sampling}: Monte Carlo methods
+simulate probabilistic phenomena by sampling from their probability
+disrtibutions.  Inverse transform sampling~\cite{devroye1986sample} is a common method for generating
+sample numbers at random from any probability distribution given its
+cumulative distribution function (cdf).  Let $X$ be a random variable
+whose distribution can be described by the cumulative distribution
+function $F$.  First we generate a random number $u$ from the standard
+uniform distribution in the interval $[0,1]$.  Then to draw a random
+number from the distribution described by $F$ we need to calculate the
+value $x$ such that $x = F^{-1}(u)$.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -444,6 +466,18 @@ voxel $k$ to the camera.~~ Steps~{\tt i},{\tt iii} involve the optical
 depth along the light path to and from voxel $k$, as analyzed in
 \cref{sec:optical-depth}.  Step~{\tt ii} involves the scattering
 coefficient at voxel $k$, described in \cref{sec:scattering}.
+\begin{figure}
+  \centering
+  \yoavcomment{\def\svgwidth{0.95\columnwidth}\input{images/ref_images.pdf_tex}}
+  \caption{\small [a] Photograph of a sky that includes {\em Haze
+      Blobs} rendered using the single-scattering model.  A yellow dot
+    marks the Sun location. Dashed white circles mark elevation
+    angles.  [b] Photograph of the same sky and view point rendered
+    using the MC simulation (\cref{sec:monte-carlo-simul}).
+    [c] Cross section along the
+  }
+  \label{fig:simulation-results1}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -651,7 +685,7 @@ the scene, but the density distribution ${\bm n}$ is variable. Then,
 Monte Carlo (MC) methods enable rigorous modeling of photon
 propagation in the atmosphere. The radiative transfer is expressed as
 probability distributions which describe the distance travelled by the
-photon between scatterings and the angle of deflection at each
+photon in-between scatterings and the angle of deflection at each
 scatter.  This enables simulating multiple scattering and produce
 realistic results.  MC simulations can be made arbitrarily accurate by
 increasing the number of photons.  Another advantage of the MC methods
@@ -659,20 +693,25 @@ is that they are highly parallelizable.
 
 The MC simulations use the same atmosphere grid described in
 \cref{sec:single-scatt-model}. we use backward MC, i.e. photons are
-traced from the detector to the sun. Photons are emitted from each
-pixel of the camera in the direction determined by the camera
-model. The optical distance that the photon travels before scattering
-is determined according to the Beer-Lambert law~\cref{eq:beer-lambert}
-and the inversion sampling method. Once the optical distance is
-determined the ``real'' distance is determined by summing the optical
-depth of the discrete voxels (\cref{sec:optical-depth}) along the
-photon direction till the desired optical distance is reached.  At
-each scattering event, first the type of aerosol is determined by
-sampling the different aerosols distributions inside the voxel. The
-new direction is determined by inverse sampling the phase function of
-the relevant aerosols: Rayleigh, \cref{eq:rayleighP} or
-Henyey-Greenstein \cref{eq:aerosol_scatter}.  To accelerate the MC we
-use the local estimation (LE) method.
+traced from the detector, camera, to their source, sun. Photons are
+emitted from each pixel of the camera in the direction determined by
+the camera model, i.e. hemispherical camera. The quality of the
+simulations is proportional to the number of photons. To create the
+\cref{fig:simulation-results1}b \num{10000} photons were emitted from
+each pixel. The distance travelled by the photon till its first
+scattering is determined by inversion sampling the transmittance
+probability (\cref{sec:theor-backgr}) optical distance
+distribution. This is done using the inversion sampling method. Once
+the optical distance is determined the ``real'' distance is determined
+by summing the optical depth of the discrete voxels
+(\cref{sec:optical-depth}) along the photon direction till the desired
+optical distance is reached.  At each scattering event, first the type
+of aerosol is determined by sampling the different aerosols
+distributions inside the voxel. The new direction is determined by
+inverse sampling the phase function of the relevant aerosols:
+Rayleigh, \cref{eq:rayleighP} or Henyey-Greenstein
+\cref{eq:aerosol_scatter}.  To accelerate the MC we use the local
+estimation (LE) method.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -751,7 +790,7 @@ has area of \SI{50 x 50}{\km}, and it extends from the ground up to
 altitude of \SI{10}{\km}. This volume is divided into a rectilinear
 grid. We used different grid sizes from \num{50 x 50 x 100} grid,
 where each voxel has area of \SI{1 x 1}{\km} and vertical thickness of
-\SI{100}{\metre} and down to num{10 x 10 x 20} grid, where each voxel
+\SI{100}{\metre} and down to \num{10 x 10 x 20} grid, where each voxel
 has area of \SI{5 x 5}{\km} and vertical thickness of
 \SI{500}{\metre}. The different grid sizes determine the number of
 variables.
@@ -807,7 +846,7 @@ vertical thickness of \SI{2.1}{\km}. Note that the horizontal widths
 are much larger than the vertical ones. This is consistent with scales
 of atmospheric aerosol distributions.
 
-\noindent{\bf Cameras}: The cameras are created by the MC simulations.
+\noindent{\bf Cameras}: The acquired images are cresimulated using the the MC model.
 Each ground-based camera has a hemispherical field of view, capturing
 the entire sky from its viewpoint. Again, we used different numbers of
 cameras ranging from 100 viewpoints to 12. The cameras are arranged on
@@ -816,18 +855,6 @@ that cloudless (yet hazy) sky images are rather smooth, hence there is
 no need for high image resolution.  For example,
 \cref{fig:simulation-results1}b shows an example of a modeled
 photograph
-\begin{figure}
-  \centering
-  \yoavcomment{\def\svgwidth{0.95\columnwidth}\input{images/ref_images.pdf_tex}}
-  \caption{\small [a] Photograph of a sky that includes {\em Haze
-      Blobs} rendered using the single-scattering model.  A yellow dot
-    marks the Sun location. Dashed white circles mark elevation
-    angles.  [b] Photograph of the same sky and view point rendered
-    using the MCRT simulation (\cref{sec:monte-carlo-simul}).
-    [c] Cross section along the
-  }
-  \label{fig:simulation-results1}
-\end{figure}
 of the {\em Haze Blobs} scene that corresponds to
 \cref{fig:two_clouds_sim}a.
 

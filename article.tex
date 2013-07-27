@@ -91,7 +91,7 @@
 %%%%%%%%%%%%%%%%%% title page information %%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Sky Tomography for 3D Aerosol Distribution Recovery}
+\title{Mulit-view 3D Aerosol Distribution Recovery}
 
 \author{Amit~Aides,\authnote{1*} Yoav~Y.~Schechner,\authnote{1}
   Vadim~Holodovsky\authnote{1} and Michael~J.~Garay\authnote{2}}
@@ -113,17 +113,16 @@
 \begin{abstract}
   Aerosols effect climate, health and aviation.  Currently, their
   retrieval assumes a plane-parallel atmosphere and solely vertical
-  radiative transfer (RT). We propose a principle to recover the atmosphere
-  as it really is: a three dimensional (3D), volumetric, transparent
-  huge object. Tomography is the key to recovery. The process involves
-  acquiring the sky lightfield by multi-view wide-angle photography on
-  a very large scale. The tomography model is distinct, as the light
-  source is unidirectional and uncontrolled, while off-axis scattering
-  dominates the images.  We formulate an image formation model based
+  radiative transfer (RT). We propose a principle to estimate the aerosol  
+  distribution as it really is: a three dimensional (3D) volume, using visible light. 
+  The principle is a type of tomography. The process involves
+  wide angle integral imaging of the sky on a very large scale.  
+  We formulate an image formation model based
   on 3D RT. Model inversion is done using optimization
   methods, exploiting a closed-form gradient which we derive for the
-  model-fit cost function. The problem is complex but tractable and
-  parallelizable, eventually estimating the 3D aerosol distribution.
+  model-fit cost function.  The tomography model is distinct, as the radiation
+  source is unidirectional and uncontrolled, while off-axis scattering
+  dominates the images.  
 \end{abstract}
 
 \ocis{(000.0000)
@@ -142,13 +141,13 @@
 \section{Introduction}
 \label{sec:intro}
 
-Lightfield and integral imaging~\cite{bishop,horstmeyer,kim,Ng1948}
+Optical lightfield and integral imaging~\cite{bishop,horstmeyer,kim,Ng1948}
 samples the optical radiance distribution in location and
 direction. It is mainly used in small-scale setups. This paper deals
-with a huge scale, up to Earth's size.  The atmosphere allows light to
-pass through in multiple locations and directions. Light is affected
+with a far larger scale, to estimate scatterer 3D spatial distribution in the sky. 
+The atmosphere allows light to pass through in multiple locations and directions. Light is affected
 by this medium. Therefore, in this paper we lay out a principle to
-recover this 3D medium using measured and modeled lightfields
+recover this 3D distribution using measured and modeled light-fields
 (Fig.~\ref{fig:groundgrid}).
 \begin{figure*}[t!]
   \begin{center}
@@ -158,43 +157,6 @@ recover this 3D medium using measured and modeled lightfields
     in the atmosphere, using ground-based cameras.}
   \label{fig:groundgrid}
 \end{figure*}
-Projecting this large object to various directions is similar to
-tomography in other scientific domains. However, the formulation here
-is distinct. Most tomography setups have a controlled and/or
-multidirectional radiation source~\cite{gorbunov,messer}. In contrast,
-our source is the uncontrolled, unidirectional Sun. Moreover, typical
-tomography relies on a linear model~\cite{gregson}: the pixel value is
-a linear combination of components along a line of sight (LOS), or a
-multiplicative combination (linearized by a logarithm). Linear
-tomography can detect volcanic gas~\cite{wright}, which absorbs
-UV. Other gases in the atmosphere absorb IR. However, in visible
-light, atmospheric attenuation is typically dominated by {\em
-  scattering} by particles (aerosols), rather than absorption by
-gasses. Thus, in our problem, we cannot rely on direct illumination,
-but on sunlight scattered into the LOS.  The model turns out to be
-{\em nonlinear, yet tractable}.
-
-We do not deal with clouds here. Clouds scatter sunlight very strongly
-and are easily observed. Hence they are directly recovered using
-common stereoscopic tools, similarly to opaque surfaces~\cite{seiz}.
-On the other hand, aerosols have much more subtle visual effects and
-are thus more difficult to recover. We focus on them.  In remote
-sensing~\cite{diner}, imaging through air is associated with {\em
-  atmospheric correction}, based on {\em aerosol retrieval}. In this
-discipline, the atmosphere is often assumed to be plane-parallel, for
-simplicity, using only 1D vertical RT. Consequently
-state-of-the-art aerosol retrieval is done in distinct large lateral
-blocks~\cite{Martonchikc} with limited height
-resolution~\cite{kalashnikova}. We, however, seek high resolution 3D
-recovery. Computational photography offers new ways to peer into
-media. In addition to active descattering~\cite{fuchs,kim,Ng1948} and
-recovery of refractive transparent objects~\cite{ihrke}, overcoming
-the atmosphere~\cite{Joshi2010,Zhu2013} to view ground objects was
-studied in horizontal, fixed
-views~\cite{fattal,he,Chen,kratz,narasimhan2,oakley,Hschechner2,tan}. In
-this paper, however, the medium itself, at all relevant altitudes is
-the object of interest.
-
 3D recovery of this medium has direct implications to various
 scientific communities that either rely on remotely-sensed imagery,
 study the atmosphere, or overcome the medium to see beyond. These
@@ -203,99 +165,37 @@ climatology.  Aerosol retrieval is important for understanding climate
 evolution~\cite{Dayan2008,kalashnikova} and monitoring air
 quality. Mapping aerosol density is significant to aviation safety,
 which needs real time assessment of conditions and visibility around
-flight paths. To keep safe, today's coarse sensing limits flight
-capacity. A prominent example is the 2010 eruption of Iceland's
-Eyjafjallaj$\ddot {\rm o}$kull volcano, whose ash (aerosols) covered
-much of Europe's airspace, grounding $\approx 100,000$
-flights. Knowing the 3D distribution of aerosol density may indicate
-safe 3D corridors to safely pass through, enhancing airspace
-use. Viewing beyond the medium, atmospheric correction is needed, for
-example, in satellite tracking of chlorophyll
-distributions~\cite{johnsen}. Additional bodies in the solar system
-have atmospheres. These objects can be viewed from multiple directions
-by probes.  The approach described here may be helpful there.
+flight paths. 
 
-We model passive optical tomographic imaging of 3D atmospheric
+In remote sensing~\cite{diner}, imaging through air is associated with {\em
+  atmospheric correction}, based on {\em aerosol retrieval}. In this
+discipline, the atmosphere is often assumed to be plane-parallel, using one-dimensional vertical RT. Consequently state-of-the-art aerosol retrieval is done in distinct large lateral
+blocks~\cite{Martonchikc} with limited height
+resolution~\cite{kalashnikova}. We, however, seek 3D
+recovery. Atmospheric correction is related to dehazing~\cite{Joshi2010,Zhu2013}. In
+this paper, however, the medium itself, at all relevant altitudes is the object of interest.
+
+
+We rely on sky imaging from multiple directions and locations. Such projection is similar to
+tomography in other scientific domains~\cite{Arridge}. However, the situation here
+is distinct. Most tomography setups have a controlled and/or
+multidirectional radiation source~\cite{Boas2001,messer}. In contrast,
+our source is the uncontrolled, unidirectional Sun. Moreover, typical
+tomography relies on a linear model~\cite{gregson}: the pixel value is
+a linear combination of components along a line of sight (LOS), or a
+multiplicative combination (linearized by a logarithm). Linear
+tomography can detect gases~\cite{Kazahaya2008,Price2001,Cosofret2009,wright}, which absorb
+UV or IR radiation. However, aerosol attenuation of visible
+light is typically dominated by {\em scattering}, rather than absorption. Since the radiation source is single and fixed in space and time, we cannot rely on direct illumination for tomographic recovery of attenuation fields~\cite{Aviles2011}. We may only use sunlight scattered into the LOS. The model is
+{\em nonlinear, yet tractable}. We model passive optical tomographic imaging of 3D atmospheric
 scatterer distributions in cloudless conditions. Then, we solve this
 tomography problem, to recover the distribution. Recovery is
 formulated as an optimization that minimizes a cost function. We
 derive the gradient of this cost function, to enable efficient
 optimization.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Related Work}
-\label{sec:literature}
 
-{\em Lightfield}, or {\em integral}
-imaging~\cite{Ng2006,bishop,Ng1948}, samples the radiance distribution
-in location and direction. It has so far been used in small-scale
-setups. Our proposed research deals with huge scale, up to Earth's
-size. Capturing the lightfield in very large scales requires uncommon
-sensors. Sampling Earth both spatially and angularly is done by the
-Multiangle Imaging SpectroRadiometer (MISR)~\cite{Martonchikc} from
-space, the Airborne Multiangle SpectroPolarimetric
-Imager (AirMSPI)~\cite{dinerDavis10}, and other spaceborne and
-airborne instruments.
-
-Dehazing strives to improve quality of images taken through a
-semi-transparent medium, be it murky liquid~\cite{kim,fuchs},
-haze~\cite{fattal,Hschechner2}, or fog~\cite{narasimhan2}.  In remote
-sensing~\cite{kokhan}, imaging through air is associated with {\em
-  atmospheric correction}, based on {\em aerosol retrieval}.  In this
-methods the medium is usually assumed to be uniform or at least
-plane-parallel.  We, however, seek 3D recovery.  Another major
-difference is that these methods see the translucent medium as a
-disturbance that algorithms need to overcome, while in our research it
-is the medium that we want to recover.
-
-Computed Tomography (CT) refers to the reconstruction of a 3D object
-from a collection of projections of the object using any kind of
-penetrating radiation. CT finds wide use in medical imaging but is
-also valuable in other scientific fields, like
-geophysics~\cite{Kazahaya2008}, material science~\cite{Baruchel2000},
-astrophysics, and more.  Imaging of gaseous materials is also the
-target of extensive CT research~\cite{Price2001,Cosofret2009}. CT is
-based on an image formation model that describes the physical process
-underlying the projected measurements.  Most image formation models
-assume either absorption or emission processes. Other image formation
-models assume dominant diffusion by scattering~\cite{Boas2001}.
-
-CT uses several different methods for reconstructing the underlying
-medium. Transform algorithms are based on the Fourier and Radon
-transforms. Both relate the projection (or its Fourier transform) to
-the medium (or its Fourier transform). Solving for the medium involves
-calculating the inverse transform in an iterative process.  These
-algorithms assume a linear image formation model and require large
-amount of projections to give reasonable results. The simultaneous
-algebraic reconstruction technique
-(SART)~\cite{KakAvinashC.andSlaney2001} is another common method which
-is used when the image formation model is too big for explicit matrix
-representation. Stochastic Tomography~\cite{gregson} uses a different
-approach where the reconstruction is done in the space of projections
-using a probabilistic process based on random walk. This bypasses the
-need to discretize the signal, usually represented over a grid, and
-the use of large matrices to represent the formation model.
-
-Our research topic is closely related to optical
-tomography~\cite{Arridge}. Optical tomography uses light to visualize
-tissue, usually from close range.  Due to the highly scattering nature
-of biological tissue, optical tomography uses diffusive approximation
-in the image formation model.  Another method, based on scattering, is
-the X-Ray Scatter CT~\cite{Aviles2011} which measures the absorption
-and scattering coefficients of the medium separately.
-
-However, the formulation of our problem is {\em different} than prior
-situations. Most tomography setups have a controlled and/or
-multidirectional radiation source~\cite{messer}. In contrast, our
-source is the uncontrolled, unidirectional Sun. Moreover, typical
-tomography relies on a linear model: the pixel value is a linear
-combination of components along a line of sight (LOS), or a
-multiplicative combination which is linearized by a logarithm.
-However, photographs of the atmosphere are a mixture of {\em
-  scattering}, and absorption. The model turns out to be {\em
-  nonlinear, yet tractable}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -550,7 +450,7 @@ Per camera $c$ and voxel $k$, the lines $[{\rm SR},k]$ and $[{\rm
   LOS}_c,k]$ intersect at a fixed angle $\Phi^{\rm scatter}_c(k)$.
 Column-stacking all voxels yields the vector representation of all
 scattering angles in the domain, $\vect{\Phi}^{\rm scatter}_c$ per
-camera $c$. 
+camera $c$.
 %Similarly, the single-scattering albdeos $\varpi^{\rm aerosol}$ in all voxels are stacked to vector $\vect{\varpi}$.
 Using \cref{eq:alphabasic,eq:rayleighP}, the angular scattering
 coefficients across the domain are expressed in vector form by
@@ -561,8 +461,8 @@ coefficients across the domain are expressed in vector form by
 %  \tilde{\vect{\alpha}}^{\rm aerosol}_c = \vect{\varpi}\odot
 %  \vect{\sigma} \odot {\bm n} \odot P^{\rm aerosol}_{\bm
 %    g}(\vect{\Phi}^{\rm scatter}_c) \;.
-  \tilde{\vect{\alpha}}^{\rm aerosol}_c = 
-       \varpi^{\rm aerosol} \sigma^{\rm aerosol} 
+  \tilde{\vect{\alpha}}^{\rm aerosol}_c =
+       \varpi^{\rm aerosol} \sigma^{\rm aerosol}
         {\bm n} \odot P^{\rm aerosol}_{\bm g}(\vect{\Phi}^{\rm scatter}_c) \;.
   \label{eq:alpha_matrix}
 \end{equation}
@@ -688,9 +588,9 @@ In this paper, we assume that the type of the aerosol above an area is known~\ci
 %Most generally, this is the set
 %$\left\{{\bm n},\left\{\vect{\varpi}_{\lambda},\vect{\sigma}_{\lambda},{\bm
 %        g}_{\lambda}\right\}_{\lambda}\right\}$
-%where some of the parameters depend on the spectral channel $\lambda$. 
+%where some of the parameters depend on the spectral channel $\lambda$.
 %Usually, a single aerosol type dominates a scene. Furthermore, we assume that the type of the aerosol above an area is known~\cite{Martonchik2009}. Hence, we focus on estimating the density distribution ${\bm n}$.
-At hand, we have $N_{\rm views}$ measured photographs 
+At hand, we have $N_{\rm views}$ measured photographs
  $\{ {\bm i}^{\rm measured}_c\}_{c=1}^{N_{\rm views}}$. The recovery task is phrased as
 optimization of an objective function that fits the image-formation model to the measured photographs:
 \begin{equation}
@@ -730,7 +630,7 @@ Here the matrix ${\bm J}_{{\bm i}_c}({\bm n})$ is the Jacobian of the
 vector ${\bm i}_c$ with respect to ${\bm n}$.  Element $(\Theta,k)$ of
 this matrix differentiates the intensity in pixel ${\bm \Theta}$ (in
 viewpoint $c$) with variation of the aerosol density at voxel $k$, i.e.,
-$\partial i_c({\bm \Theta})/\partial{n(k)}$.  
+$\partial i_c({\bm \Theta})/\partial{n(k)}$.
 
 We now detail the derivation of the Jacobian ${\bm J}_{{\bm i}_c}({\bm n})$. First, we provide some results relating to differentiation.  Let
 $\vect{a}(\vect{n}),\vect{u}(\vect{n})$ be vector functions: each outputs a vector of

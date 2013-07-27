@@ -48,6 +48,9 @@
 %
 % Some new commands I use in this text
 %
+% Note:
+% Nice curly font is {\bm{\mathcal{D}}}
+%
 \newcommand{\OpSphere}{\mathbfcal{S}}
 \newcommand{\OpRot}{\mathbfcal{R}}
 \newcommand{\OpDistance}{\mathbfcal{D}}
@@ -58,6 +61,7 @@
 \newcommand{\Laplacian}{\mathbfcal{L}}
 \newcommand{\OpDiag}[1]{\mathrm{diag}\left\{#1\right\}}
 \newcommand{\Grad}[1]{\bm{\triangledown_{#1}}}
+\newcommand{\abbrev}[1]{\rm{#1}}
 \newcommand{\argmin}{\mathrm{arg}\min}
 \newcommand{\curly}[1]{\left\{#1\right\}}
 \newcommand{\roundy}[1]{\left(#1\right)}
@@ -721,7 +725,7 @@ The gradient of $F$ with respect to ${\bm n}$ is
   \Grad{{\bm n}} F = -2\sum_{c=1}^{N_{\rm views}}
   \transpose{\left[{\bm J}_{{\bm i}_c}({\bm n})\right]} [{\bm i}^{\rm
     measured}_c - {\bm i}_c({\bm n})] + 2 \cdot \eta \cdot
-  \Laplacian^T\Laplacian{\bm n} \;.
+  \transpose{\Laplacian}\Laplacian{\bm n} \;.
   \label{eq:gradient1}
 \end{align}
 Here the matrix ${\bm J}_{{\bm i}_c}({\bm n})$ is the Jacobian of the
@@ -939,43 +943,41 @@ questions and solutions would rise.
 
 Here we detail the derivation of the Jacobian ${\bm J}_{{\bm
     i}_c}({\bm n})$ from \cref{eq:gradient1}. First show some results relating to
-differentiation. Let $\vect{n}$ be a vector of length $q$. Let
-$\vect{g}(\vect{n})$ be a vector function: it outputs a vector of
-length $r$. Let $\mat{B}$ be a $q \times r$ matrix and
+differentiation. Let $\vect{n}$ be a vector of length $m$. Let
+$\vect{a}(\vect{n})$ be a vector function: it outputs a vector of
+length $r$. Let $\mat{C}$ be a $m \times r$ matrix and
 \begin{align}
-  \vect{g}(\vect{n}) = \exp^{-\transpose{\mat{B}}\vect{n}}.
+  \vect{a}(\vect{n}) = \exp[-\transpose{\mat{C}}\vect{n}].
   \label{eq:example1}
 \end{align}
 In \cref{eq:example1}, the exponential is element-wise (not raising an
 operator to some power). Then
 \begin{align}
   \label{eq:partial2}
-  \PartDeriv{\vect{g}}{\vect{n}} &= - \mat{B} \,
-  \OpDiag{\exp^{-\transpose{\mat{B}}\vect{n}}}
+  \PartDeriv{\vect{a}}{\vect{n}} &= - \mat{C} \,
+  \OpDiag{\exp[-\transpose{\mat{C}}\vect{n}]}
 \end{align}
 Here we denote by $\OpDiag{\vect{v}}$ conversion of vector $\vect{v}$
 into a diagonal matrix, whose main diagonal elements correspond to the
 elements of $\vect{v}$. Using \cref{eq:partial2} we can calculate
 \begin{align}
   \label{eq:partial4}
-  \PartDeriv{\exp^{-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm aerosol}
-      {\bm D}_c {\bm n})}}
+  \PartDeriv{\exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm aerosol}{\bm D}_c {\bm n})]}
   {\vect{n}} &= - {\sigma}^{\rm aerosol}\transpose{\OpDistance_c} \,
-  \OpDiag{\exp^{-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm aerosol}
-      {\bm D}_c {\bm n})}}
+  \OpDiag{\exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm aerosol}{\bm D}_c {\bm n})]}
 \end{align}
 In \cref{eq:partial4} we assume that $\vect{\tau}_c^{\rm air}$ is
 known and constant.
 
 To calculate the derivative of the Hadamard product in \cref{eq:bigIA}
 we first note the following: Let $\vect{u}(\vect{n})$ be a vector
-function that outputs a vector of length $r$. Let $\mat{B}$ be a $r
-\times q$ matrix. Then,
+function that outputs a vector of length $r$. Let $\mat{C}$ be a $r
+\times m$ matrix. Then,
 \begin{align}
   \label{eq:partial1}
-  \PartDeriv{\transpose{\mat{B}} (\vect{g} \odot \vect{u})}{\vect{n}}
-  = \left[ \PartDeriv{\vect{g}}{\vect{n}} \OpDiag{\vect{u}} +
-    \PartDeriv{\vect{u}}{\vect{n}} \OpDiag{\vect{g}} \right] \mat{B}.
+  \PartDeriv{\transpose{\mat{C}} (\vect{a} \odot \vect{u})}{\vect{n}}
+  = \left[ \PartDeriv{\vect{a}}{\vect{n}} \OpDiag{\vect{u}} +
+    \PartDeriv{\vect{u}}{\vect{n}} \OpDiag{\vect{a}} \right] \mat{C}.
 \end{align}
 Then,
 \begin{align}
@@ -991,23 +993,23 @@ Then,
 \end{align}
 
 Based on \cref{eq:partial4,eq:partial1,eq:partial3} we can derive a
-close-form expression for the Jacobian of \cref{eq:bigIA}:
+close-form expression for the Jacobian of \cref{eq:bigIA},
 \begin{align}
-  {\bm J}_{{\bm i}_c}({\bm n}) &= L^{\rm TOA}({\bm A}-{\bm B}){\bm C}
+  {\bm J}_{{\bm i}_c}({\bm n}) &= L^{\rm TOA}(\abbrev{A}-\abbrev{B})\abbrev{C}
   ,
   \label{eq:gradient2}
 \end{align}
 where
 \begin{align}
   \label{eq:gradient3}
-  {\bm A} &= \varpi^{\rm aerosol}\sigma^{\rm aerosol}
+  \abbrev{A} &= \varpi^{\rm aerosol}\sigma^{\rm aerosol}
   \OpDiag{ P_g^{\rm aerosol}(\vect{\Phi}^{\rm scatter}_c)} \nonumber\\
-  {\bm B} &= {\sigma}^{\rm aerosol}\transpose{{\bm D}_c} \nonumber\\
+  \abbrev{B} &= {\sigma}^{\rm aerosol}\transpose{{\bm D}_c} \nonumber\\
   & \;\;\; \OpDiag{[\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm
       aerosol}\sigma^{\rm aerosol} P^{\rm aerosol}_g(\vect{\Phi}^{\rm
       scatter}_c) \odot{\bm n}
     ]} \nonumber \\
-  {\bm C} &= \OpDiag{\exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm
+  \abbrev{C} &= \OpDiag{\exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm
       aerosol} {\bm D}_c {\bm n})]} \transpose{{\vect{\Pi}}_c}
 \end{align}
 

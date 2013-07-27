@@ -318,64 +318,68 @@ However, photographs of the atmosphere are a mixture of {\em
 %\end{equation}
 
 \noindent {\bf Extinction}: Sun rays (SR) irradiate a small volume
-that includes particles of a certain type.  Each particle has an {\em
-  extinction cross section} $\sigma$ for
-interacting with the irradiance. The density of the particles is $n$. Per unit volume, the {\em extinction coefficient} is $\beta= \sigma n$.
+that includes particles of a certain type.
+Each particle has an {\em extinction cross section} for
+interacting with the irradiance. For an aerosol the cross section is denoted $\sigma^{\rm aerosol}$.
+The aerosol density is $n$. Per unit volume, the {\em extinction coefficient} due to aerosols is
+$\beta^{\rm aerosol}= \sigma^{\rm aerosol} n$. In addition, the atmosphere contains air molecules.
+The extinction coefficient due to the molecules is $\beta^{\rm air}$.
 The volume has infinitesimal length $dl$. Then, the relative portion
 of extinct SR irradiance is the unitless differential optical
-  depth, $d\tau= \beta dl=\sigma n dl$.
+  depth, $d\tau= (\beta^{\rm aerosol}+\beta^{\rm air}) dl$.
 The {\em optical depth} aggregates in extended propagation:
 \begin{align}
-  \tau= \int d\tau=\int \beta dl=\int \sigma n dl \;.
+  \tau= \int d\tau=\int (\beta^{\rm aerosol}+\beta^{\rm air}) dl
+       =\int (\sigma^{\rm aerosol} n +\beta^{\rm air}) dl
+       = \tau^{\rm air}+ \int \sigma^{\rm aerosol} n dl \;,
   \label{eq:tau}
 \end{align}
-Through an attenuating volume, the {\em transmittance} exponentially
+where $\tau^{\rm air}=\int \beta^{\rm air} dl$.
+Through an attenuating atmosphere, the {\em transmittance} exponentially
 decays with the optical depth:
 \begin{align}
-  t=\exp(-\tau)
+  t=\exp(-\tau) \;.
   \label{eq:beer-lambert}
 \end{align}
 
 \noindent {\bf Scattering}: Interaction of a single particle with the
 irradiance is by absorption and scattering. The weight of scattering
 (to all directions), relative to the total extinction is given by the
-unitless {\em single scattering albedo} $\varpi$ of the particle. The
-{\em scattering coefficient} $\alpha$ is
+unitless {\em single scattering albedo} of the particle. For an aerosol,
+the single scattering albedo is denoted $\varpi^{\rm aerosol}$.
+The {\em scattering coefficient} due to aerosols in the volume is
 \begin{align}
-  \alpha= \varpi\beta=\varpi \sigma n \;.
+  \alpha^{\rm aerosol}= \varpi^{\rm aerosol}\beta^{\rm aerosol}
+                       =\varpi^{\rm aerosol} \sigma^{\rm aerosol} n \;.
   \label{eq:alph}
 \end{align}
-The angular distribution of scattering is determined by a {\em phase
-  function} $P$, which is normalized: its integral over all solid
-angles is unit. Part of the light scatters towards a camera's LOS, as
+The angular distribution of scattering by an aerosol is determined by a {\em phase function} $P^{\rm aerosol}$, which is normalized: its integral over all solid angles is unit. Part of the light scatters towards a camera's LOS, as
 illustrated in \cref{fig:groundgrid}. The angle between the SR and LOS
-is the scattering angle $\Phi^{\rm scatter}$. The {\em angular scattering coefficient}
-$\tilde\alpha$ is
+is the scattering angle $\Phi^{\rm scatter}$. The {\em angular scattering coefficient} due to aerosols is
 \begin{align}
-  \tilde\alpha(\Phi^{\rm scatter}) = \varpi\beta P(\Phi^{\rm scatter})
-  = \varpi \sigma n P(\Phi^{\rm scatter}).
+  \tilde\alpha^{\rm aerosol}(\Phi^{\rm scatter}) 
+  =  \alpha^{\rm aerosol} P^{\rm aerosol}(\Phi^{\rm scatter})
+  = \varpi^{\rm aerosol} \sigma^{\rm aerosol} n 
+        P^{\rm aerosol}(\Phi^{\rm scatter}).
   \label{eq:alphabasic}
 \end{align}
-
 The phase function is often approximated by a parametric expression,
 as the Henyey-Greenstein~\cite{Cornette1995} function,
 \begin{align}
-  P_g(\Phi^{\rm scatter})\approx \sfrac{3}{8\pi} (1 - g^2)(1+\mu^2)
+  P^{\rm aerosol}_g(\Phi^{\rm scatter})\approx \sfrac{3}{8\pi} (1 - g^2)(1+\mu^2)
   (2+g^2)^{-1}(1 + g^2 - 2g\mu)^{\sfrac{-3}{2}}
   \label{eq:aerosol_scatter}
 \end{align}
 where $g$ is an {\em anisotropy parameter} and $\mu\equiv \cos \Phi^{\rm scatter}$.
-\\
 
-\noindent {\bf Air molecules}: Scattering by air molecules follows the
+
+Scattering by air molecules follows the
 {\em Rayleigh} model. The phase function is
 \begin{align}
   P^{\rm air}\left[\mu\right] &\approx \sfrac{3}{16\pi}(1+\mu^2)
   \label{eq:rayleighP}
 \end{align}
-and the single scattering albedo is $\varpi^{\rm air}$=1. Air molecular density $n^{\rm air}$ falls
-off approximately exponentially with altitude, with a
-characteristic~\cite{Levi1980} falloff height $H^\mathrm{air}=8\
+and the single scattering albedo in visible light is $\varpi^{\rm air}$=1. Air molecular density falls off approximately exponentially with altitude $h$, with a characteristic~\cite{Levi1980} falloff height $H^\mathrm{air}=8\
 \si{\km}$. Thus~\cite{Levi1980}, the coefficients for
 extinction and scattering by air molecules can be modeled by
 \begin{align}
@@ -399,10 +403,10 @@ Consider a set of ground-based wide-angle cameras
 looking upwards (\cref{fig:groundgrid}). The set performs {\em
   integral imaging}~\cite{integral} of the sky. Per viewpoint, the
 view azimuth and elevation angles (relative to the zenith and north)
-are encapsulated in the vector ${\bm{\Theta}}$. Any camera $c$ is at a
+are encapsulated in vector ${\bm{\Theta}}$. Any camera $c$ is at a
 distinct fixed location ${\bm x}$, capturing raw image
 $i_c({\bm{\Theta}})$. This paper takes the first step, of formulating
-a principle of recovering the 3D atmospheric aerosols distribution,
+a principle of estimating the 3D atmospheric aerosols distribution,
 using such data. To show feasibility, we perform radiative transfer
 using two different forward models, enabling cross-validation.  A
 forward model takes as input the 3D aerosol distribution, and outputs
@@ -410,10 +414,9 @@ images as if captured at various viewpoints. One model uses Monte
 Carlo (MC) methods (\cref{sec:monte-carlo-simul}): it is stochastic,
 slow but naturally expresses multiple-scattering. Hence, this approach
 simulates realistic scenes of arbitrary complexity.  The second model
-uses the single-Scattering approximation
+uses the single-scattering approximation
 (\cref{sec:single-scatt-model}). It is less accurate than MC, but
-derives an analytic closed form solution to the radiative
-transfer. This closed form enables simple inversion of the model, to
+solves radiative transfer in an analytic, closed form. This form enables simple inversion of the model, to
 estimate the underlying atmosphere (\cref{sec:inverse-problem}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -485,8 +488,7 @@ sparse matrix whose element $(k,q)$ is
 Any voxel generally contains both air molecules and aerosols.  We
 assume that within any voxel, the molecular parameters $\{ \beta^{\rm
   air}(k),\alpha^{\rm air}(k)\}$ and the aerosol parameters $\{
-\sigma^{\rm aerosol}(k),\varpi^{\rm aerosol}(k), n^{\rm
-  aerosol}(k),g(k)\}$ are constants, e.g., corresponding to the value
+\sigma^{\rm aerosol}(k),\varpi^{\rm aerosol}(k), n(k),g(k)\}$ are constants, e.g., corresponding to the value
 at each voxel center.  Following \cref{eq:tau}, the optical depth
 between the TOA and voxel $k$ is
 \begin{equation}
@@ -618,18 +620,19 @@ Combining \cref{eq:tautotal,eq:pc,eq:IcP}, the captured image is thus
     (\vect{\sigma} \odot {\bm n})]\} \right\}
   \label{eq:bigIc}
 \end{align}
-
-To simplify the case in study, we focus on situations in which there is only a single
+We focus on situations where there is only a single
 type of aerosol over a scene. Hence, the three-element vector
 $[{\sigma}^{\rm aerosol},\varpi^{\rm aerosol},g]$ is uniform across
 the scene, but the density distribution ${\bm n}$ is variable. Then,
 \cref{eq:bigIc} degenerates to
 \begin{align}
   {\bm i}_c= L^{\rm TOA} {\vect{\Pi}}_c \Big\{
-  \exp\{-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm aerosol} {\bm D}_c
-  {\bm n})\}\odot [\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm
+  [\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm
     aerosol}\sigma^{\rm aerosol} P^{\rm aerosol}_g(\vect{\Phi}^{\rm
-    scatter}_c) \odot{\bm n} ] \Big\} .
+    scatter}_c) \odot{\bm n} ] 
+  \odot   
+  \exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm aerosol} {\bm D}_c{\bm n})]
+    \Big\} .
   \label{eq:bigIA}
 \end{align}
 
@@ -672,17 +675,10 @@ use the local estimation (LE) method.
 \section{Inverse Problem}
 \label{sec:inverse-problem}
 
-In general terms, the variables are the set \mbox{$\left\{{\bm
-      n},\left\{\vect{\varpi}_{\lambda},\vect{\sigma}_{\lambda},{\bm
-        g}_{\lambda}\right\}_{\lambda}\right\}$} where $\lambda$
-denotes the spectral (color) channel.  There are $N_{\rm spectral}$
-spectral channels.  Thus, the number of unknown variables is in
-principle \mbox{$N_{\rm voxels}(1+3N_{\rm spectral})$}.
-
-Prior knowledge reduces the unknowns. For simplicity we assume a
-single aerosol type dominates a scene. Furthermore, in the following
-section we assume that we know the type of the particle
-\cite{Martonchik2009}. Hence, we focus here on retrieving ${\bm n}$.
+We seek to estimate the aerosol distribution. Most generally, this is the set 
+$\left\{{\bm n},\left\{\vect{\varpi}_{\lambda},\vect{\sigma}_{\lambda},{\bm
+        g}_{\lambda}\right\}_{\lambda}\right\}$
+where some of the parameters depend on the spectral channel $\lambda$. Usually, however, a single aerosol type dominates a scene. Furthermore, we assume that the type of the aerosol above an area is known~\cite{Martonchik2009}. Hence, we focus on estimating the density distribution ${\bm n}$.
 
 The recovery task is phrased as optimization of an objective function,
 that fits the image-formation model (\cref{eq:bigIc,eq:bigIA}) to
@@ -698,21 +694,19 @@ where
   \label{eq:objectiveA}
   F({\bm n})
   = \sum_{c=1}^{N_{\rm views}}
-  \| \Mask \roundy{{\bm i}^{\rm measured}_c - {\bm i}_c({\bm n})}\|^2_2 + \eta \cdot \Psi({\bm n})
+  \| \Mask \roundy{{\bm i}^{\rm measured}_c - {\bm i}_c({\bm n})}\|^2_2 
+  + \eta \Psi({\bm n})
 \end{equation}
-Here $\Psi({\bm n})$ is a regularization term that expresses some
-prior knowledge on the solution and $\eta$ is the regularization
-coefficient.  We use $\Mask$ as a weight map to mask the influence of
-the sun and the horizon. These regions are prone to dominant multiple
-scattering.  One common measurement of smoothness are the second order
-derivatives.  These can be calculated using the \emph{Laplacian}
-operator, $\nabla^2$.  We enforce smoothness of the solution by
-minimizing the signal energy of the \emph{Laplacian} of the signal
+where $\Mask$ is a map that masks the areas around 
+the sun, which are overwhelmingly bright. %and the horizon.
+%These regions are prone to dominant multiple scattering. 
+In Eq.~(\ref{eq:objectiveA}), $\Psi({\bm n})$ is a regularization term that expresses some prior knowledge on the distribution, while $\eta$ is a regularization weight.  Since aerosol distributions are usually fuzzy, 
+it can be beneficial that regularization be a {\em smoothness term}, which penalized energy in second order spatial derivatives (3D Laplacian). Hende, we use
 \begin{equation}
   \label{eq:regularizer}
   \Psi({\bm n}) = \| \nabla^2{\bm n}\|^2_2 = \| \Laplacian{\bm n}\|^2_2
 \end{equation}
-where $\Laplacian$ is a matrix representation of the \emph{Laplacian}
+where $\Laplacian$ is a matrix representation of the 3D \emph{Laplacian}
 operator.
 
 We solve~\cref{eq:minobjectiveA} using standard optimization tools.
@@ -720,16 +714,15 @@ The gradient of $F$ with respect to ${\bm n}$ is
 \begin{align}
   \Grad{{\bm n}} F = -2\sum_{c=1}^{N_{\rm views}}
   \transpose{\left[{\bm J}_{{\bm i}_c}({\bm n})\right]} [{\bm i}^{\rm
-    measured}_c - {\bm i}_c({\bm n})] + 2 \cdot \eta \cdot
-  \Laplacian^T\Laplacian{\bm n} \;.
+    measured}_c - {\bm i}_c({\bm n})] + 2 \eta \Laplacian^T\Laplacian{\bm n} \;.
   \label{eq:gradient1}
 \end{align}
 Here the matrix ${\bm J}_{{\bm i}_c}({\bm n})$ is the Jacobian of the
 vector ${\bm i}_c$ with respect to ${\bm n}$.  Element $(\Theta,k)$ of
 this matrix differentiates the intensity in pixel ${\bm \Theta}$ (in
-viewpoint $c$) with variation of the density at voxel $k$, i.e.,
-$\partial i_c({\bm \Theta})/\partial{n^{\rm aerosol}(k)}$.  A
-close-form expression of our Jacobian and its detailed derivation is
+viewpoint $c$) with variation of the aerosol density at voxel $k$, i.e.,
+$\partial i_c({\bm \Theta})/\partial{n(k)}$.  A
+close-form expression of the Jacobian and its detailed derivation is
 given in \cref{sec:gradient-derivation}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

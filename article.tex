@@ -45,6 +45,7 @@
 
 \DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
 
+
 %
 % Some new commands I use in this text
 %
@@ -53,7 +54,8 @@
 %
 \newcommand{\OpSphere}{\mathbfcal{S}}
 \newcommand{\OpRot}{\mathbfcal{R}}
-\newcommand{\OpDistance}{\mathbfcal{D}}
+%\newcommand{\OpDistance}{\mathbfcal{D}}
+\newcommand{\OpDistance}{\bm{D}}
 \newcommand{\OpCumsum}{\mathbfcal{C}}
 \newcommand{\OpInt}{\mathbfcal{I}}
 \newcommand{\OpCamera}{\mathbfcal{P}}
@@ -361,9 +363,9 @@ The angular distribution of scattering by an aerosol is determined by a {\em pha
 illustrated in \cref{fig:groundgrid}. The angle between the SR and LOS
 is the scattering angle $\Phi^{\rm scatter}$. The {\em angular scattering coefficient} due to aerosols is
 \begin{align}
-  \tilde\alpha^{\rm aerosol}(\Phi^{\rm scatter}) 
+  \tilde\alpha^{\rm aerosol}(\Phi^{\rm scatter})
   =  \alpha^{\rm aerosol} P^{\rm aerosol}(\Phi^{\rm scatter})
-  = \varpi^{\rm aerosol} \sigma^{\rm aerosol} n 
+  = \varpi^{\rm aerosol} \sigma^{\rm aerosol} n
         P^{\rm aerosol}(\Phi^{\rm scatter}).
   \label{eq:alphabasic}
 \end{align}
@@ -633,8 +635,8 @@ the scene, but the density distribution ${\bm n}$ is variable. Then,
   {\bm i}_c= L^{\rm TOA} {\vect{\Pi}}_c \Big\{
   [\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm
     aerosol}\sigma^{\rm aerosol} P^{\rm aerosol}_g(\vect{\Phi}^{\rm
-    scatter}_c) \odot{\bm n} ] 
-  \odot   
+    scatter}_c) \odot{\bm n} ]
+  \odot
   \exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm aerosol} {\bm D}_c{\bm n})]
     \Big\} .
   \label{eq:bigIA}
@@ -679,7 +681,7 @@ use the local estimation (LE) method.
 \section{Inverse Problem}
 \label{sec:inverse-problem}
 
-We seek to estimate the aerosol distribution. Most generally, this is the set 
+We seek to estimate the aerosol distribution. Most generally, this is the set
 $\left\{{\bm n},\left\{\vect{\varpi}_{\lambda},\vect{\sigma}_{\lambda},{\bm
         g}_{\lambda}\right\}_{\lambda}\right\}$
 where some of the parameters depend on the spectral channel $\lambda$. Usually, however, a single aerosol type dominates a scene. Furthermore, we assume that the type of the aerosol above an area is known~\cite{Martonchik2009}. Hence, we focus on estimating the density distribution ${\bm n}$.
@@ -698,13 +700,13 @@ where
   \label{eq:objectiveA}
   F({\bm n})
   = \sum_{c=1}^{N_{\rm views}}
-  \| \Mask \roundy{{\bm i}^{\rm measured}_c - {\bm i}_c({\bm n})}\|^2_2 
+  \| \Mask \roundy{{\bm i}^{\rm measured}_c - {\bm i}_c({\bm n})}\|^2_2
   + \eta \Psi({\bm n})
 \end{equation}
-where $\Mask$ is a map that masks the areas around 
+where $\Mask$ is a map that masks the areas around
 the sun, which are overwhelmingly bright. %and the horizon.
-%These regions are prone to dominant multiple scattering. 
-In Eq.~(\ref{eq:objectiveA}), $\Psi({\bm n})$ is a regularization term that expresses some prior knowledge on the distribution, while $\eta$ is a regularization weight.  Since aerosol distributions are usually fuzzy, 
+%These regions are prone to dominant multiple scattering.
+In Eq.~(\ref{eq:objectiveA}), $\Psi({\bm n})$ is a regularization term that expresses some prior knowledge on the distribution, while $\eta$ is a regularization weight.  Since aerosol distributions are usually fuzzy,
 it can be beneficial that regularization be a {\em smoothness term}, which penalized energy in second order spatial derivatives (3D Laplacian). Hende, we use
 \begin{equation}
   \label{eq:regularizer}
@@ -934,62 +936,54 @@ questions and solutions would rise.
 \section{Gradient Derivation}
 \label{sec:gradient-derivation}
 
-Here we detail the derivation of the Jacobian ${\bm J}_{{\bm
-    i}_c}({\bm n})$ from \cref{eq:gradient1}. First show some results relating to
-differentiation. Let $\vect{n}$ be a vector of length $m$. Let
-$\vect{a}(\vect{n})$ be a vector function: it outputs a vector of
-length $r$. Let $\mat{C}$ be a $m \times r$ matrix and
-\begin{align}
-  \vect{a}(\vect{n}) = \exp[-\transpose{\mat{C}}\vect{n}].
-  \label{eq:example1}
-\end{align}
-In \cref{eq:example1}, the exponential is element-wise (not raising an
-operator to some power). Then
-\begin{align}
-  \label{eq:partial2}
-  \PartDeriv{\vect{a}}{\vect{n}} &= - \mat{C} \,
-  \OpDiag{\exp[-\transpose{\mat{C}}\vect{n}]}
-\end{align}
-Here we denote by $\OpDiag{\vect{v}}$ conversion of vector $\vect{v}$
-into a diagonal matrix, whose main diagonal elements correspond to the
-elements of $\vect{v}$. Using \cref{eq:partial2} we can calculate
-\begin{align}
-  \label{eq:partial4}
-  \PartDeriv{\exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm aerosol}{\bm D}_c {\bm n})]}
-  {\vect{n}} &= - {\sigma}^{\rm aerosol}\transpose{\OpDistance_c} \,
-  \OpDiag{\exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm aerosol}{\bm D}_c {\bm n})]}
-\end{align}
-In \cref{eq:partial4} we assume that $\vect{\tau}_c^{\rm air}$ is
-known and constant.
-
-To calculate the derivative of the Hadamard product in \cref{eq:bigIA}
-we first note the following: Let $\vect{u}(\vect{n})$ be a vector
-function that outputs a vector of length $r$. Let $\mat{C}$ be a $r
-\times m$ matrix. Then,
+Here we detail the derivation of the Jacobian ${\bm J}_{{\bm i}_c}({\bm n})$ from \cref{eq:gradient1}. First show some results relating to differentiation.  Let
+$\vect{a}(\vect{n}),\vect{u}(\vect{n})$ be vector functions: each outputs a vector of
+length $r$. Let $\mat{C}$ be a $r \times N_{\rm voxels}$ matrix, where $N_{\rm voxels}$ is the length of ${\bm n}$.
+Then,
 \begin{align}
   \label{eq:partial1}
   \PartDeriv{\transpose{\mat{C}} (\vect{a} \odot \vect{u})}{\vect{n}}
   = \left[ \PartDeriv{\vect{a}}{\vect{n}} \OpDiag{\vect{u}} +
     \PartDeriv{\vect{u}}{\vect{n}} \OpDiag{\vect{a}} \right] \mat{C}.
 \end{align}
-Then,
+Here we denote by $\OpDiag{\vect{v}}$ conversion of a general vector $\vect{v}$
+into a diagonal matrix, whose main diagonal elements correspond to the
+elements of $\vect{v}$. Now, let
+\begin{align}
+  \vect{a}(\vect{n}) = \exp(-{\mat{C}}\vect{n}).
+  \label{eq:example1}
+\end{align}
+In \cref{eq:example1}, the exponent is element-wise (not raising an
+operator to some power). Then
+\begin{align}
+  \label{eq:partial2}
+  \PartDeriv{\vect{a}}{\vect{n}} &= - \transpose{\mat{C}} \,
+  \OpDiag{\exp(-{\mat{C}}\vect{n})}
+\end{align}
+Using \cref{eq:partial2},
+\begin{align}
+  \label{eq:partial4}
+  \PartDeriv{\exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm aerosol}{\bm D}_c {\bm n})]}
+  {\vect{n}} &= - {\sigma}^{\rm aerosol}\transpose{\OpDistance_c} \,
+  \OpDiag{\exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm aerosol}{\bm D}_c {\bm n})]},
+\end{align}
+where $\vect{\tau}_c^{\rm air}$ is independent of ${\bm n}$. Using \cref{eq:partial1},
 \begin{align}
   \label{eq:partial3}
-  \PartDeriv{\, \varpi^{\rm aerosol}\sigma^{\rm aerosol} P^{\rm
-      aerosol}_g(\vect{\Phi}^{\rm scatter}_c) \odot{\bm n}}{\vect{n}}
+  \PartDeriv{\, [\varpi^{\rm aerosol}\sigma^{\rm aerosol} P^{\rm
+      aerosol}_g(\vect{\Phi}^{\rm scatter}_c) \odot{\bm n}]}{\vect{n}}
   =
-  \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;
-  \nonumber \\
   \varpi^{\rm aerosol}\sigma^{\rm aerosol}\OpDiag{P^{\rm
-      aerosol}_g(\vect{\Phi}^{\rm scatter}_c)}
-  \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;
+      aerosol}_g(\vect{\Phi}^{\rm scatter}_c)}.
 \end{align}
-
-Based on \cref{eq:partial4,eq:partial1,eq:partial3} we can derive a
-close-form expression for the Jacobian of \cref{eq:bigIA},
+Based on \cref{eq:partial4,eq:partial1,eq:partial3} we derive the Jacobian of \cref{eq:bigIA}
+in close-form,
 \begin{align}
-  {\bm J}_{{\bm i}_c}({\bm n}) &= L^{\rm TOA}(\abbrev{A}-\abbrev{B})\abbrev{C}
-  ,
+%  {\bm J}_{{\bm i}_c}({\bm n}) &= L^{\rm TOA}(\abbrev{A}-\abbrev{B})\abbrev{C}
+  {\bm J}_{{\bm i}_c}({\bm n}) &= L^{\rm TOA}(\abbrev{A}-\abbrev{B})
+  \OpDiag{\exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm
+      aerosol} {\bm D}_c {\bm n})]} \transpose{{\vect{\Pi}}_c}
+   ,
   \label{eq:gradient2}
 \end{align}
 where
@@ -997,14 +991,18 @@ where
   \label{eq:gradient3}
   \abbrev{A} &= \varpi^{\rm aerosol}\sigma^{\rm aerosol}
   \OpDiag{ P_g^{\rm aerosol}(\vect{\Phi}^{\rm scatter}_c)} \nonumber\\
-  \abbrev{B} &= {\sigma}^{\rm aerosol}\transpose{{\bm D}_c} \nonumber\\
-  & \;\;\; \OpDiag{[\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm
+  \abbrev{B} &= {\sigma}^{\rm aerosol}\transpose{{\bm D}_c} %\nonumber\\
+%  & \;\;\; 
+      \OpDiag{[\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm
       aerosol}\sigma^{\rm aerosol} P^{\rm aerosol}_g(\vect{\Phi}^{\rm
       scatter}_c) \odot{\bm n}
-    ]} \nonumber \\
-  \abbrev{C} &= \OpDiag{\exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm
-      aerosol} {\bm D}_c {\bm n})]} \transpose{{\vect{\Pi}}_c}
+    ]} 
+    %\nonumber \\
+  %\abbrev{C} &= \OpDiag{\exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm
+   %   aerosol} {\bm D}_c {\bm n})]} \transpose{{\vect{\Pi}}_c}
 \end{align}
+
+%$\mathbb{D}$
 
 
 \end{document}

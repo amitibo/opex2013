@@ -627,7 +627,9 @@ atmosphere grid or it reaches a predetermined number of scatterings.
     marks the Sun location. Dashed white circles mark elevation
     angles.  [b] Photograph of the same sky and view point rendered
     using the MC simulation (\cref{sec:monte-carlo-simul}).  [c] Cross
-    section along the }
+    section along the X-Axis of the MC simulation, Single-Scattering
+    simulation and a Single-Scattering image created from the
+    reconstructed distribution (\cref{sec:optimization-results}).}
   \label{fig:simulation-results1}
 \end{figure}
 To test the models, we simulated several atmospheric scenarios. Here
@@ -705,8 +707,8 @@ cloudless (yet hazy) sky images are rather smooth.  For example,
 \cref{fig:simulation-results1}a and \cref{fig:simulation-results1}b
 show example photographs of the {\em Haze Blobs} scene as simulated by
 the Single Scattering model and MC model, respectively, from the same
-viewing point.  \cref{fig:simulation-results1}c compares a cross section
-of the photographs along the horizontal Axis.
+viewing point.  \cref{fig:simulation-results1}c compares a cross
+section of the photographs along the horizontal Axis.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -886,7 +888,10 @@ It is equivalent to the aerosol mass that is over and under-estimated
 in all voxels, relative to the total aerosol mass in the scene.  In
 the {\em Haze Blobs} case, $\epsilon=0.571$ and $\epsilon=0.72$ for
 the reconstructions based on the Single-Scattering images and MC
-images respectively.
+images respectively. We used the distribution reconstructed based on
+the MC images to create images using the Single-Scattering
+model. \cref{fig:simulation-results1}c shows a cross of such an image
+compared to the original MC image.
 
 We created a {\em Haze Front} scene. \cref{fig:results}b shows an
 iso-surface visualization of this distribution.

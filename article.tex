@@ -630,8 +630,8 @@ atmosphere grid or it reaches a predetermined number of scatterings.
     section along the }
   \label{fig:simulation-results1}
 \end{figure}
-To test the model, we simulated several atmospheric models. Here are
-the details.
+To test the models, we simulated several atmospheric scenarios. Here
+are the details.
 
 \noindent{\bf Sun}: The sun is at zenith angle $\Phi^{\rm
   SR}=45^o$. Its $L^{\rm TOA}$ is obtained
@@ -642,10 +642,10 @@ ratios of $L^{\rm TOA}_{\rm R}:L^{\rm TOA}_{\rm G}:L^{\rm TOA}_{\rm
 \noindent{\bf Dimensions}: The sky domain has area of \SI{50 x
   50}{\km} extending from the ground up to altitude of
 \SI{10}{\km}. This volume is divided into a rectilinear grid. We used
-different grid sizes from \num{50 x 50 x 100} grid, where each voxel
-has area of \SI{1 x 1}{\km} and vertical thickness of \SI{100}{\metre}
-and down to \num{10 x 10 x 20} grid, where each voxel has area of
-\SI{5 x 5}{\km} and vertical thickness of \SI{500}{\metre}.
+different grid sizes from \num{10 x 10 x 20} grid, where each voxel
+has area of \SI{5 x 5}{\km} and vertical thickness of \SI{500}{\metre}
+and up to \num{50 x 50 x 100} grid, where each voxel has area of \SI{1
+  x 1}{\km} and vertical thickness of \SI{100}{\metre}.
 
 \noindent{\bf Aerosol}: We used particle-type 6 from the aerosol list
 in Ref.~\cite{Martonchik2009}. This is a spherical non-absorbing
@@ -661,8 +661,8 @@ We simulated various spatial distributions, as a product of two
 functions. The first function is an exponential decay~\cite{Levi1980}
 with altitude $h(k)$ of voxel $k$,
 \begin{align}
-  w_1[h(k)] = \frac{1} {n^{sea level}}
-  \exp\left[-\frac{h(k)}{H^\mathrm{aerosol}}\right],
+  w_1[h(k)] = \sfrac{1} {n^{sea level}}
+  \exp\left[-\sfrac{h(k)}{H^\mathrm{aerosol}}\right],
 \end{align}
 where $H^\mathrm{aerosol}=2$~\si{\km}. This expresses a general trend
 of reduced atmospheric density with height.
@@ -689,7 +689,7 @@ The true aerosol distribution is then
   \hspace{-0.05cm}
 \end{equation}
 As an example, we created a {\em Haze Blobs} scene using two ellipsoid
-blobs (\cref{fig:two_clouds_sim}a): the first is centered at altitude
+blobs (\cref{fig:results}a): the first is centered at altitude
 \SI{3.3}{\km}, and has horizontal width of \SI{32}{\km} and vertical
 thickness of \SI{2.8}{\km}. The second ellipsoid is centered at
 altitude \SI{6.6}{\km}, and has lateral width of \SI{24}{\km} and
@@ -702,9 +702,11 @@ field of view, capturing the entire sky from its viewpoint. We used
 different numbers of cameras ranging from 12 viewpoints to 100, on a
 grid.  The resolution of each camera is low, expressing the fact that
 cloudless (yet hazy) sky images are rather smooth.  For example,
-\cref{fig:simulation-results1}b shows an example of a modeled
-photograph of the {\em Haze Blobs} scene that corresponds to
-\cref{fig:two_clouds_sim}a.
+\cref{fig:simulation-results1}a and \cref{fig:simulation-results1}b
+show example photographs of the {\em Haze Blobs} scene as simulated by
+the Single Scattering model and MC model, respectively, from the same
+viewing point.  \cref{fig:simulation-results1}c compares a cross section
+of the photographs along the horizontal Axis.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -854,7 +856,6 @@ where
 \end{equation}
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -869,12 +870,13 @@ to rendering a modeled image. The algorithm was initialized by ${\bm
 iterations, taking a couple of hours to complete in total.
 
 An iso-surface visualization of the original {\em Haze Blobs}
-distribution is shown in \cref{fig:two_clouds_sim}a, while the
-recovered 3D distribution is visualized in
-\cref{fig:two_clouds_sim}b. The distributions appear consistent,
-though there are errors that stem from the random noise in the
-images. To quantify the results, we use a relative error measure based
-on the $\ell_1$ norm
+distribution is shown in \cref{fig:results}a. \cref{fig:results}c show
+the reconstructed scene based on images simulated by the Single
+Scattering model. \cref{fig:results}e visualizes the reconstructed
+scene based on images simulated by the MC model. The distributions
+appear consistent, though there are errors that stem from the random
+noise in the images. To quantify the results, we use a relative error
+measure based on the $\ell_1$ norm
 \begin{equation}
   \label{eq:ndiff}
   \epsilon=\frac{\| \hat{\bm n}  - {\bm n}^{\rm true} \|_1}
@@ -882,35 +884,33 @@ on the $\ell_1$ norm
 \end{equation}
 It is equivalent to the aerosol mass that is over and under-estimated
 in all voxels, relative to the total aerosol mass in the scene.  In
-the {\em Haze Blobs} case, $\epsilon=0.202$.
+the {\em Haze Blobs} case, $\epsilon=0.571$ and $\epsilon=0.72$ for
+the reconstructions based on the Single-Scattering images and MC
+images respectively.
 
-We created a {\em Haze Front} scene. \cref{fig:front_sim}a shows an
+We created a {\em Haze Front} scene. \cref{fig:results}b shows an
 iso-surface visualization of this distribution.
 \begin{figure}
   \centering
-  \yoavcomment{\includegraphics[width=\columnwidth]{images/two_clouds}}
-  \caption{\small [a] Simulated 3D aerosol distribution composed of
-    {\em Haze Blobs} and [b] its reconstruction. Color represents
-    aerosol density. The density units are $10^{6}~{\rm
-      particles}/{\rm m}^3.$}
-  \label{fig:two_clouds_sim}
-\end{figure}
-\begin{figure}
-  \centering
-  \yoavcomment{\includegraphics[width=\columnwidth]{images/front}}
-  \caption{\small [a] Simulated 3D aerosol distribution composed of a
-    {\em Haze Front}. [b] Its reconstruction. Color represents aerosol
-    density. The density units are $10^{6}~{\rm particles}/{\rm
-      m}^3.$}
-  \label{fig:front_sim}
+  \yoavcomment{\includegraphics[width=\columnwidth]{images/results}}
+  \caption{\small [a] and [b] Simulated 3D aerosol distribution
+    composed of a {\em Haze Front} and {\em Haze Front}
+    respectively. [c] and [d] Reconstruction of the same scenes when
+    using Single-Scattering simulated images as input.  [e] and [f]
+    Reconstruction of the scenes when using MC simulated images as
+    input.  Color represents aerosol density. The density units are
+    $10^{6}~{\rm particles}/{\rm m}^3.$}
+  \label{fig:results}
 \end{figure}
 Here an ellipsoid degenerated to an elliptic cylinder that partly
 enters the analyzed volume. It is centered at altitude \SI{5}{\km},
 has vertical thickness of \SI{4}{\km} and length of \SI{32}{\km} (only
 part of which enters the volume). The haze front stretches across the
-width of the volume.  \cref{fig:front_sim}b visualizes the recovered
-3D distribution of this scene. For the {\em Haze Front},
-$\epsilon=0.198$.
+width of the volume.  \cref{fig:results}d and \cref{fig:results}f
+visualizes the recovered 3D distribution of this scene. For the {\em
+  Haze Front}, $\epsilon=0.46$ and $\epsilon=0.62$ for the
+reconstructions based on the Single-Scattering images and MC images
+respectively.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

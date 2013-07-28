@@ -589,20 +589,23 @@ of photons. To create the \cref{fig:simulation-results1}b, \num{10000}
 photons were emitted from each pixel. The distance travelled by the
 photon till its first scattering is determined by sampling from the
 transmittance distribution using the inverse transform sampling
-(\cref{sec:theor-backgr}).  The CDF of the transmittance distribution
-is given by,
+(\cref{sec:theor-backgr}).  The CDF of the optical depth
+(transmittance) distribution is given by,
 \begin{equation}
   \label{eq:1}
-  F=\int_{0}^{1}\exp(-\tau)\derivsym{\tau}=1-\exp(-\tau)
+  F=\int_{0}^{\tau}\exp(-\tau')\derivsym{\tau'}=1-\exp(-\tau)
 \end{equation}
-Given a uniformly distributed random number $u$ a random transmittance
+Given a uniformly distributed random number $u$ a random optical depth
 is given by
 \begin{equation}
   \label{eq:2}
   t=F^{-1}(u)=-\ln(1-u)
 \end{equation}
-If the scattering occurs outside the atmospheric grid, the photon is
-dropped. If not, the voxel in which the scattering occurs is
+The actual distance travelled by the photon is calculated by
+accumulating the discrete optical depths of each voxel along the
+photon's path till the target optical path, drawn by \cref{eq:2}, is
+reached.  If the scattering occurs outside the atmospheric grid, the
+photon is dropped. If not, the voxel in which the scattering occurs is
 calculated.  The type of scattering, either by air molecule or aerosol
 particle, is determined randomly according to their relative densities
 in the voxel.  The new direction of the photon is determined by

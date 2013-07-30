@@ -18,6 +18,7 @@
 \usepackage[]{todonotes} % Add option [disable] to hide all todo notes.
 \usepackage{xfrac}
 \usepackage{paralist}
+\usepackage{cite}
 
 %\usepackage{ae} %%for Computer Modern fonts
 
@@ -129,21 +130,21 @@
   General.} % REPLACE WITH CORRECT OCIS CODES FOR YOUR ARTICLE
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%% References %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%% References %%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \bibliography{article}{} \bibliographystyle{osajnl}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%% body %%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% body %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introduction}
 \label{sec:intro}
 
 Optical lightfield and integral
-imaging~\cite{Stern2006,kim,Ng1948} samples the optical
-radiance distribution in location and direction. It is mainly used in
+imaging~\cite{Stern2006,kim,Ng1948} sample the optical
+radiance distribution in location and direction. These are mainly used in
 small-scale setups. This paper deals with a far larger scale, to
 estimate scatterer 3D spatial distribution in the sky.  The atmosphere
 allows light to pass through in multiple locations and
@@ -636,13 +637,15 @@ atmosphere grid or it reaches a predetermined number of scatterings.
   \label{fig:simulation-results1}
 \end{figure}
 To test the models, we simulated several atmospheric scenarios. Here
-are the details.
+are the details:
+\\
 
 \noindent{\bf Sun}: The sun is at zenith angle $\Phi^{\rm
   SR}=45^o$. Its $L^{\rm TOA}$ is obtained
 from~\cite{BBradiance,sun_composition}, with respective red-green-blue
 ratios of $L^{\rm TOA}_{\rm R}:L^{\rm TOA}_{\rm G}:L^{\rm TOA}_{\rm
   B}=255:236:224$.
+\\
 
 \noindent{\bf Dimensions}: The sky domain has area of \SI{50 x
   50}{\km} extending from the ground up to altitude of
@@ -651,6 +654,7 @@ different grid sizes from \num{10 x 10 x 20} grid, where each voxel
 has area of \SI{5 x 5}{\km} and vertical thickness of \SI{500}{\metre}
 and up to \num{50 x 50 x 100} grid, where each voxel has area of \SI{1
   x 1}{\km} and vertical thickness of \SI{100}{\metre}.
+\\
 
 \noindent{\bf Aerosol}: We used particle-type 6 from the aerosol list
 in Ref.~\cite{Martonchik2009}. This is a spherical non-absorbing
@@ -701,6 +705,7 @@ altitude \SI{6.6}{\km}, and has lateral width of \SI{24}{\km} and
 vertical thickness of \SI{2.1}{\km}. Note that the horizontal widths
 are much larger than the vertical ones. This is consistent with scales
 of atmospheric aerosol distributions.
+\\
 
 \noindent{\bf Cameras}: Each ground-based camera has a hemispherical
 field of view, capturing the entire sky from its viewpoint. We used
@@ -754,8 +759,8 @@ In Eq.~(\ref{eq:objectiveA}), $\Psi({\bm n})$ is a regularization term
 that expresses some prior knowledge on the distribution, while $\eta$
 is a regularization weight.  Since aerosol distributions are usually
 fuzzy, it can be beneficial that regularization be a {\em smoothness
-  term}, which penalized energy in second order spatial derivatives
-(3D Laplacian). Hende, we use
+  term}, which penalizes energy in second order spatial derivatives
+(3D Laplacian). Hence, we use
 \begin{equation}
   \label{eq:regularizer}
   \Psi({\bm n}) = \| \nabla^2{\bm n}\|^2_2 = \| \Laplacian{\bm n}\|^2_2
@@ -940,8 +945,8 @@ optical depth is small, which is common. To handle dense atmospheric
 conditions (smoke, clouds), multi-scattering must be incorporated.
 
 The goal, of coarse, is to deploy such a system on a very large
-scale. However, this must first ensure that camera units are both cost
-effective and field-robust, and that their positioning density is
+scale. However, it must be first ensured that camera units are both
+cost effective and field-robust, and that their positioning density is
 proper. This will require a long-term engineering effort. Camera
 specifications should be set to optimally recover a wide range of
 aerosol distributions. This requires a major theoretic and numerical
@@ -951,104 +956,6 @@ problems. For example, how can compressed sensing principles be
 employed here? How can priors be used to make data acquisition more
 efficient? How can such a system be calibrated over time? Many such
 questions and solutions would rise.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%% Appendix %%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\appendix
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% \section{Gradient Derivation}
-% \label{sec:gradient-derivation}
-%
-% Here we detail the derivation of the Jacobian ${\bm J}_{{\bm
-% i}_c}({\bm n})$ from \cref{eq:gradient1}. First show some results
-% relating to differentiation.  Let
-% $\vect{a}(\vect{n}),\vect{u}(\vect{n})$ be vector functions: each
-% outputs a vector of length $r$. Let $\mat{C}$ be a $r \times N_{\rm
-% voxels}$ matrix, where $N_{\rm voxels}$ is the length of ${\bm n}$.
-% Then,
-% \begin{align}
-%   \label{eq:partial1}
-%   \PartDeriv{\transpose{\mat{C}} (\vect{a} \odot
-%   \vect{u})}{\vect{n}}
-%   = \left[ \PartDeriv{\vect{a}}{\vect{n}} \OpDiag{\vect{u}} +
-%     \PartDeriv{\vect{u}}{\vect{n}} \OpDiag{\vect{a}} \right]
-%   \mat{C}.
-% \end{align}
-% Here we denote by $\OpDiag{\vect{v}}$ conversion of a general vector
-% $\vect{v}$ into a diagonal matrix, whose main diagonal elements
-% correspond to the elements of $\vect{v}$. Now, let
-%% \begin{align}
-%   $\vect{a}(\vect{n}) = \exp(-{\mat{C}}\vect{n})$,
-%%   \label{eq:example1}
-%% \end{align}
-%% In \cref{eq:example1},
-% where the exponent is element-wise (not raising an operator to some
-% power). Then
-% \begin{align}
-%   \label{eq:partial2}
-%   \PartDeriv{\vect{a}}{\vect{n}} &= - \transpose{\mat{C}} \,
-%   \OpDiag{\exp(-{\mat{C}}\vect{n})}.
-% \end{align}
-% Using \cref{eq:partial2},
-% \begin{align}
-%   \label{eq:partial4}
-%   \PartDeriv{\exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm
-%   aerosol}{\bm D}_c {\bm n})]}
-%   {\vect{n}} &= - {\sigma}^{\rm aerosol}\transpose{\OpDistance_c} \,
-%   \OpDiag{\exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm
-%   aerosol}{\bm D}_c {\bm n})]},
-% \end{align}
-% where $\vect{\tau}_c^{\rm air}$ is independent of ${\bm n}$. Using
-% \cref{eq:partial1},
-% \begin{align}
-%   \label{eq:partial3}
-%   \PartDeriv{\, [\varpi^{\rm aerosol}\sigma^{\rm aerosol} P^{\rm
-%   aerosol}_g(\vect{\Phi}^{\rm scatter}_c) \odot{\bm n}]}{\vect{n}}
-%   = \varpi^{\rm aerosol}\sigma^{\rm aerosol}\OpDiag{P^{\rm
-%   aerosol}_g(\vect{\Phi}^{\rm scatter}_c)}.
-% \end{align}
-% Based on \cref{eq:partial4,eq:partial1,eq:partial3} we derive the
-% Jacobian of \cref{eq:bigIA} in close-form,
-% \begin{align}
-%%   {\bm J}_{{\bm i}_c}({\bm n}) &= L^{\rm
-%%   TOA}(\abbrev{A}-\abbrev{B})\abbrev{C}
-%   {\bm J}_{{\bm i}_c}({\bm n}) &= L^{\rm TOA}{\sigma}^{\rm
-%   aerosol}({\bf A}-{\bf B}) \OpDiag{\exp[-(\vect{\tau}_c^{\rm air} +
-%   {\sigma}^{\rm aerosol} {\bm D}_c {\bm n})]}
-%   \transpose{{\vect{\Pi}}_c} ,
-%   \label{eq:gradient2}
-% \end{align}
-% where
-%% \begin{align}
-%%   \label{eq:gradient3}
-%%   {\bf A} &= \varpi^{\rm aerosol}
-%%   \OpDiag{ P_g^{\rm aerosol}(\vect{\Phi}^{\rm scatter}_c)} \nonumber\\
-%%   {\bf B} &= \transpose{{\bm D}_c} %\nonumber\\
-%%%   & \;\;\;
-%%   \OpDiag{[\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm
-%%   aerosol}\sigma^{\rm aerosol} P^{\rm aerosol}_g(\vect{\Phi}^{\rm
-%%   scatter}_c) \odot{\bm n} ]}
-%%    %   \nonumber \\
-%%  %   \abbrev{C} &= \OpDiag{\exp[-(\vect{\tau}_c^{\rm air} +
-%%  %   {\sigma}^{\rm
-%%   %   aerosol} {\bm D}_c {\bm n})]} \transpose{{\vect{\Pi}}_c}
-%% \end{align}
-% \begin{equation}
-%  \label{eq:gradient3}
-%  {\bf A} = \varpi^{\rm aerosol}
-%       \OpDiag{ P_g^{\rm aerosol}(\vect{\Phi}^{\rm scatter}_c)}
-%  ,\;\;\;
-%  {\bf B} = \transpose{{\bm D}_c}
-%      \OpDiag{[\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm
-%      aerosol}\sigma^{\rm aerosol} P^{\rm aerosol}_g(\vect{\Phi}^{\rm
-%      scatter}_c) \odot{\bm n}    ]}
-%\end{equation}
-
 
 
 \end{document}

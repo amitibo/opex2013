@@ -482,7 +482,7 @@ atmosphere (\cref{sec:inverse-problem}).
 \label{sec:single-scatt-model}
 
 The atmosphere is discretized into a grid of $N_{\rm voxels}$ volume
-elements (voxels), indexed by $k$ or $q$. In a
+elements (voxels), indexed by $k$, $m$ or $q$. In a
 \emph{single-scattering} model, any SR changes direction only once on
 the way to a camera. This model is valid in atmospheres that are not
 very dense: inside fog and clouds this model does not apply. In this
@@ -524,15 +524,15 @@ Analogously, for camera $c$, denote by $[{\rm LOS}_c,k]$ a LOS bounded
 between the camera and the center of voxel $k$ (see
 \cref{fig:groundgrid}).  The LOS zenith angle is $\Phi^{\rm LOS}_c$.
 Suppose this LOS intersects voxel $q$. The geometric length of this
-intersection line segment is $l_{\rm LOS_c}(q)$ which depends on
-$\Delta z$, $\Phi^{{\rm LOS}_c}$ and $q$.  Analogously to
+intersection line segment is $l_{\rm LOS_c}(m)$ which depends on
+$\Delta z$, $\Phi^{{\rm LOS}_c}$ and $m$.  Analogously to
 \cref{eq:Dsv}, we define a $N_{\rm voxels}\times N_{\rm voxels}$
-sparse matrix whose element $(k,q)$ is
+sparse matrix whose element $(k,m)$ is
 \begin{equation}
-  \OpDistance^{\mathrm{voxel \rightarrow cam}}_c(k,q) =
+  \OpDistance^{\mathrm{voxel \rightarrow cam}}_c(k,m) =
   \left\{
     \begin{array}{ll}
-      l_{{\rm LOS}_c}(q) & \mbox{ if $q \in[{\rm LOS}_c,k]$} \\
+      l_{{\rm LOS}_c}(m) & \mbox{ if $m \in[{\rm LOS}_c,k]$} \\
       0  & \mbox{ otherwise}
       \label{eq:Dvc}
     \end{array}
@@ -785,17 +785,17 @@ We simulated various spatial distributions, as a product of two
 functions. The first function is an exponential decay~\cite{Levi1980}
 with altitude $h(k)$ of voxel $k$,
 \begin{align}
-  w_1[h(k)] = \sfrac{1} {n^{sea level}}
+  f_1[h(k)] = \sfrac{1} {n^{sea level}}
   \exp\left[-\sfrac{h(k)}{H^\mathrm{aerosol}}\right],
 \end{align}
 where $H^\mathrm{aerosol}=2$~\si{\km}. This expresses a general trend
 of reduced atmospheric density with height.
 
-The second function, $w_2$, expresses a clustered nature of aerosol
+The second function, $f_2$, expresses a clustered nature of aerosol
 ``clouds''. We define blobs in the form of 3D ellipsoids. There may be
 multiple ellipsoids suspended.  Then
 \begin{equation}
-  w_2(k) =
+  f_2(k) =
   \left\{
     \begin{array}{ll}
       1  & \mbox{ if $k\in$ any blob cluster} \\
@@ -809,7 +809,7 @@ multiple ellipsoids suspended.  Then
 The true aerosol distribution is then
 \begin{equation}
   \label{eq:ntrue}
-  {\bm n}^{\rm true}={\bm w}_1\odot {\bm w}_2  .
+  {\bm n}^{\rm true}={\bm f}_1\odot {\bm f}_2  .
   \hspace{-0.05cm}
 \end{equation}
 As an example, we created a {\em Haze Blobs} scene using two ellipsoid

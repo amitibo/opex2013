@@ -1,4 +1,4 @@
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%% preamble %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -101,7 +101,7 @@
 %%%%%%%%%%%%%%%%%% title page information %%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Multi-view 3D Aerosol Distribution Recovery}
+\title{Multi sky-view\\ 3D aerosol distribution recovery}
 
 \author{Amit~Aides,\authnote{1*} Yoav~Y.~Schechner,\authnote{1}
   Vadim~Holodovsky\authnote{1} and Michael~J.~Garay\authnote{2}}
@@ -338,27 +338,6 @@ function, to enable efficient optimization.
 \section{Theoretical Background}
 \label{sec:theor-backgr}
 
-% An infinitesimal volume contains aerosols. The extinction and
-% scattering coefficients due to aerosols in this volume are,
-% respectively
-% \begin{equation}
-%  \beta^{\rm aerosol}=\sigma^{\rm aerosol} n^{\rm aerosol}
-%  \;\;,\;\;
-%  \alpha^{\rm aerosol}=\varpi^{\rm aerosol} \beta^{\rm aerosol}
-%  \;.
-%  \label{eq:betaer}
-%\end{equation}
-%The infinitesimal volume contain also air molecules. Hence, the
-% overall extinction and scattering coefficients in this small volume
-% are, respectively
-% \begin{equation}
-%  \beta=\beta^{\rm air}+\beta^{\rm aerosol}
-%  \;\;,\;\;
-%  \alpha=\alpha^{\rm air}+\alpha^{\rm aerosol}
-%  \;.
-%  \label{eq:betair}
-%\end{equation}
-
 \noindent {\bf Extinction}: Sun rays (SR) irradiate a small volume
 that includes particles of a certain type.  Each particle has an {\em
   extinction cross section} for interacting with the irradiance. For
@@ -443,8 +422,8 @@ modeled by
 where $\lambda$ is the wavelength, in microns.
 \\
 
-\noindent {\bf Inverse Transform Sampling}: We use a Monte-Carlo (MC)
-method as a tool for RT. MC considers scattering and attenuation as
+\noindent {\bf Inverse Transform Sampling}: A tool for RT is Monte-Carlo (MC)
+simulation. MC considers scattering and extinction as
 random phenomena, that are sampled from their probability
 distributions.  Sample random numbers that comply with any known
 probability density function can be generated using inverse transform
@@ -452,37 +431,54 @@ sampling~\cite{devroye1986sample}. Let $u$ be a random number drawn
 from a uniform distribution in the interval $[0,1]$. The number $u$
 can be transformed into a random variable $X$, whose cumulative
 distribution function (CDF) is $F(X)$. The transform is $X =
-F^{-1}(u)$.
+F^{-1}(u)$. 
 
+For example, consider a photon propagating in the atmosphere.
+The photon has high probability of propagating as long as $t$ is high, 
+and the probability diminishes as $t\rightarrow 0$. Thus Eq.~(\ref{eq:beer-lambert}) can be viewed as a probability density function, whose CDF is 
+\begin{equation}
+  \label{eq:Ftau}
+  F(\tau)=\int_{0}^{\tau}\exp(-\tau')\derivsym{\tau'}=1-\exp(-\tau).
+\end{equation}
+Thus a photon propagates to a random optical depth 
+\begin{equation}
+  \label{eq:taurand}
+  \tau^{\rm random}=F^{-1}(u)=-\ln(1-u).
+\end{equation}
+If the atmosphere is uniform, then from Eq.~(\ref{eq:tau}) the photon reaches a random distance
+\begin{equation}
+  \label{eq:lrand}
+  l^{\rm random}= (\beta^{\rm aerosol}+\beta^{\rm air})^{-1} \tau^{\rm random}
+                = -(\beta^{\rm aerosol}+\beta^{\rm air})^{-1}\ln(1-u),
+\end{equation}
+before interacting with a particle. If the number of photons launched is very high, their average number falls off in consistency with Eqs.~(\ref{eq:tau},\ref{eq:beer-lambert}). 
+Analogous transforms generate scattering at random angles, according to the phase function.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Methodology}
+\section{3D recovery approach and its assessment}
 \label{sec:methodology}
 
-Consider a set of ground-based wide-angle cameras
-% ~\cite{Cossairt2011, Peleg01omnistereo:panoramic,
-% Koppal:2011:WMS:2191740.2192152}
-looking upwards (\cref{fig:groundgrid}). The set performs {\em
+A set of ground-based wide-angle cameras
+looks upwards (\cref{fig:groundgrid}), performing {\em
   integral imaging}~\cite{Hong2004} of the sky. Per viewpoint, the
 view azimuth and elevation angles (relative to the zenith and north)
 are encapsulated in vector ${\bm{\Theta}}$. Any camera $c$ is at a
-distinct fixed location ${\bm x}$, capturing raw image
-$i_c({\bm{\Theta}})$. This paper takes the first step, of formulating
-a principle of estimating the 3D atmospheric aerosols distribution,
-using such data. To show feasibility, we perform radiative transfer
-using two different forward models, enabling cross-validation.  A
-forward model takes as input the 3D aerosol distribution, and outputs
-images as if captured at various viewpoints. One model uses Monte
-Carlo (MC) methods (\cref{sec:monte-carlo-simul}): it is stochastic,
-slow but naturally expresses multiple-scattering. Hence, this approach
-simulates realistic scenes of arbitrary complexity.  The second model
-uses the single-scattering approximation
+distinct fixed location, capturing raw image
+$i_c({\bm{\Theta}})$. This paper takes a first step of formulating
+a principle for estimating the 3D atmospheric aerosols distribution,
+using such data. To study the feasibility and cross validate it, we perform RT
+using two different forward models. A forward model takes as input a 3D aerosol distribution, and outputs images as if captured at various viewpoints. 
+One model uses MC (\cref{sec:monte-carlo-simul}): it is stochastic,
+slow but naturally expresses multiple-scattering. Hence, MC
+rigorously simulates realistic scenes of arbitrary complexity. 
+%MC simulations can be made arbitrarily accurate by increasing the number of launched %photons. MC methods are highly parallelizable. 
+The second model uses the single-scattering approximation
 (\cref{sec:single-scatt-model}). It is less accurate than MC, but
-solves radiative transfer in an analytic, closed form. This form
+solves RT in an analytic, closed form. This form
 enables simple inversion of the model, to estimate the underlying
-atmosphere (\cref{sec:inverse-problem}).
+aerosol distribution (\cref{sec:inverse-problem}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -495,7 +491,7 @@ elements (voxels), indexed by $k$, $m$ or $q$. In a
 \emph{single-scattering} model, any SR changes direction only once on
 the way to a camera. This model is valid in atmospheres that are not
 very dense: inside fog and clouds this model does not apply. In this
-model, radiative transfer has three steps (\cref{fig:groundgrid}):
+model, RT has three steps (\cref{fig:groundgrid}):
 ({\tt i}) Attenuation of a SR propagating from the top of the
 atmosphere (TOA) to voxel $k$. ~({\tt ii}) Light scattering at voxel
 $k$, towards a camera. ~({\tt iii}) Light attenuation on the LOS from
@@ -619,17 +615,11 @@ coefficients across the domain are expressed in vector form by
   \tilde{\vect{\alpha}}^{\rm air}_c =
   \vect{\beta}^{\rm air} \odot P^{\rm air}(\vect{\Phi}^{\rm scatter}_c)\;,
   \quad
-  % \tilde{\vect{\alpha}}^{\rm aerosol}_c = \vect{\varpi}\odot
-  % \vect{\sigma} \odot {\bm n} \odot P^{\rm aerosol}_{\bm
-  % g}(\vect{\Phi}^{\rm scatter}_c) \;.
   \tilde{\vect{\alpha}}^{\rm aerosol}_c =
   \varpi^{\rm aerosol} \sigma^{\rm aerosol}
   {\bm n} \odot P^{\rm aerosol}_{\bm g}(\vect{\Phi}^{\rm scatter}_c) \;.
   \label{eq:alpha_matrix}
 \end{equation}
-% The vector ${\bm g}$ column-stacks the aerosol anisotropy parameter
-% of the phase function, in all voxels. This notation indicates a
-% parametric phase function as in \cref{eq:aerosol_scatter}.
 Here the operator $\odot$ denotes the Hadamard (element-wise) product.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -672,18 +662,6 @@ operation over ${\bm p}_c$:
 where ${\bm i}_c$ is the image, column-stacked to a vector $N_{\rm
   pix}$ long.  Combining \cref{eq:tautotal,eq:pc,eq:IcP}, the captured
 image is thus
-% \begin{align}
-%   {\bm i}_c= L^{\rm TOA} {\vect{\Pi}}_c \left\{
-%     (\tilde{\vect{\alpha}}^{\rm air}_c + \tilde{\vect{\alpha}}^{\rm
-%     aerosol}_c) \odot \exp\{-[\vect{\tau}_c^{\rm air} + {\bm D}_c
-%     (\vect{\sigma} \odot {\bm n})]\} \right\}
-%   \label{eq:bigIc}
-% \end{align}
-% We focus on situations where there is only a single type of aerosol
-% over a scene. Hence, the three-element vector $[{\sigma}^{\rm
-% aerosol},\varpi^{\rm aerosol},g]$ is uniform across the scene, but
-% the density distribution ${\bm n}$ is variable. Then,
-% \cref{eq:bigIc} degenerates to
 \begin{align}
   {\bm i}_c= L^{\rm TOA} {\vect{\Pi}}_c \Big\{
   [\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm aerosol}\sigma^{\rm
@@ -696,50 +674,29 @@ image is thus
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Monte Carlo RT}
+\section{Multiple-Scattering Forward Model by Monte Carlo}
 \label{sec:monte-carlo-simul}
 
-Monte Carlo (MC) methods enable rigorous modeling of photon
-propagation in the atmosphere.  MC simulations can be made arbitrarily
-accurate by increasing the number of launched photons. MC methods are
-highly parallelizable. When applied to the RT problem, they enable
-simulating multiple scattering and produce realistic results.
 
-The MC simulations use the same atmospheric grid described in
-\cref{sec:single-scatt-model}. We use backward MC, i.e. photons are
-traced from the detector, camera, to their source, the Sun, in a
-direction determined by the camera model, i.e. hemispherical
-camera. The quality of the simulations is proportional to the number
-of photons. To create the \cref{fig:simulation-results1}b, \num{10000}
-photons were emitted from each pixel. The distance travelled by the
-photon till its first scattering is determined by sampling from the
-transmittance distribution using the inverse transform sampling
-(\cref{sec:theor-backgr}).  The CDF of the optical depth
-(transmittance) distribution is given by,
-\begin{equation}
-  \label{eq:1}
-  F=\int_{0}^{\tau}\exp(-\tau')\derivsym{\tau'}=1-\exp(-\tau)
-\end{equation}
-Given a uniformly distributed random number $u$ a random optical depth
-is given by
-\begin{equation}
-  \label{eq:2}
-  t=F^{-1}(u)=-\ln(1-u)
-\end{equation}
-The actual distance travelled by the photon is calculated by
-accumulating the discrete optical depths of each voxel along the
-photon's path till the target optical path, drawn by \cref{eq:2}, is
-reached.  If the scattering occurs outside the atmospheric grid, the
-photon is dropped. If not, the voxel in which the scattering occurs is
-calculated.  The type of scattering, either by air molecule or aerosol
-particle, is determined randomly according to their relative densities
-in the voxel.  The new direction of the photon is determined by
-inverse sampling the phase function of the scattering particle:
-Rayleigh, \cref{eq:rayleighP}, or Henyey-Greenstein,
-\cref{eq:aerosol_scatter}.  Local Estimation~\cite{marshak20053d} is
-used for calculating the amount of light reaching the sun at each
-scattering.  This process is repeated till the photon escapes the
-atmosphere grid or it reaches a predetermined number of scatterings.
+The MC simulations rely on the same grid as Sec.~\ref{sec:single-scatt-model}. We use backward MC: from a detector pixel, photons are `launched' via the camera lens; then the photons are traced back through the atmosphere. Photons that happen to be back-traced to the Sun are counted, per pixel. In this model, RT takes the following steps, per launched photon (\cref{fig:mcgrid}):\\
+({\tt i}) Launch a photon from camera $c$ to direction ${\bm{\Theta}}$. This is the initial {\em ray}, denoted ${\cal R}_0$.\\
+Per iteration $i$\\
+({\tt ii}) Find the distance on ray ${\cal R}_{i}$ to which the photon propagates. To do this, Eq.~(\ref{eq:taurand}) yields $\tau^{\rm random}$. Then, Eq.~(\ref{eq:lrand}) generalizes to a non-uniform atmosphere: using Eq.~(\ref{eq:tau}), numerically seek $l^{\rm random}$ s.t.
+\begin{align}
+  \int_0^{l^{\rm random}}(\sigma^{\rm aerosol} n +\beta^{\rm air}) dl = \tau^{\rm random}
+  \label{eq:MCextinct}
+\end{align}
+Distance $l^{\rm random}$ at ${\cal R}_{i}$ is 3D position ${\bf X}_{i}$.
+If  ${\bf X}_{i}$ is outside the atmospheric grid, the photon is terminated. If, in addition,  ${\cal R}_{i}\parallel {\rm SR}$ , the photon is counted as contributing to the image pixel.\\
+({\tt iii}) The type of particle (air molecule or aerosol) the photon interacts with at ${\bf X}_{i}$ is determined randomly according to their relative densities at the voxel containing ${\bf X}_{i}$.\\
+({\tt iv}) If it is an aerosol, the photon is terminated with probability 
+$1-\varpi^{\rm aerosol}$.\\
+({\tt v}) The photon is scattered to a new direction, determined by inverse transform sampling, according to the phase function of the particle: \cref{eq:aerosol_scatter}
+or~\cref{eq:rayleighP}. This yields a new {\em ray}, denoted ${\cal R}_{i+1}$, emanating from ${\bf X}_{i}$. The next iteration of propagation (denoted {\tt ii} above)  proceeds.\\
+Local Estimation~\cite{marshak20053d} is used for calculating the amount of light back-traced to the sun at each scattering. 
+
+The quality of the simulations is proportional to the number of photons. To create the \cref{fig:simulation-results1}b, \num{10000}
+photons were emitted from each pixel.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -856,8 +813,8 @@ At hand, we have $N_{\rm views}$ measured photographs $\{ {\bm i}^{\rm
 as optimization of an objective function that fits the image-formation
 model to the measured photographs, under constraints. Let $\DistSet$
 be the set of all legitimate distributions, according to constraints.
-Particularly, $\DistEstimated$ is non-negative, and it has limited spatial
-support between the ground and the TOA. The optimization problem is,
+Particularly, $\DistUnknown$ is non-negative, and its spatial
+support is bounded between the ground and the TOA. The optimization problem is
 \begin{equation}
   \label{eq:minobjectiveA}
   \DistEstimated =
@@ -868,24 +825,26 @@ where
   \label{eq:objectiveA}
   \CostFunc{\DistUnknown}
   = \sum_{c=1}^{N_{\rm views}}
-  \| \MaskSun \roundy{{\bm i}^{\rm measured}_c - {\bm i}_c({\bm n})}\|^2_2
+  \left\| 
+     \MaskSun[{\bm i}^{\rm measured}_c - {\bm i}_c({\bm n})]
+  \right\|^2_2
   + \eta \Psi({\bm n})
 \end{equation}
-where $\MaskSun$ is a map that masks the areas around the sun, which are
-overwhelmingly bright. %and the horizon.
+Here $\MaskSun$ masks the area around the sun, which in real-world photographs is indeed blocked. %and the horizon.
 % These regions are prone to dominant multiple scattering.
 In Eq.~(\ref{eq:objectiveA}), $\Psi({\bm n})$ is a regularization term
 that expresses some prior knowledge on the distribution, while $\eta$
-is a regularization weight.  Since aerosol distributions are usually
-fuzzy, it can be beneficial that regularization be a {\em smoothness
-  term}, which penalizes energy in second order spatial derivatives
-(3D Laplacian). Hence, we use
+is a regularization weight.  
+
+Since aerosol distributions are usually fuzzy, useful regularization is by a {\em smoothness term}, which penalizes energy in second order spatial derivatives
+(3D Laplacian), $\| \nabla^2{\bm n}\|^2_2$. Regularization is not required when data is sufficient and reliable. As seen in Fig.~\ref{fig:groundgrid}, voxels at high altitude have good coverage by many cameras at multiple directions, while at low altitude voxels are mainly observed by local cameras. Hence, regularization can be weakened with altitude. We accomplished this weakening using a weight 
+$w(k)=\exp\left[-h(k)/H^\mathrm{smooth}\right]$.  Overall we use
 \begin{equation}
   \label{eq:regularizer}
-  \Psi({\bm n}) = \| \nabla^2{\bm n}\|^2_2 = \| \Laplacian{\bm n}\|^2_2
+  \Psi({\bm n}) = \| {\bf W} \Laplacian{\bm n}\|^2_2
 \end{equation}
-where $\Laplacian$ is a matrix representation of the 3D
-\emph{Laplacian} operator.
+where $\Laplacian$ is a matrix representation of the 3D Laplacian operator, and matrix
+${\bf W}$ is diagonal, whose elements are $w(k)$.
 
 We solve~\cref{eq:minobjectiveA} using standard optimization tools.
 The gradient of $F$ with respect to ${\bm n}$ is
@@ -893,7 +852,7 @@ The gradient of $F$ with respect to ${\bm n}$ is
   \Grad{{\bm n}} F = -2\sum_{c=1}^{N_{\rm views}}
   \transpose{\left[{\bm J}_{{\bm i}_c}({\bm n})\right]} [{\bm i}^{\rm
     measured}_c - {\bm i}_c({\bm n})] + 2 \eta
-  \transpose{\Laplacian}\Laplacian{\bm n} \;.
+  \transpose{\Laplacian}\transpose{{\bf W}}{\bf W}\Laplacian{\bm n} \;.
   \label{eq:gradient1}
 \end{align}
 Here the matrix ${\bm J}_{{\bm i}_c}({\bm n})$ is the Jacobian of the

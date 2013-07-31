@@ -1,4 +1,4 @@
-
+ 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%% preamble %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -434,17 +434,16 @@ modeled by
 where $\lambda$ is the wavelength, in microns.
 \\
 
-\noindent {\bf Inverse Transform Sampling}: Monte Carlo methods
-simulate probabilistic phenomena by sampling from their probability
-disrtibutions.  Inverse transform sampling~\cite{devroye1986sample} is
-a common method for generating sample numbers at random from any
-probability distribution given its cumulative distribution function
-(cdf).  Let $X$ be a random variable whose distribution can be
-described by the cumulative distribution function $F$.  First we
-generate a random number $u$ from the standard uniform distribution in
-the interval $[0,1]$.  Then to draw a random number from the
-distribution described by $F$ we need to calculate the value $x$ such
-that $x = F^{-1}(u)$.
+\noindent {\bf Inverse Transform Sampling}: We use a Monte-Carlo (MC)
+method as a tool for RT. MC considers scattering and attenuation as
+random phenomena, that are sampled from their probability
+distributions.  Sample random numbers that comply with any known
+probability density function can be generated using inverse transform
+sampling~\cite{devroye1986sample}. Let $u$ be a random number drawn
+from a uniform distribution in the interval $[0,1]$. The number $u$
+can be transformed into a random variable $X$, whose cumulative
+distribution function (CDF) is $F(X)$. The transform is $X =
+F^{-1}(u)$.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -741,7 +740,7 @@ atmosphere grid or it reaches a predetermined number of scatterings.
 
 \begin{figure}
   \centering
-  \yoavcomment{\def\svgwidth{0.95\columnwidth}\input{images/ref_images.pdf_tex}}
+  \yoavcomment{\includegraphics[width=\linewidth]{images/ref_images.pdf}}
   \caption{\small [a] Photograph of a sky that includes {\em Haze
       Blobs} rendered using the single-scattering model.  A yellow dot
     marks the Sun location. Dashed white circles mark elevation

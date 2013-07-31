@@ -53,17 +53,6 @@
 % Note:
 % Nice curly font is {\bm{\mathcal{D}}}
 %
-\newcommand{\OpSphere}{\mathbfcal{S}}
-\newcommand{\OpRot}{\mathbfcal{R}}
-%\newcommand{\OpDistance}{\mathbfcal{D}}
-\newcommand{\OpDistance}{\bm{D}}
-\newcommand{\OpCumsum}{\mathbfcal{C}}
-\newcommand{\OpInt}{\mathbfcal{I}}
-\newcommand{\OpCamera}{\mathbfcal{P}}
-\newcommand{\Mask}{\mathbfcal{M}}
-\newcommand{\Laplacian}{\mathbfcal{L}}
-%\newcommand{\OpDiag}[1]{\mathrm{diag}\left\{#1\right\}}
-\newcommand{\OpDiag}[1]{\mathbb{D}\left\{#1\right\}}
 \newcommand{\Grad}[1]{\bm{\triangledown_{#1}}}
 \newcommand{\abbrev}[1]{\rm{#1}}
 \newcommand{\argmin}{\mathrm{arg}\min}
@@ -78,6 +67,26 @@
 \newcommand{\yoavcomment}[1]{}
 \renewcommand{\yoavcomment}[1]{#1} % Comment to remove images
 
+%
+% Used symbols (only partial for now...)
+%
+\newcommand{\OpSphere}{\mathbfcal{S}}
+\newcommand{\OpRot}{\mathbfcal{R}}
+\newcommand{\OpDistance}{\bm{D}}
+\newcommand{\OpCumsum}{\mathbfcal{C}}
+\newcommand{\OpInt}{\mathbfcal{I}}
+\newcommand{\OpCamera}{\mathbfcal{P}}
+\newcommand{\MaskSun}{\mathbfcal{M}}
+\newcommand{\Laplacian}{\mathbfcal{L}}
+\newcommand{\OpDiag}[1]{\mathbb{D}\left\{#1\right\}}
+\newcommand{\DistSet}{\mathcal{C}}
+\newcommand{\DistUnknown}{\vect{n}}
+\newcommand{\DistEstimated}{\hat{\vect{n}}}
+\newcommand{\CostFunc}[1]{E(#1)}
+
+%
+% For the title
+%
 \newcommand\authnote[1]{\textsuperscript{\normalfont#1}}
 \newcommand\affilnote[1]{\textsuperscript{\normalfont#1}}
 \providecommand\textsuperscript[1]{$^{#1}$}
@@ -545,7 +554,7 @@ Any voxel generally contains both air molecules and aerosols.  We
 focus on situations where there is only a single type of aerosol over
 a scene. Hence, the three-element vector $[{\sigma}^{\rm
   aerosol},\varpi^{\rm aerosol},g]$ is uniform across the scene, but
-the density distribution ${\bm n}$ is variable. As a numerical
+the density distribution ${\DistUnknown}$ is variable. As a numerical
 approximation, assume that within any voxel, the molecular parameters
 $\{ \beta^{\rm air}(k),\alpha^{\rm air}(k)\}$ and the aerosol density
 $n(k)$ are constants, e.g., corresponding to the value at each voxel
@@ -841,33 +850,28 @@ section of the photographs along the horizontal Axis.
 
 In this paper, we assume that the type of the aerosol above an area is
 known~\cite{Martonchik2009}. Hence, we focus on estimating the density
-distribution ${\bm n}$.
-% Most generally, this is the set $\left\{{\bm
-%   n},\left\{\vect{\varpi}_{\lambda},\vect{\sigma}_{\lambda},{\bm
-%     g}_{\lambda}\right\}_{\lambda}\right\}$ where some of the
-% parameters depend on the spectral channel $\lambda$.  Usually, a
-% single aerosol type dominates a scene. Furthermore, we assume that
-% the type of the aerosol above an area is
-% known~\cite{Martonchik2009}. Hence, we focus on estimating the
-% density distribution ${\bm n}$.
+distribution $\DistUnknown$.
 At hand, we have $N_{\rm views}$ measured photographs $\{ {\bm i}^{\rm
   measured}_c\}_{c=1}^{N_{\rm views}}$. The recovery task is phrased
 as optimization of an objective function that fits the image-formation
-model to the measured photographs:
+model to the measured photographs, under constraints. Let $\DistSet$
+be the set of all legitimate distributions, according to constraints.
+Particularly, $\DistEstimated$ is non-negative, and it has limited spatial
+support between the ground and the TOA. The optimization problem is,
 \begin{equation}
   \label{eq:minobjectiveA}
-  \hat{\bm n} =
-  \argmin_{{\bm n}} F({\bm n})
+  \DistEstimated =
+  \argmin_{\DistUnknown \in \DistSet} \CostFunc{\DistUnknown}
 \end{equation}
 where
 \begin{equation}
   \label{eq:objectiveA}
-  F({\bm n})
+  \CostFunc{\DistUnknown}
   = \sum_{c=1}^{N_{\rm views}}
-  \| \Mask \roundy{{\bm i}^{\rm measured}_c - {\bm i}_c({\bm n})}\|^2_2
+  \| \MaskSun \roundy{{\bm i}^{\rm measured}_c - {\bm i}_c({\bm n})}\|^2_2
   + \eta \Psi({\bm n})
 \end{equation}
-where $\Mask$ is a map that masks the areas around the sun, which are
+where $\MaskSun$ is a map that masks the areas around the sun, which are
 overwhelmingly bright. %and the horizon.
 % These regions are prone to dominant multiple scattering.
 In Eq.~(\ref{eq:objectiveA}), $\Psi({\bm n})$ is a regularization term

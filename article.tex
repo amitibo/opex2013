@@ -192,9 +192,14 @@ E.~Namer, S.~Shwartz, and Y.~Y. Schechner, \enquote{{Skyless polarimetric
   (2009).
 
 \bibitem{Bluestone2001}
-a.~Bluestone, G.~Abdoulaev, C.~Schmitz, R.~Barbour, and A.~Hielscher,
+A.~Bluestone, G.~Abdoulaev, C.~Schmitz, R.~Barbour, and A.~Hielscher,
   \enquote{{Three-dimensional optical tomography of hemodynamics in the human
   head},} Optics express \textbf{9}, 272--86 (2001).
+
+\bibitem{Boas2001}
+D.~A. Boas, D.~H. Brooks, E.~L. Miller, C.~A. DiMarzio, M.~Kilmer, R.~J.
+  Gaudette, and Q.~Zhang, \enquote{{Imaging the body with diffuse optical
+  tomography},} Sig.Proc. Magazine \textbf{18}, 57--75 (2001).
 
 \bibitem{messer}
 H.~Messer, A.~Zinevich, and P.~Alpert, \enquote{{Environmental sensor networks
@@ -245,12 +250,12 @@ A.~Marshak and A.~Davis, \emph{{3D Radiative Transfer in Cloudy Atmospheres}},
 M.~Charity, \enquote{{Blackbody color datafile},}  (2001), \url{http://www.vendian.org/mncharity/dir3/blackbody/UnstableURLs/bbr\_color.html}.
 
 \bibitem{sun_composition}
-Wikipedia, \enquote{{Sunlight --- Wikipedia\{,\} The Free Encyclopedia},}  (2012), \url{http://en.wikipedia.org/w/index.php?title=Sunlight\&oldid=502554571}.
+Wikipedia, \enquote{{Sunlight --- {W}ikipedia{,} The Free Encyclopedia},}  (2012), \url{http://en.wikipedia.org/w/index.php?title=Sunlight\&oldid=502554571}.
 
 \bibitem{Martonchik2009}
 J.~V. Martonchik, R.~A. Kahn, and D.~J. Diner, \enquote{{Retrieval of aerosol
-  properties over land using MISR observations},} in \enquote{Satellite Aerosol
-  Remote Sensing over Land,} , A.~A. Kokhanovsky and G.~Leeuw, eds. (Springer
+  properties over land using MISR observations},} in \emph{{Satellite Aerosol
+  Remote Sensing over Land,}} , A.~A. Kokhanovsky and G.~Leeuw, eds. (Springer
   Berlin Heidelberg, 2009), pp. 267--293.
 
 \bibitem{BFGS}
@@ -276,14 +281,6 @@ in multiple locations and directions. Light is affected by this
 medium. Therefore, in this paper we lay out a principle to recover
 this 3D distribution using measured and modeled light-fields
 (Fig.~\ref{fig:groundgrid}).
-\begin{figure*}[t!]
-  \begin{center}
-    \yoavcomment{\includegraphics[width=\linewidth]{images/groundtomog24.pdf}}
-  \end{center}
-  \caption{\small Lightfield imaging through a volumetric distribution
-    in the atmosphere, using ground-based cameras.}
-  \label{fig:groundgrid}
-\end{figure*}
 3D recovery of this medium has direct implications to various
 scientific communities that either rely on remotely-sensed imagery,
 study the atmosphere, or overcome the medium to see beyond. These
@@ -310,7 +307,7 @@ We rely on sky imaging from multiple directions and locations. Such
 projection is similar to tomography in other scientific
 domains~\cite{Bluestone2001}. However, the situation here is
 distinct. Most tomography setups have a controlled and/or
-multidirectional radiation source~\cite{Bluestone2001,messer}. In
+multidirectional radiation source~\cite{Boas2001,messer}. In
 contrast, our source is the uncontrolled, unidirectional
 Sun. Moreover, typical tomography relies on a linear
 model~\cite{gregson}: the pixel value is a linear combination of
@@ -328,8 +325,14 @@ in cloudless conditions. Then, we solve this tomography problem, to
 recover the distribution. Recovery is formulated as an optimization
 that minimizes a cost function. We derive the gradient of this cost
 function, to enable efficient optimization.
-
-
+\begin{figure*}[t!]
+  \begin{center}
+    \yoavcomment{\includegraphics[width=\linewidth]{images/groundtomog24.pdf}}
+  \end{center}
+  \caption{\small Lightfield imaging through a volumetric distribution
+    in the atmosphere, using ground-based cameras.}
+  \label{fig:groundgrid}
+\end{figure*}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -495,11 +498,20 @@ distribution (\cref{sec:inverse-problem}).
 \label{sec:single-scatt-model}
 
 The atmosphere is discretized into a grid of $N_{\rm voxels}$ volume
-elements (voxels), indexed by $k$, $m$ or $q$. In a
-\emph{single-scattering} model, any SR changes direction only once on
-the way to a camera. This model is valid in atmospheres that are not
-very dense: inside fog and clouds this model does not apply. In this
-model, RT has three steps (\cref{fig:groundgrid}):
+elements (voxels), indexed by $k$, $m$ or $q$. \cref{fig:distributions}.
+\begin{figure}
+  \centering
+  \yoavcomment{\includegraphics[width=\columnwidth]{images/distributions}}
+  \caption{\small [a] and [b] Simulated 3D aerosol distribution
+    composed of a {\em Haze Front} and {\em Haze Front}
+    respectively. The density units are $10^{6}~{\rm particles}/{\rm
+      m}^3.$}
+  \label{fig:distributions}
+\end{figure}
+In a \emph{single-scattering} model, any SR changes direction only
+once on the way to a camera. This model is valid in atmospheres that
+are not very dense: inside fog and clouds this model does not
+apply. In this model, RT has three steps (\cref{fig:groundgrid}):
 ({\tt i}) Attenuation of a SR propagating from the top of the
 atmosphere (TOA) to voxel $k$. ~({\tt ii}) Light scattering at voxel
 $k$, towards a camera. ~({\tt iii}) Light attenuation on the LOS from
@@ -595,9 +607,8 @@ write $ \vect{\tau}_c= \vect{\tau}_c^{\rm air} + \vect{\tau}_c^{\rm
   aerosol}$.  Using \cref{eq:rayleighbeta} for $\beta^{\rm air}$ in
 all voxels, the vector $\vect{\tau}_c^{\rm air}$ is fixed. Thus
 $\vect{\tau}_c^{\rm air}$ can be calculated once, per sun zenith
-angle. Given \cref{eq:tau}, the total optical depths
-corresponding to LOSs (of camera $c$) and SRs that cross all voxels
-comprise the vector
+angle. Given \cref{eq:tau}, the total optical depths corresponding to
+LOSs (of camera $c$) and SRs that cross all voxels comprise the vector
 \begin{equation}
   \vect{\tau}_c= \vect{\tau}_c^{\rm air}
   + \sigma^{\rm aerosol} {\bm D}_c {\bm n}
@@ -637,8 +648,8 @@ Here the operator $\odot$ denotes the Hadamard (element-wise) product.
 
 Compounding the attenuation of irradiance along both $[{\rm SR},k]$
 and $[{\rm LOS}_c,k]$, and scattering by voxel $k$ towards the camera
-(\cref{eq:beer-lambert,eq:tautotal}) the radiant power
-contributed by the voxel is
+(\cref{eq:beer-lambert,eq:tautotal}) the radiant power contributed by
+the voxel is
 \begin{equation}
   p_c(k)= L^{\rm TOA}
   [\tilde{\alpha}^{\rm air}_c(k) + \tilde{\alpha}^{\rm aerosol}_c(k)]
@@ -658,10 +669,9 @@ of all voxel contributions is
 
 A camera pixel collects light from a narrow cone in the
 atmosphere. The cone contains or intersects some voxels, while being
-oblivious to all the rest.
-Overall, light power captured at a pixel is a weighted sum of the
-power $p_c(k)$ from all voxels.  This sum is formulated by a matrix
-operation over ${\bm p}_c$:
+oblivious to all the rest.  Overall, light power captured at a pixel
+is a weighted sum of the power $p_c(k)$ from all voxels.  This sum is
+formulated by a matrix operation over ${\bm p}_c$:
 \begin{equation}
   {\bm i}_c= {\vect{\Pi}}_c{\bm p}_c
   \;\;,
@@ -678,69 +688,6 @@ image is thus
   {\bm D}_c{\bm n})] \Big\} .
   \label{eq:bigIA}
 \end{align}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Multiple-Scattering Forward Model by Monte Carlo}
-\label{sec:monte-carlo-simul}
-
-
-The MC simulations rely on the same grid as
-Sec.~\ref{sec:single-scatt-model}. We use backward MC: from a detector
-pixel, photons are `launched' via the camera lens; then the photons
-are traced back through the atmosphere. Photons that happen to be
-back-traced to the Sun are counted, per pixel. In this model, RT takes
-the following steps, per launched photon (\cref{fig:mcgrid}):
-\begin{figure}
-  \centering
-  \yoavcomment{\includegraphics[width=0.5\linewidth]{images/mcgrid.pdf}}
-  \caption{\small Monte Carlo simulation of Multiple-Scattering Radiative Transfer.}
-  \label{fig:mcgrid}
-\end{figure}
-
-\noindent ({\tt i}) Launch a photon from camera $c$ to direction
-${\bm{\Theta}}$. This is the initial {\em ray}, denoted ${\cal R}_0$.
-
-\noindent Per iteration $i$
-
-\noindent ({\tt ii}) Find the distance on ray ${\cal R}_{i}$ to which
-the photon propagates. To do this, Eq.~(\ref{eq:taurand}) yields
-$\tau^{\rm random}$. Then, Eq.~(\ref{eq:lrand}) generalizes to a
-non-uniform atmosphere: using Eq.~(\ref{eq:tau}), numerically seek
-$l^{\rm random}$ s.t.
-\begin{align}
-  \int_0^{l^{\rm random}}(\sigma^{\rm aerosol} n +\beta^{\rm air}) dl
-  = \tau^{\rm random}
-  \label{eq:MCextinct}
-\end{align}
-Distance $l^{\rm random}$ at ${\cal R}_{i}$ is 3D position ${\bf
-  X}_{i}$.  If ${\bf X}_{i}$ is outside the atmospheric grid, the
-photon is terminated. If, in addition, ${\cal R}_{i}\parallel {\rm
-  SR}$ , the photon is counted as contributing to the image pixel.
-
-\noindent ({\tt iii}) The type of particle (air molecule or aerosol)
-the photon interacts with at ${\bf X}_{i}$ is determined randomly
-according to their relative densities at the voxel containing ${\bf
-  X}_{i}$.
-
-\noindent ({\tt iv}) If it is an aerosol, the photon is terminated
-with probability $1-\varpi^{\rm aerosol}$.
-
-\noindent ({\tt v}) The photon is scattered to a new direction,
-determined by inverse transform sampling, according to the phase
-function of the particle: \cref{eq:aerosol_scatter}
-or~\cref{eq:rayleighP}. This yields a new {\em ray}, denoted ${\cal
-  R}_{i+1}$, emanating from ${\bf X}_{i}$. The next iteration of
-propagation (denoted {\tt ii} above) proceeds.
-
-\noindent Local Estimation~\cite{marshak20053d} is used for
-calculating the amount of light back-traced to the sun at each
-scattering.
-
-The quality of the simulations is proportional to the number of
-photons. To create the \cref{fig:simulation-results1}b, \num{10000}
-photons were emitted from each pixel.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -823,7 +770,7 @@ The true aerosol distribution is then
   \hspace{-0.05cm}
 \end{equation}
 As an example, we created a {\em Haze Blobs} scene using two ellipsoid
-blobs (\cref{fig:results}a): the first is centered at altitude
+blobs (\cref{fig:distributions}a): the first is centered at altitude
 \SI{3.3}{\km}, and has horizontal width of \SI{32}{\km} and vertical
 thickness of \SI{2.8}{\km}. The second ellipsoid is centered at
 altitude \SI{6.6}{\km}, and has lateral width of \SI{24}{\km} and
@@ -842,6 +789,68 @@ show example photographs of the {\em Haze Blobs} scene as simulated by
 the Single Scattering model and MC model, respectively, from the same
 viewing point.  \cref{fig:simulation-results1}c compares a cross
 section of the photographs along the horizontal Axis.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Multiple-Scattering Forward Model by Monte Carlo}
+\label{sec:monte-carlo-simul}
+
+
+The MC simulations rely on the same grid as
+Sec.~\ref{sec:single-scatt-model}. We use backward MC: from a detector
+pixel, photons are `launched' via the camera lens; then the photons
+are traced back through the atmosphere. Photons that happen to be
+back-traced to the Sun are counted, per pixel. In this model, RT takes
+the following steps, per launched photon (\cref{fig:mcgrid}):
+\begin{figure}
+  \centering
+  \yoavcomment{\includegraphics[width=0.5\linewidth]{images/mcgrid.pdf}}
+  \caption{\small Monte Carlo simulation of multiple-scattering
+    radiative transfer.}
+  \label{fig:mcgrid}
+\end{figure}
+
+\noindent ({\tt i}) Launch a photon from camera $c$ to direction
+${\bm{\Theta}}$. This is the initial {\em ray}, denoted ${\cal R}_0$.
+
+\noindent Per iteration $i$
+
+\noindent ({\tt ii}) Find the distance on ray ${\cal R}_{i}$ to which
+the photon propagates. To do this, Eq.~(\ref{eq:taurand}) yields
+$\tau^{\rm random}$. Then, Eq.~(\ref{eq:lrand}) generalizes to a
+non-uniform atmosphere: using Eq.~(\ref{eq:tau}), numerically seek
+$l^{\rm random}$ s.t.
+\begin{align}
+  \int_0^{l^{\rm random}}(\sigma^{\rm aerosol} n +\beta^{\rm air}) dl
+  = \tau^{\rm random}
+  \label{eq:MCextinct}
+\end{align}
+Distance $l^{\rm random}$ at ${\cal R}_{i}$ is 3D position ${\bf
+  X}_{i}$.  If ${\bf X}_{i}$ is outside the atmospheric grid, the
+photon is terminated. If, in addition, ${\cal R}_{i}\parallel {\rm
+  SR}$ , the photon is counted as contributing to the image pixel.
+
+\noindent ({\tt iii}) The type of particle (air molecule or aerosol)
+the photon interacts with at ${\bf X}_{i}$ is determined randomly
+according to their relative densities at the voxel containing ${\bf
+  X}_{i}$.
+
+\noindent ({\tt iv}) If it is an aerosol, the photon is terminated
+with probability $1-\varpi^{\rm aerosol}$.
+
+\noindent ({\tt v}) The photon is scattered to a new direction,
+determined by inverse transform sampling, according to the phase
+function of the particle: \cref{eq:aerosol_scatter}
+or~\cref{eq:rayleighP}. This yields a new {\em ray}, denoted ${\cal
+  R}_{i+1}$, emanating from ${\bf X}_{i}$. Local
+Estimation~\cite{marshak20053d} is used for calculating the amount of
+light back-traced to the sun at each scattering. The next iteration of
+propagation (denoted {\tt ii} above) proceeds.
+
+The quality of the simulations is proportional to the number of
+photons. To create the \cref{fig:simulation-results1}b, \num{10000}
+photons were emitted from each pixel.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1003,6 +1012,17 @@ where
 \section{Results}
 \label{sec:optimization-results}
 
+\begin{figure}
+  \centering
+  \yoavcomment{\includegraphics[width=\columnwidth]{images/results}}
+  \caption{\small [a] and [b] Reconstruction of the scenes shown in
+    \cref{fig:distributions} when using Single-Scattering simulated
+    images as input.  [c] and [d] Reconstruction of the same scenes
+    when using MC simulated images as input.  Color represents aerosol
+    density. The density units are $10^{6}~{\rm particles}/{\rm
+      m}^3.$}
+  \label{fig:results}
+\end{figure}
 We applied the reconstruction algorithm \cref{sec:inverse-problem} to
 the images simulated in \cref{sec:simul}. We used the L-BFGS-B
 algorithm~\cite{BFGS} on a computer cluster. Each core was dedicated
@@ -1011,48 +1031,33 @@ to rendering a modeled image. The algorithm was initialized by ${\bm
 iterations, taking a couple of hours to complete in total.
 
 An iso-surface visualization of the original {\em Haze Blobs}
-distribution is shown in \cref{fig:results}a. \cref{fig:results}c show
-the reconstructed scene based on images simulated by the Single
-Scattering model. \cref{fig:results}e visualizes the reconstructed
-scene based on images simulated by the MC model. The distributions
-appear consistent, though there are errors that stem from the random
-noise in the images. To quantify the results, we use a relative error
-measure based on the $\ell_1$ norm
-\begin{equation}
-  \label{eq:ndiff}
-  \epsilon=\frac{\| \hat{\bm n}  - {\bm n}^{\rm true} \|_1}
-  {\| {\bm n}^{\rm true} \|_1} ,
-\end{equation}
-It is equivalent to the aerosol mass that is over and under-estimated
-in all voxels, relative to the total aerosol mass in the scene.  In
-the {\em Haze Blobs} case, $\epsilon=0.143$ and $\epsilon=0.646$ for
-the reconstructions based on the Single-Scattering images and MC
-images respectively. We used the distribution reconstructed based on
-the MC images to create images using the Single-Scattering
+distribution is shown in
+\cref{fig:distributions}a. \cref{fig:results}a show the reconstructed
+scene based on images simulated by the Single Scattering
+model. \cref{fig:results}c visualizes the reconstructed scene based on
+images simulated by the MC model. The distributions appear consistent,
+though there are errors that stem from the random noise in the
+images. To quantify the results, we use a relative error measure based
+on the $\ell_1$ norm: $\epsilon=\sfrac{\| \hat{\bm n} - {\bm n}^{\rm
+    true} \|_1} {\| {\bm n}^{\rm true} \|_1}$.  It is equivalent to
+the aerosol mass that is over and under-estimated in all voxels,
+relative to the total aerosol mass in the scene.  In the {\em Haze
+  Blobs} case, $\epsilon=0.14$ and $\epsilon=0.65$ for the
+reconstructions based on the Single-Scattering images and MC images
+respectively. We used the distribution reconstructed based on the MC
+images to create images using the Single-Scattering
 model. \cref{fig:simulation-results1}c shows a cross of such an image
 compared to the original MC image.
 
-We created a {\em Haze Front} scene. \cref{fig:results}b shows an
-iso-surface visualization of this distribution.
-\begin{figure}
-  \centering
-  \yoavcomment{\includegraphics[width=\columnwidth]{images/results}}
-  \caption{\small [a] and [b] Simulated 3D aerosol distribution
-    composed of a {\em Haze Front} and {\em Haze Front}
-    respectively. [c] and [d] Reconstruction of the same scenes when
-    using Single-Scattering simulated images as input.  [e] and [f]
-    Reconstruction of the scenes when using MC simulated images as
-    input.  Color represents aerosol density. The density units are
-    $10^{6}~{\rm particles}/{\rm m}^3.$}
-  \label{fig:results}
-\end{figure}
+We created a {\em Haze Front} scene. \cref{fig:distributions}b shows
+an iso-surface visualization of this distribution.
 Here an ellipsoid degenerated to an elliptic cylinder that partly
 enters the analyzed volume. It is centered at altitude \SI{5}{\km},
 has vertical thickness of \SI{4}{\km} and length of \SI{32}{\km} (only
 part of which enters the volume). The haze front stretches across the
-width of the volume.  \cref{fig:results}d and \cref{fig:results}f
+width of the volume.  \cref{fig:results}b and \cref{fig:results}d
 visualizes the recovered 3D distribution of this scene. For the {\em
-  Haze Front}, $\epsilon=0.199$ and $\epsilon=0.654$ for the
+  Haze Front}, $\epsilon=0.20$ and $\epsilon=0.65$ for the
 reconstructions based on the Single-Scattering images and MC images
 respectively.
 
@@ -1088,6 +1093,17 @@ employed here? How can priors be used to make data acquisition more
 efficient? How can such a system be calibrated over time? Many such
 questions and solutions would rise.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%% Acknowledgments %%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Acknowledgments}
+\label{sec:acknowledgments}
+
+We thank Anthony~B. Davis and David~J. Diner for useful
+discussions. Yoav Schechner is a Landau Fellow - supported by the Taub
+Foundation. This work was conducted in the Ollendorff Minerva
+Center. Minerva is funded through the BMBF.
 
 \end{document}
 

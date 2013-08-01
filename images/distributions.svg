@@ -10,57 +10,35 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="2073.6785"
-   height="1276.4773"
+   width="2073.4285"
+   height="644.47729"
    id="svg3028"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="results.svg">
+   sodipodi:docname="distributions.svg">
   <defs
      id="defs3030">
     <clipPath
        clipPathUnits="userSpaceOnUse"
-       id="clipPath3430">
+       id="clipPath3154">
       <rect
-         y="881.11871"
-         x="818.16919"
-         height="644.47729"
+         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0"
+         id="rect3156"
          width="1113.188"
-         id="rect3432"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
+         height="644.47729"
+         x="818.16907"
+         y="200.92326" />
     </clipPath>
     <clipPath
        clipPathUnits="userSpaceOnUse"
-       id="clipPath3434">
+       id="clipPath3158">
       <rect
-         y="1551.1187"
-         x="817.91931"
-         height="644.47729"
+         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
+         id="rect3160"
          width="1113.188"
-         id="rect3436"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
-    </clipPath>
-    <clipPath
-       clipPathUnits="userSpaceOnUse"
-       id="clipPath3438">
-      <rect
-         y="1551.1187"
+         height="644.47729"
          x="-144.25938"
-         height="644.47729"
-         width="1113.188"
-         id="rect3440"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
-    </clipPath>
-    <clipPath
-       clipPathUnits="userSpaceOnUse"
-       id="clipPath3442">
-      <rect
-         y="881.11871"
-         x="-144.25938"
-         height="644.47729"
-         width="1113.188"
-         id="rect3444"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
+         y="200.92326" />
     </clipPath>
   </defs>
   <sodipodi:namedview
@@ -71,8 +49,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35"
-     inkscape:cx="1201.5902"
-     inkscape:cy="647.902"
+     inkscape:cx="1458.988"
+     inkscape:cy="307.0116"
      inkscape:document-units="px"
      inkscape:current-layer="layer3"
      showgrid="false"
@@ -95,15 +73,21 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(958,-298.99974)"
+     style="display:inline" />
+  <g
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="numbers"
-     transform="translate(142.32126,-881.11871)"
+     transform="translate(142.07139,-200.92326)"
      style="display:none"
      sodipodi:insensitive="true">
     <flowRoot
@@ -414,114 +398,49 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="text"
-     transform="translate(142.32127,-881.11871)"
-     style="display:inline"
-     sodipodi:insensitive="true">
-    <g
-       id="g3450"
-       transform="translate(0,-38)">
-      <image
-         sodipodi:absref="C:\Users\amitibo\Dropbox\YoavAmitAides\text\articles\opex2013\images\two_clouds_recon.png"
-         xlink:href="two_clouds_recon.png"
-         clip-path="url(#clipPath3438)"
-         width="1112"
-         height="838"
-         id="image3044-0-2"
-         x="-142.32127"
-         y="1408.2144"
-         style="display:inline" />
-      <image
-         sodipodi:absref="C:\Users\amitibo\Dropbox\YoavAmitAides\text\articles\opex2013\images\front_recon.png"
-         xlink:href="front_recon.png"
-         clip-path="url(#clipPath3434)"
-         style="fill:none;stroke:#000000;display:inline"
-         width="1114"
-         height="838"
-         id="image3055-7-3"
-         x="818.1073"
-         y="1408.2142" />
-    </g>
-    <g
-       id="g3446">
-      <image
-         sodipodi:absref="C:\Users\amitibo\Dropbox\YoavAmitAides\text\articles\opex2013\images\two_clouds_simulated.png"
-         xlink:href="two_clouds_simulated.png"
-         clip-path="url(#clipPath3442)"
-         width="1112"
-         height="838"
-         id="image3044-0"
-         x="-142.0714"
-         y="734.57135"
-         style="display:inline" />
-      <image
-         sodipodi:absref="C:\Users\amitibo\Dropbox\YoavAmitAides\text\articles\opex2013\images\front_simulated.png"
-         xlink:href="front_simulated.png"
-         clip-path="url(#clipPath3430)"
-         style="fill:none;stroke:#000000;display:inline"
-         width="1114"
-         height="838"
-         id="image3055-7"
-         x="818.35718"
-         y="734.57135" />
-    </g>
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer1"
-     inkscape:label="fig_chars"
-     style="display:inline"
-     sodipodi:insensitive="true"
-     transform="translate(0,-146.54736)">
-    <g
-       id="g3480">
-      <g
-         transform="translate(0,-34)"
-         id="g3470">
-        <flowRoot
-           transform="translate(-136.86731,-15.037533)"
-           style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-           id="flowRoot3065-7"
-           xml:space="preserve"><flowRegion
-             id="flowRegion3067-1"><rect
-               y="856.07831"
-               x="363.65491"
-               height="127.27922"
-               width="115.15739"
-               id="rect3069-7" /></flowRegion><flowPara
-             id="flowPara3071-7">(c)</flowPara></flowRoot>        <flowRoot
-           xml:space="preserve"
-           id="flowRoot3046-5"
-           style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-           transform="translate(825.98988,-15.037533)"><flowRegion
-             id="flowRegion3048-0"><rect
-               id="rect3050-9"
-               width="115.15739"
-               height="127.27922"
-               x="363.65491"
-               y="856.07831" /></flowRegion><flowPara
-             id="flowPara3052-4">(d)</flowPara></flowRoot>      </g>
-      <flowRoot
-         xml:space="preserve"
-         id="flowRoot3065"
-         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-         transform="translate(-136.86731,-687.18044)"><flowRegion
-           id="flowRegion3067"><rect
-             id="rect3069"
-             width="115.15739"
-             height="127.27922"
-             x="363.65491"
-             y="856.07831" /></flowRegion><flowPara
-           id="flowPara3071">(a)</flowPara></flowRoot>      <flowRoot
-         transform="translate(825.98988,-687.18044)"
-         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-         id="flowRoot3046"
-         xml:space="preserve"><flowRegion
-           id="flowRegion3048"><rect
-             y="856.07831"
-             x="363.65491"
-             height="127.27922"
-             width="115.15739"
-             id="rect3050" /></flowRegion><flowPara
-           id="flowPara3052">(b)</flowPara></flowRoot>    </g>
-  </g>
+     transform="translate(142.0714,-200.92326)"
+     style="display:inline">
+    <image
+       sodipodi:absref="C:\Users\amitibo\Dropbox\YoavAmitAides\text\articles\opex2013\images\two_clouds_orig.png"
+       xlink:href="two_clouds_orig.png"
+       clip-path="url(#clipPath3158)"
+       width="1112"
+       height="838"
+       id="image3044"
+       x="-142.0714"
+       y="59.928535"
+       style="display:inline" />
+    <image
+       sodipodi:absref="C:\Users\amitibo\Dropbox\YoavAmitAides\text\articles\opex2013\images\front_orig.png"
+       xlink:href="front_orig.png"
+       clip-path="url(#clipPath3154)"
+       style="fill:none;stroke:#000000;display:inline"
+       width="1114"
+       height="838"
+       id="image3055"
+       x="818.35718"
+       y="59.928528" />
+    <flowRoot
+       transform="translate(-279.18858,-610.60909)"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       id="flowRoot3065"
+       xml:space="preserve"><flowRegion
+         id="flowRegion3067"><rect
+           y="856.07831"
+           x="363.65491"
+           height="127.27922"
+           width="115.15739"
+           id="rect3069" /></flowRegion><flowPara
+         id="flowPara3071">(a)</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3046"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(683.66861,-610.60909)"><flowRegion
+         id="flowRegion3048"><rect
+           id="rect3050"
+           width="115.15739"
+           height="127.27922"
+           x="363.65491"
+           y="856.07831" /></flowRegion><flowPara
+         id="flowPara3052">(b)</flowPara></flowRoot>  </g>
 </svg>

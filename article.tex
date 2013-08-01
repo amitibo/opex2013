@@ -692,17 +692,23 @@ pixel, photons are `launched' via the camera lens; then the photons
 are traced back through the atmosphere. Photons that happen to be
 back-traced to the Sun are counted, per pixel. In this model, RT takes
 the following steps, per launched photon (\cref{fig:mcgrid}):
+\begin{figure}
+  \centering
+  \yoavcomment{\includegraphics[width=0.5\linewidth]{images/mcgrid.pdf}}
+  \caption{\small Monte Carlo simulation of Multiple-Scattering Radiative Transfer.}
+  \label{fig:mcgrid}
+\end{figure}
 
 \noindent ({\tt i}) Launch a photon from camera $c$ to direction
 ${\bm{\Theta}}$. This is the initial {\em ray}, denoted ${\cal R}_0$.
 
 \noindent Per iteration $i$
 
-\noindent ({\tt ii}) Find the distance on ray ${\cal R}_{i}$ to which the photon
-propagates. To do this, Eq.~(\ref{eq:taurand}) yields $\tau^{\rm
-  random}$. Then, Eq.~(\ref{eq:lrand}) generalizes to a non-uniform
-atmosphere: using Eq.~(\ref{eq:tau}), numerically seek $l^{\rm
-  random}$ s.t.
+\noindent ({\tt ii}) Find the distance on ray ${\cal R}_{i}$ to which
+the photon propagates. To do this, Eq.~(\ref{eq:taurand}) yields
+$\tau^{\rm random}$. Then, Eq.~(\ref{eq:lrand}) generalizes to a
+non-uniform atmosphere: using Eq.~(\ref{eq:tau}), numerically seek
+$l^{\rm random}$ s.t.
 \begin{align}
   \int_0^{l^{\rm random}}(\sigma^{\rm aerosol} n +\beta^{\rm air}) dl
   = \tau^{\rm random}
@@ -713,22 +719,24 @@ Distance $l^{\rm random}$ at ${\cal R}_{i}$ is 3D position ${\bf
 photon is terminated. If, in addition, ${\cal R}_{i}\parallel {\rm
   SR}$ , the photon is counted as contributing to the image pixel.
 
-\noindent ({\tt iii}) The type of particle (air molecule or aerosol) the photon
-interacts with at ${\bf X}_{i}$ is determined randomly according to
-their relative densities at the voxel containing ${\bf X}_{i}$.
+\noindent ({\tt iii}) The type of particle (air molecule or aerosol)
+the photon interacts with at ${\bf X}_{i}$ is determined randomly
+according to their relative densities at the voxel containing ${\bf
+  X}_{i}$.
 
-\noindent ({\tt iv}) If it is an aerosol, the photon is terminated with
-probability $1-\varpi^{\rm aerosol}$.
+\noindent ({\tt iv}) If it is an aerosol, the photon is terminated
+with probability $1-\varpi^{\rm aerosol}$.
 
-\noindent ({\tt v}) The photon is scattered to a new direction, determined by
-inverse transform sampling, according to the phase function of the
-particle: \cref{eq:aerosol_scatter} or~\cref{eq:rayleighP}. This
-yields a new {\em ray}, denoted ${\cal R}_{i+1}$, emanating from ${\bf
-  X}_{i}$. The next iteration of propagation (denoted {\tt ii} above)
-proceeds.
+\noindent ({\tt v}) The photon is scattered to a new direction,
+determined by inverse transform sampling, according to the phase
+function of the particle: \cref{eq:aerosol_scatter}
+or~\cref{eq:rayleighP}. This yields a new {\em ray}, denoted ${\cal
+  R}_{i+1}$, emanating from ${\bf X}_{i}$. The next iteration of
+propagation (denoted {\tt ii} above) proceeds.
 
-\noindent Local Estimation~\cite{marshak20053d} is used for calculating the
-amount of light back-traced to the sun at each scattering.
+\noindent Local Estimation~\cite{marshak20053d} is used for
+calculating the amount of light back-traced to the sun at each
+scattering.
 
 The quality of the simulations is proportional to the number of
 photons. To create the \cref{fig:simulation-results1}b, \num{10000}

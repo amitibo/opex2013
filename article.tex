@@ -40,6 +40,7 @@
 % http://tex.stackexchange.com/questions/118235/using-the-cleveref-package-with-hebrew-and-babel
 %
 \usepackage[capitalise]{cleveref}
+\crefname{section}{Sec.}{Sec.}
 \makeatletter
 \def\@@number#1{#1}
 \makeatother
@@ -104,7 +105,7 @@
 \title{Multi sky-view\\ 3D aerosol distribution recovery}
 
 \author{Amit~Aides,\authnote{1*} Yoav~Y.~Schechner,\authnote{1}
-  Vadim~Holodovsky\authnote{1} and Michael~J.~Garay\authnote{2}}
+  Vadim~Holodovsky\authnote{1}, Michael~J.~Garay\authnote{2} and Anthony~B.~Davis\authnote{2}}
 
 \address{\affilnote{1}Electrical Engineering Department, Technion - Israel Institute of Technology, Haifa 32000, Israel\\
   \affilnote{2}Jet Propulsion Laboratory, California Institute of
@@ -520,9 +521,9 @@ The sky is discretized into a grid of $N_{\rm voxels}$ volume elements
 \begin{figure}
   \centering
   \yoavcomment{\includegraphics[width=\columnwidth]{images/distributions}}
-  \caption{\small Simulated 3D aerosol distributions: {\em Haze blobs}
-    [a] and {\em Haze Front}.  Here, an aerosol density unit is
-    $10^{6}~{\rm particles}/{\rm m}^3.$ The atmopsheric domain has
+  \caption{\small Simulated 3D aerosol distributions: [a] {\em Haze
+      blobs} and [b] {\em Haze Front}.  Here, an aerosol density unit
+    is $10^{6}~{\rm particles}/{\rm m}^3.$ The atmopsheric domain has
     area of $50\times 50{\rm km}^2$, extending from the ground up to
     altitude of 10km. The domain is divided into a rectilinear grid
     having $N_{\rm voxels}$ voxels.}
@@ -724,15 +725,11 @@ is thus
 
 \begin{figure}
   \centering
-  \yoavcomment{\includegraphics[width=\linewidth]{images/ref_images.pdf}}
-  \caption{\small [a] Photograph of a sky that includes {\em Haze
-      Blobs} rendered using the single-scattering model.  A yellow dot
-    marks the Sun location. Dashed white circles mark elevation
-    angles.  [b] Photograph of the same sky and view point rendered
-    using the MC simulation (\cref{sec:monte-carlo-simul}).  [c] Cross
-    section along the X-Axis of the MC simulation, Single-Scattering
-    simulation and a Single-Scattering image created from the
-    reconstructed distribution (\cref{sec:optimization-results}).}
+  \yoavcomment{\includegraphics[width=\linewidth]{images/single_images.pdf}}
+  \caption{\small Different view-points of a sky that includes {\em
+      Haze Blobs}. Images rendered using the single-scattering model.
+    A yellow dot marks the Sun location. Dashed white circles mark
+    zenith angles.}
   \label{fig:simulation-results1}
 \end{figure}
 To demonstrate the model, we simulated some scenarios, whose details are as follows.\\
@@ -814,9 +811,14 @@ back-traced to the Sun are counted, per pixel. In this model, RT takes
 the following steps, per pixel (\cref{fig:mcgrid}):
 \begin{figure}
   \centering
-  \yoavcomment{\includegraphics[width=0.5\linewidth]{images/mcgrid.pdf}}
-  \caption{\small Monte Carlo simulation of multiple-scattering
-    radiative transfer.}
+  \yoavcomment{\includegraphics[width=\linewidth]{images/mcgrid.pdf}}
+  \caption{\small [a] Multiple-scattering forward model by Monte
+    Carlo. [b] Photograph of the same sky and view point as in
+    \cref{fig:simulation-results1}, rendered using a MC model.
+    [c] Cross section along the $X$-Axis of the MC simulation,
+    Single-Scattering simulation and a Single-Scattering image created
+    from the reconstructed distribution
+    (\cref{sec:optimization-results}).}
   \label{fig:mcgrid}
 \end{figure}
 
@@ -1032,12 +1034,12 @@ resolution.  Depending directly on the area grid finesse, $N_{\rm
 \begin{figure}
   \centering
   \yoavcomment{\includegraphics[width=\columnwidth]{images/results}}
-  \caption{\small [a] and [b] Reconstruction of the scenes shown in
-    \cref{fig:distributions} when using Single-Scattering simulated
-    images as input.  [c] and [d] Reconstruction of the same scenes
-    when using MC simulated images as input.  Color represents aerosol
-    density. The density units are $10^{6}~{\rm particles}/{\rm
-      m}^3.$}
+  \caption{\small Reconstructions of the scenes shown in
+    \cref{fig:distributions}. Color represents aerosol density. The
+    density units are $10^{6}~{\rm particles}/{\rm m}^3.$ In [a,b],
+    Single-Scattering simulated images are used as input to the
+    recovery.  In [c,d], MC simulated images are used as input for the
+    recovery.  }
   \label{fig:results}
 \end{figure}
 We applied the reconstruction algorithm to images created as described

@@ -39,7 +39,7 @@
 % As a work around I redefine the number definition as suggested in:
 % http://tex.stackexchange.com/questions/118235/using-the-cleveref-package-with-hebrew-and-babel
 %
-\usepackage[capitalise]{cleveref}
+\usepackage[capitalise,poorman]{cleveref}
 \crefname{section}{Sec.}{Secs.}
 \makeatletter
 \def\@@number#1{#1}
@@ -180,6 +180,12 @@ O.~V. Kalashnikova, M.~J. Garay, A.~B. Davis, D.~J. Diner, and J.~V.
   uncertainties},} Journal of Quantitative Spectroscopy and Radiative Transfer
   \textbf{112}, 2149--2163 (2011).
 
+\bibitem{Pust2011}
+N.~J. Pust, A.~R. Dahlberg, M.~J. Thomas, and J.~a. Shaw, \enquote{{Comparison
+  of full-sky polarization and radiance observations to radiative transfer
+  simulations which employ AERONET products.}} Optics express \textbf{19},
+  18602--13 (2011).
+
 \bibitem{Mishchenko2007}
 M.~I. Mishchenko and I.~V. Geogdzhayev, \enquote{{Satellite remote sensing
   reveals regional tropospheric aerosol trends.}} Optics express \textbf{15},
@@ -201,6 +207,12 @@ E.~Namer, S.~Shwartz, and Y.~Y. Schechner, \enquote{{Skyless polarimetric
 A.~Bluestone, G.~Abdoulaev, C.~Schmitz, R.~Barbour, and A.~Hielscher,
   \enquote{{Three-dimensional optical tomography of hemodynamics in the human
   head},} Optics express \textbf{9}, 272--86 (2001).
+
+\bibitem{ihrke}
+I.~Ihrke, K.~N. Kutulakos, H.~P. Lensch, M.~Magnor, and W.~Heidrich,
+  \enquote{{State of the art in transparent and specular object
+  reconstruction},} in \enquote{EUROGRAPHICS 2008 STAR--STATE OF THE ART
+  REPORT,}  (2008).
 
 \bibitem{Boas2001}
 D.~A. Boas, D.~H. Brooks, E.~L. Miller, C.~A. DiMarzio, M.~Kilmer, R.~J.
@@ -292,7 +304,7 @@ distribution in the sky.  The atmosphere allows light to pass through
 in multiple locations and directions. Light is affected by this
 medium. Therefore, in this paper we lay out a principle to recover
 this 3D distribution using measured and modeled light-fields
-(Fig.~\ref{fig:groundgrid}).
+(\cref{fig:groundgrid}).
 3D recovery of this medium has direct implications to various
 scientific communities that either rely on remotely-sensed imagery,
 study the atmosphere, or overcome the medium to see beyond. These
@@ -303,7 +315,7 @@ quality. Mapping aerosol density is significant to aviation safety,
 which needs real time assessment of conditions and visibility around
 flight paths.
 
-In remote sensing~\cite{Mishchenko2007}, imaging through air is
+In remote sensing~\cite{Pust2011, Mishchenko2007}, imaging through air is
 associated with {\em atmospheric correction}, based on {\em aerosol
   retrieval}. In this discipline, the atmosphere is often assumed to
 be plane-parallel, using one-dimensional vertical RT. Consequently
@@ -317,7 +329,7 @@ at all relevant altitudes is the object of interest.
 
 We rely on sky imaging from multiple directions and locations. Such
 projection is similar to tomography in other scientific
-domains~\cite{Bluestone2001}. However, the situation here is
+domains~\cite{Bluestone2001,ihrke}. However, the situation here is
 distinct. Most tomography setups have a controlled and/or
 multidirectional radiation source~\cite{Boas2001,messer}. In
 contrast, our source is the uncontrolled, unidirectional
@@ -458,7 +470,7 @@ F^{-1}(u)$.
 For example, consider a photon propagating in the atmosphere.  The
 photon has high probability of propagating as long as $t$ is high, and
 the probability diminishes as $t\rightarrow 0$. Thus
-Eq.~(\ref{eq:beer-lambert}) can be viewed as a probability density
+(\cref{eq:beer-lambert}) can be viewed as a probability density
 function, whose CDF is
 \begin{equation}
   \label{eq:Ftau}
@@ -469,7 +481,7 @@ Thus a photon propagates to a random optical depth
   \label{eq:taurand}
   \tau^{\rm random}=F^{-1}(u)=-\ln(1-u).
 \end{equation}
-If the atmosphere is uniform, then from Eq.~(\ref{eq:tau}) the photon
+If the atmosphere is uniform, then from \cref{eq:tau} the photon
 reaches a random distance
 \begin{equation}
   \label{eq:lrand}
@@ -478,7 +490,7 @@ reaches a random distance
 \end{equation}
 before interacting with a particle. If the number of photons launched
 is very high, their average number falls off in consistency with
-Eqs.~(\ref{eq:tau},\ref{eq:beer-lambert}).  Analogous transforms
+\cref{eq:tau,eq:beer-lambert}.  Analogous transforms
 generate scattering at random angles, according to the phase function.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -499,16 +511,16 @@ such data. To theoretically study the feasibility and cross validate
 it, we perform RT using two different forward models. A forward model
 takes as input a 3D aerosol distribution, and outputs images as if
 captured at various viewpoints.  One model uses MC
-(Sec.~\ref{sec:monte-carlo-simul}): it is stochastic, slow but
+(\cref{sec:monte-carlo-simul}): it is stochastic, slow but
 naturally expresses multiple-scattering. Hence, MC rigorously
 simulates realistic scenes of arbitrary complexity.
 % MC simulations can be made arbitrarily accurate by increasing the
 % number of launched %photons. MC methods are highly parallelizable.
 The second model uses the single-scattering approximation
-(Sec.~\ref{sec:single-scatt-model}). It is less accurate than MC, but
+(\cref{sec:single-scatt-model}). It is less accurate than MC, but
 solves RT in an analytic, closed form. This form enables simple
 inversion of the model, to estimate the underlying aerosol
-distribution (Sec.~\ref{sec:inverse-problem}).
+distribution (\cref{sec:inverse-problem}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -516,7 +528,7 @@ distribution (Sec.~\ref{sec:inverse-problem}).
 \section{Single-scattering forward model}
 \label{sec:single-scatt-model}
 
-As illustrated in Figs.~\ref{fig:groundgrid},\ref{fig:distributions},
+As illustrated in \cref{fig:groundgrid,fig:distributions},
 The sky is discretized into a grid of $N_{\rm voxels}$ volume elements
 (voxels), indexed by $k$, $m$ or $q$.
 \begin{figure}
@@ -539,8 +551,8 @@ atmosphere (TOA) to voxel $k$. ~({\tt ii}) Light scattering at voxel
 $k$, towards a camera. ~({\tt iii}) Light attenuation on the LOS from
 voxel $k$ to the camera.~~ Steps~{\tt i},{\tt iii} involve the optical
 depth along the light path to and from voxel $k$, as analyzed in
-Sec.~\ref{sec:optical-depth}.  Step~{\tt ii} involves the scattering
-coefficient at voxel $k$, described in Sec.~\ref{sec:scattering}.
+\cref{sec:optical-depth}.  Step~{\tt ii} involves the scattering
+coefficient at voxel $k$, described in \cref{sec:scattering}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -572,7 +584,7 @@ between the camera and the center of voxel $k$ (see
 \cref{fig:groundgrid}).  The LOS zenith angle is $\Phi^{\rm LOS}_c$.
 Suppose this LOS intersects voxel $q$. The geometric length of this
 intersection line segment is $l_{\rm LOS_c}(m|\Delta z,\Phi^{\rm
-  LOS}_c)$.  As in~(\ref{eq:Dsv}), define a $N_{\rm voxels}\times
+  LOS}_c)$.  As in \cref{eq:Dsv}, define a $N_{\rm voxels}\times
 N_{\rm voxels}$ sparse matrix whose element $(k,m)$ is
 \begin{equation}
   \OpDistance^{\mathrm{voxel \rightarrow cam}}_c(k,m) =
@@ -696,7 +708,7 @@ Here the operator $\odot$ denotes the Hadamard (element-wise) product.
 
 Compounding the attenuation of irradiance along both $[{\rm SR},k]$
 and $[{\rm LOS}_c,k]$, and scattering by voxel $k$ towards the camera
-(Eqs.~\ref{eq:beer-lambert},\ref{eq:tautotal}) the radiant power
+(\cref{eq:beer-lambert,eq:tautotal}) the radiant power
 contributed by the voxel is
 \begin{equation}
   p_c(k)= L^{\rm TOA}
@@ -727,8 +739,7 @@ formulated by a matrix operation over ${\bm p}_c$:
 \end{equation}
 where ${\bm i}_c$ is the image, column-stacked to a vector $N_{\rm
   pix}$ long.  Combining
-Eqs.~(\ref{eq:tautotal},\ref{eq:pc},\ref{eq:IcP}), the captured image
-is thus
+\cref{eq:tautotal,eq:pc,eq:IcP}, the captured image is thus
 \begin{align}
   {\bm i}_c= L^{\rm TOA} {\vect{\Pi}}_c \Big\{
   [\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm aerosol}\sigma^{\rm
@@ -760,7 +771,7 @@ from~\cite{BBradiance,sun_composition}, with respective red-green-blue
 ratios of $L^{\rm TOA}_{\rm R}:L^{\rm TOA}_{\rm G}:L^{\rm TOA}_{\rm
   B}=255:236:224$.
 
-The atmospheric domain is described in Fig.~\ref{fig:distributions}.
+The atmospheric domain is described in \cref{fig:distributions}.
 We tested domain division to various grids, from $10\times10 \times
 20$ voxels, up to $50\times50 \times 1000$. The corresponding voxels
 had width, length and thickness of $5{\rm km}\times 5{\rm km} \times
@@ -810,7 +821,7 @@ wide, 2.1km thick and centered at altitude 6.6km. Horizontal widths
 are much larger than the vertical thickness, in consistency with
 atmospheric scales. \cref{fig:simulation-results1} shows
 photographs of the {\em Haze Blobs} scene, as simulated by
-Eq.~(\ref{eq:bigIA}).
+\cref{eq:bigIA}.
 
 The {\em Haze Front} scene in \cref{fig:distributions}b uses an
 ellipsoid degenerated to an elliptic cylinder that partly enters the
@@ -825,7 +836,7 @@ across the domain width.
 
 
 The MC simulations rely on the same grid as
-Sec.~\ref{sec:single-scatt-model}. We use backward MC: from a detector
+\cref{sec:single-scatt-model}. We use backward MC: from a detector
 pixel, photons are `launched' via the camera lens; then the photons
 are traced back through the atmosphere. Photons that happen to be
 back-traced to the Sun are counted, per pixel. In this model, RT takes
@@ -850,9 +861,9 @@ ${\cal R}_0$. The packet has intensity $I_0$.
 \noindent Per iteration $i$
 
 \noindent ({\tt ii}) Find the distance on ray ${\cal R}_{i}$ to which
-the photon-packet propagates. To do this, Eq.~(\ref{eq:taurand})
-yields $\tau^{\rm random}$. Then, Eq.~(\ref{eq:lrand}) generalizes to
-a non-uniform atmosphere: using Eq.~(\ref{eq:tau}), numerically seek
+the photon-packet propagates. To do this, \cref{eq:taurand}
+yields $\tau^{\rm random}$. Then, \cref{eq:lrand} generalizes to
+a non-uniform atmosphere: using \cref{eq:tau}, numerically seek
 $l^{\rm random}$ s.t.
 \begin{align}
   \int_0^{l^{\rm random}}(\sigma^{\rm aerosol} n +\beta^{\rm air}) dl
@@ -884,9 +895,9 @@ light back-traced to the sun at each scattering. The next iteration of
 propagation (denoted {\tt ii} above) proceeds.
 
 The quality of MC increases with the number of photons launched.
-Fig.~\ref{fig:mcgrid}b shows a photograph of the {\em Haze Blobs}
+\cref{fig:mcgrid}b shows a photograph of the {\em Haze Blobs}
 scene, derived by the MC process, using \num{10000} photons per pixel,
-from the same viewpoint as Fig.~\ref{fig:simulation-results1}[left].  A
+from the same viewpoint as \cref{fig:simulation-results1}[left].  A
 comparison of a sample horizontal cross section is shown in
 \cref{fig:mcgrid}c.
 
@@ -922,7 +933,7 @@ where
   \right\|^2_2  + \eta \Psi({\bm n}).
 \end{equation}
 Here $\MaskSun$ masks the area around the sun, as in real-world images
-it is indeed blocked.  In Eq.~(\ref{eq:objectiveA}), $\Psi({\bm n})$
+it is indeed blocked.  In \cref{eq:objectiveA}, $\Psi({\bm n})$
 is a regularization term that expresses some prior knowledge on the
 distribution, while $\eta$ is a regularization weight.
 
@@ -930,7 +941,7 @@ Since aerosol distributions are usually fuzzy, useful regularization
 is by a {\em smoothness term}, which penalizes energy in second order
 spatial derivatives (3D Laplacian), $\| \nabla^2{\bm
   n}\|^2_2$. Regularization is not required when data is sufficient
-and reliable. As seen in Fig.~\ref{fig:groundgrid}, voxels at high
+and reliable. As seen in \cref{fig:groundgrid}, voxels at high
 altitude have good coverage by many cameras at multiple directions,
 while at low altitude voxels are mainly observed by local
 cameras. Hence, regularization can be weakened with altitude. We
@@ -1004,7 +1015,7 @@ where $\vect{\tau}_c^{\rm air}$ is independent of ${\bm n}$. Using
   = \varpi^{\rm aerosol}\sigma^{\rm aerosol}\OpDiag{P^{\rm
       aerosol}_g(\vect{\Phi}^{\rm scatter}_c)}.
 \end{align}
-Based on Eqs.~(\ref{eq:partial4},\ref{eq:partial1},\ref{eq:partial3}),
+Based on \cref{eq:partial4,eq:partial1,eq:partial3},
 we derive the Jacobian of \cref{eq:bigIA} in close-form,
 \begin{align}
   % {\bm J}_{{\bm i}_c}({\bm n}) &= L^{\rm
@@ -1048,7 +1059,7 @@ where
 \section{Results}
 \label{sec:optimization-results}
 
-Sec.~\ref{sec:simul} describes simulated scenes at various grid
+\cref{sec:simul} describes simulated scenes at various grid
 resolutions.  Depending directly on the area grid finesse, $N_{\rm
   views}$ varied from 12 to 100.
 \begin{figure}
@@ -1063,7 +1074,7 @@ resolutions.  Depending directly on the area grid finesse, $N_{\rm
   \label{fig:results}
 \end{figure}
 We applied the reconstruction algorithm to images created as described
-in Secs.~\ref{sec:simul} and~\ref{sec:monte-carlo-simul}. We used the
+in \cref{sec:simul,sec:monte-carlo-simul}. We used the
 L-BFGS-B algorithm~\cite{BFGS} on a computer cluster. Each core was
 dedicated to rendering a modeled image. The algorithm was initialized
 by ${\bm n}=0$.  Satisfactory convergence occurred in several thousand
@@ -1071,22 +1082,18 @@ iterations. Depending on the resolution it took between minutes to a
 couple of hours to complete, in total.
 
 
-Fig.~\ref{fig:results} shows estimation results, corresponding to the
-original distributions of Fig.~\ref{fig:distributions}. In
-Figs.~\ref{fig:results}a,b, the single-scattering model was used both
+\cref{fig:results} shows estimation results, corresponding to the
+original distributions of \cref{fig:distributions}. In
+\cref{fig:results}a,b, the single-scattering model was used both
 in rendering of the raw images, and in the estimation algorithm. In
-Figs.~\ref{fig:results}c,d, the MC model (multiple scattering)
+\cref{fig:results}c,d, the MC model (multiple scattering)
 rendered the raw images, over which the estimation algorithm
 ran. Overall, the distributions, the density order of magnitude and
 values are consistent.
-% Using the recovered distribution shown in Figs.~\ref{fig:results}c
-% (originating from MC), we ran the single scattering model to create
-% images. \cref{fig:simulation-results1}c shows a cross of such an
-% image compared to the original MC image.
-Errors in Figs.~\ref{fig:results}a,b stem from random noise, which had
+Errors in \cref{fig:results}a,b stem from random noise, which had
 been induced in the raw images. Errors are larger when MC is used to
 render the images, since high-order scattering is not accounted for in
-the algorithm of Sec.~\ref{sec:inverse-problem}. The total estimation
+the algorithm of \cref{sec:inverse-problem}. The total estimation
 error can be quantifies by the aerosol mass that is over and under-estimated
 in all voxels, relative to the total aerosol mass in the scene. Using the $\ell_1$ norm, 
 the total mass relative difference is
@@ -1095,8 +1102,8 @@ The overall mass is recovered, but for 6.5\% loss. For local errors,
  $\epsilon=\|
 \hat{\bm n} - {\bm n}^{\rm true} \|_1 / \| {\bm n}^{\rm true} \|_1$.
   In
-Figs.~\ref{fig:results}a,b, respectively $\epsilon=0.14$ and
-$\epsilon=0.20$.  In Figs.~\ref{fig:results}c,d, both cases have
+\cref{fig:results}a,b, respectively $\epsilon=0.14$ and
+$\epsilon=0.20$.  In \cref{fig:results}c,d, both cases have
 $\epsilon=0.65$.
 
 

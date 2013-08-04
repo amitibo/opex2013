@@ -122,7 +122,7 @@
 %% [use \begin{abstract*}...\end{abstract*} if exempt from copyright]
 
 \begin{abstract}
-  Aerosols effect climate, health and aviation.  Currently, their
+  Aerosols affect climate, health and aviation.  Currently, their
   retrieval assumes a plane-parallel atmosphere and solely vertical
   radiative transfer (RT). We propose a principle to estimate the
   aerosol distribution as it really is: a three dimensional (3D)
@@ -211,7 +211,7 @@ A.~Bluestone, G.~Abdoulaev, C.~Schmitz, R.~Barbour, and A.~Hielscher,
 \bibitem{ihrke}
 I.~Ihrke, K.~N. Kutulakos, H.~P. Lensch, M.~Magnor, and W.~Heidrich,
   \enquote{{State of the art in transparent and specular object
-  reconstruction},} in \enquote{EUROGRAPHICS 2008 STAR--STATE OF THE ART
+  reconstruction},} in \emph{EUROGRAPHICS 2008 STAR--STATE OF THE ART
   REPORT,}  (2008).
 
 \bibitem{Boas2001}
@@ -304,19 +304,18 @@ distribution in the sky.  The atmosphere allows light to pass through
 in multiple locations and directions. Light is affected by this
 medium. Therefore, in this paper we lay out a principle to recover
 this 3D distribution using measured and modeled light-fields
-(\cref{fig:groundgrid}).
-3D recovery of this medium has direct implications to various
-scientific communities that either rely on remotely-sensed imagery,
-study the atmosphere, or overcome the medium to see beyond. These
-include meteorology, atmospheric sciences, volcanology, and
-climatology.  Aerosol retrieval is important for understanding climate
-evolution~\cite{Dayan2008,kalashnikova} and monitoring air
-quality. Mapping aerosol density is significant to aviation safety,
-which needs real time assessment of conditions and visibility around
-flight paths.
+(\cref{fig:groundgrid}).  3D recovery of this medium has direct
+implications to various scientific communities that either rely on
+remotely-sensed imagery, study the atmosphere, or overcome the medium
+to see beyond. These include meteorology, atmospheric sciences,
+volcanology, and climatology.  Aerosol retrieval is important for
+understanding climate evolution~\cite{Dayan2008,kalashnikova} and
+monitoring air quality. Mapping aerosol density is significant to
+aviation safety, which needs real time assessment of conditions and
+visibility around flight paths.
 
-In remote sensing~\cite{Pust2011, Mishchenko2007}, imaging through air is
-associated with {\em atmospheric correction}, based on {\em aerosol
+In remote sensing~\cite{Pust2011, Mishchenko2007}, imaging through air
+is associated with {\em atmospheric correction}, based on {\em aerosol
   retrieval}. In this discipline, the atmosphere is often assumed to
 be plane-parallel, using one-dimensional vertical RT. Consequently
 state-of-the-art aerosol retrieval is done in distinct large lateral
@@ -331,30 +330,29 @@ We rely on sky imaging from multiple directions and locations. Such
 projection is similar to tomography in other scientific
 domains~\cite{Bluestone2001,ihrke}. However, the situation here is
 distinct. Most tomography setups have a controlled and/or
-multidirectional radiation source~\cite{Boas2001,messer}. In
-contrast, our source is the uncontrolled, unidirectional
-Sun. Moreover, typical tomography relies on a linear
-model~\cite{gregson}: the pixel value is a linear combination of
-components along a line of sight (LOS), or a multiplicative
-combination (linearized by a logarithm). Linear tomography can detect
-gases~\cite{Cosofret2009}, which absorb UV or IR radiation. However,
-aerosol attenuation of visible light is typically dominated by {\em
-  scattering}, rather than absorption. Since the radiation source is
-single and fixed in space and time, we cannot rely on direct
-illumination for tomographic recovery of attenuation
+multidirectional radiation source~\cite{Boas2001,messer}. In contrast,
+our source is the uncontrolled, unidirectional Sun. Moreover, typical
+tomography relies on a linear model~\cite{gregson}: the pixel value is
+a linear combination of components along a line of sight (LOS), or a
+multiplicative combination (linearized by a logarithm). Linear
+tomography can detect gases~\cite{Cosofret2009}, which absorb UV or IR
+radiation. However, aerosol attenuation of visible light is typically
+dominated by {\em scattering}, rather than absorption. Since the
+radiation source is single and fixed in space and time, we cannot rely
+on direct illumination for tomographic recovery of attenuation
 fields~\cite{Aviles2011}. We may only use sunlight scattered into the
-LOS. The model is {\em nonlinear, yet tractable}. We model passive
-optical tomographic imaging of 3D atmospheric scatterer distributions
-in cloudless conditions. Then, we solve this tomography problem, to
-recover the distribution. Recovery is formulated as an optimization
-that minimizes a cost function. We derive the gradient of this cost
-function, to enable efficient optimization.
+LOS. The model is {\em nonlinear}, yet {\em tractable}. We model
+passive optical tomographic imaging of 3D atmospheric scatterer
+distributions in cloudless conditions. Then, we solve this tomography
+problem, to recover the distribution. Recovery is formulated as an
+optimization that minimizes a cost function. We derive the gradient of
+this cost function, to enable efficient optimization.
 \begin{figure*}[t!]
   \begin{center}
     \yoavcomment{\includegraphics[width=\linewidth]{images/groundtomog24.pdf}}
   \end{center}
-  \caption{\small Integral (lightfield) imaging through a volumetric distribution
-    in the atmosphere, using ground-based cameras.}
+  \caption{\small Integral (lightfield) imaging through a volumetric
+    distribution in the atmosphere, using ground-based cameras.}
   \label{fig:groundgrid}
 \end{figure*}
 
@@ -417,36 +415,28 @@ is
     scatter}).
   \label{eq:alphabasic}
 \end{align}
-% Let $\mu\equiv \cos\Phi^{\rm scatter}$.
 The phase function is often approximated by a parametric
 expression. Specifically, the Henyey-Greenstein~\cite{Cornette1995}
 function is governed by an {\em anisotropy parameter} $g$:
 \begin{align}
-  P^{\rm aerosol}_g(\Phi^{\rm scatter})\approx \sfrac{3}{8\pi} (1 -
-  g^2)(1+\cos^2\Phi^{\rm scatter}) (2+g^2)^{-1}(1 + g^2 -
-  2g\cos\Phi^{\rm scatter})^{-1.5}.
+  P^{\rm aerosol}_g(\Phi^{\rm scatter})\approx \frac{3}{8\pi} \frac{(1 -
+  g^2)(1+\mu^2)}{(2+g^2)(1 + g^2 - 2g\mu)^{\sfrac{3}{2}}}.
   \label{eq:aerosol_scatter}
 \end{align}
-% \begin{align}
-%   P^{\rm aerosol}_g(\Phi^{\rm scatter})\approx \sfrac{3}{8\pi} (1 -
-%   g^2)(1+\mu^2) (2+g^2)^{-1}(1 + g^2 - 2g\mu)^{\sfrac{-3}{2}}.
-%   \label{eq:aerosol_scatter}
-% \end{align}
-
 
 Scattering by air molecules follows the {\em Rayleigh} model. The
 phase function is
 \begin{align}
   P^{\rm air}(\Phi^{\rm scatter}) &\approx
-  \sfrac{3}{16\pi}(1+\cos^2\Phi^{\rm scatter})
+  \frac{3}{16\pi}(1+\cos^2\Phi^{\rm scatter})
   \label{eq:rayleighP}
 \end{align}
 and the single scattering albedo in visible light is $\varpi^{\rm
   air}$=1. Air molecular density falls off approximately exponentially
 with altitude $h$, with a characteristic~\cite{Levi1980} falloff
-height $H^\mathrm{air}=8\ \si{\km}$. Thus~\cite{Levi1980}, the
+height $H^\mathrm{air}=8\ \si{\km}$. Thus, the
 coefficients for extinction and scattering by air molecules can be
-modeled by
+modeled by~\cite{Levi1980},
 \begin{align}
   \alpha^{\rm air}(h, \lambda)=\beta^{\rm air}(h, \lambda) \approxeq
   1.09 \times 10^{-3}\lambda^{-4} \exp(-h/H^\mathrm{air})
@@ -456,12 +446,13 @@ modeled by
 where $\lambda$ is the wavelength, in microns.
 \\
 
-\noindent {\bf Inverse transform sampling}: A tool for RT is
-Monte-Carlo (MC) simulation. MC considers scattering and extinction as
+\noindent {\bf Inverse transform sampling}: A tool for RT modeling is
+the Monte-Carlo (MC) method. MC considers scattering and extinction as
 random phenomena, that are sampled from their probability
-distributions.  Sample random numbers that comply with a specified
-probability density function can be generated using inverse transform
-sampling~\cite{devroye1986sample}. Let $u$ be a random number drawn
+distributions. 
+Inverse transform sampling~\cite{devroye1986sample} is used for 
+sampling random numbers that comply with a specified
+probability density function. Let $u$ be a random number drawn
 from a uniform distribution in the interval $[0,1]$. The number $u$
 can be transformed into a random variable $X$, whose cumulative
 distribution function (CDF) is $F(X)$. The transform is $X =
@@ -562,7 +553,7 @@ coefficient at voxel $k$, described in \cref{sec:scattering}.
 Denote a SR line segment between the TOA and the center of voxel $k$
 by $[{\rm SR},k]$ (See \cref{fig:groundgrid}). This SR intersects
 voxel $q$. The intersection line segment has geometric length $l_{\rm
-  SR}(q|\Delta z,\Phi^{\rm SR})$, where $\Delta z$ is a voxel's
+  SR}(q|\Delta z,\Phi^{\rm SR},k)$, where $\Delta z$ is a voxel's
 vertical geometric thickness, and $\Phi^{\rm SR}$ is the Sun
 angle. Define a \mbox{$N_{\rm voxels}\times N_{\rm voxels}$} matrix
 $\OpDistance^{\mathrm{Sun \rightarrow voxel}}$, whose element $(k,q)$
@@ -584,7 +575,7 @@ between the camera and the center of voxel $k$ (see
 \cref{fig:groundgrid}).  The LOS zenith angle is $\Phi^{\rm LOS}_c$.
 Suppose this LOS intersects voxel $q$. The geometric length of this
 intersection line segment is $l_{\rm LOS_c}(m|\Delta z,\Phi^{\rm
-  LOS}_c)$.  As in \cref{eq:Dsv}, define a $N_{\rm voxels}\times
+  LOS}_c,k)$.  As in \cref{eq:Dsv}, define a $N_{\rm voxels}\times
 N_{\rm voxels}$ sparse matrix whose element $(k,m)$ is
 \begin{equation}
   \OpDistance^{\mathrm{voxel \rightarrow cam}}_c(k,m) =
@@ -602,17 +593,13 @@ N_{\rm voxels}$ sparse matrix whose element $(k,m)$ is
 We focus on situations where, in addition to air molecules, there is a
 single type of aerosol over a scene. Hence, the three-element vector
 $[{\sigma}^{\rm aerosol},\varpi^{\rm aerosol},g]$ is uniform across
-the scene, but the density distribution ${\DistUnknown}$ is
+the scene, but the density distribution $n(k)$ is
 variable. As a numerical approximation, assume that within any voxel,
 the molecular parameters $\{ \beta^{\rm air}(k),\alpha^{\rm air}(k)\}$
 and the aerosol density $n(k)$ are constants, e.g., corresponding to
 the value at each voxel center.  Following \cref{eq:tau}, the optical
 depths between the TOA and voxel $k$, and from voxel $k$ to camera $c$
 are
-% \begin{equation}
-%  \tau_{\rm SR}(k)= \sum_{q \in[{\rm SR},k]} \beta(q) l_{\rm SR}(q) \;\;.
-%  \label{eq:lSRn}
-%\end{equation}
 \begin{align}
   \tau_{\rm SR}(k)&= \sum_{q \in[{\rm SR},k]} l_{\rm SR}(q)
   [\beta^{\rm air}(q)+\sigma^{\rm aerosol} n(q)] \nonumber \\
@@ -620,16 +607,22 @@ are
   [\beta^{\rm air}(m)+\sigma^{\rm aerosol} n(m)].
   \label{eq:lSRn}
 \end{align}
-Let $\vect{\tau}_{\rm SR}$ and $\vect{\beta}^{\rm air}$ be column
-stack vector representations of $\tau_{\rm SR}(k)$ and $\beta^{\rm
+Let ${\DistUnknown}$, $\vect{\tau}_{\rm SR}$ and $\vect{\beta}^{\rm air}$ be column
+stack vector representations of $n(k)$, $\tau_{\rm SR}(k)$ and $\beta^{\rm
   air}(k)$, respectively.  Then, we can write \cref{eq:lSRn} using
-matrix notation: \mbox{$\vect{\tau}_{\rm SR}= \OpDistance^{\mathrm{Sun
+matrix notation: 
+\begin{align}
+  \vect{\tau}_{\rm SR} &= \OpDistance^{\mathrm{Sun
       \rightarrow voxel}}\vect{\beta}^{\rm air} + \sigma^{\rm
     aerosol}\OpDistance^{\mathrm{Sun \rightarrow voxel}}
-  {\DistUnknown}$},\ and \mbox{$\vect{\tau}_{{\rm LOS}_c}=
-  \OpDistance^{\mathrm{voxel \rightarrow cam}}\vect{\beta}^{\rm air} +
-  \sigma^{\rm aerosol}\OpDistance^{\mathrm{voxel \rightarrow cam}}
-  {\DistUnknown}$}.  The SR and LOS paths joining at each voxel form a
+  {\DistUnknown} \nonumber \\
+  \vect{\tau}_{{\rm LOS}_c} &=
+  \OpDistance_c^{\mathrm{voxel \rightarrow cam}}\vect{\beta}^{\rm air} +
+  \sigma^{\rm aerosol}\OpDistance_c^{\mathrm{voxel \rightarrow cam}}
+  {\DistUnknown}.
+\end{align}
+
+The SR and LOS paths joining at each voxel form a
 single path from the TOA to camera $c$.  Hence, in matrix notation,
 \cref{eq:tau} yields the total optical depths corresponding to LOSs
 (of camera $c$) and SRs that cross all voxels:
@@ -643,39 +636,6 @@ where ${\bm D}_c= {\bm D}^{\mathrm{Sun \rightarrow voxel}}+ {\bm
   D}^{\mathrm{voxel \rightarrow cam}}_c$ and $\vect{\tau}_c^{\rm air}=
 {\bm D}_c \vect{\beta}^{\rm air}$.
   
-%
-%
-% and $\vect{\tau}_{\rm SR}^{\rm air}$ be column stack vector
-% representations of $\tau_{\rm SR}(k)$ and $\tau_{\rm SR}^{\rm
-% air}(k)$, respectively.
-%
-% A similar analysis yields the optical depth along a LOS to voxel
-% $k$, $\tau_{{\rm LOS}_c}(k)$. It is expressed by element $k$ of
-% \mbox{$\vect{\tau}_{{\rm LOS}_c}=\vect{\tau}_{{\rm LOS}_c}^{\rm air}
-% + \sigma^{\rm aerosol}\OpDistance^{\mathrm{voxel \rightarrow cam}}
-% {\DistUnknown}$}.  The SR and LOS paths joining at each voxel can
-% form a single path from the TOA to camera $c$, yielding
-% \begin{equation}
-%  {\bm D}_c=
-%  {\bm D}^{\mathrm{Sun \rightarrow voxel}}+
-%  {\bm D}^{\mathrm{voxel \rightarrow cam}}_c
-%  \quad\text{ and }\quad
-%  \vect{\tau}_c=
-%  \vect{\tau}_{\rm SR}+
-%  \vect{\tau}_{{\rm LOS}_c}
-%  \;\;.
-%  \label{eq:D_tau_total}
-%\end{equation}
-%Hence, in matrix notation, \cref{eq:tau} yields the total optical
-% depths corresponding to LOSs (of camera $c$) and SRs that cross all
-% voxels:
-% \begin{equation}
-%  \vect{\tau}_c= \vect{\tau}_c^{\rm air}
-%  + \sigma^{\rm aerosol} {\bm D}_c {\bm n}
-%  \;\;.
-%  \label{eq:tautotal}
-%\end{equation}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Scattering}
@@ -683,7 +643,7 @@ where ${\bm D}_c= {\bm D}^{\mathrm{Sun \rightarrow voxel}}+ {\bm
 
 Per camera $c$ and voxel $k$, the lines $[{\rm SR},k]$ and $[{\rm
   LOS}_c,k]$ intersect at a fixed angle $\Phi^{\rm scatter}_c(k)$.
-Column-stacking all voxels yields the vector representation of all
+Column-stacking all angles yields the vector representation of all
 scattering angles in the domain, $\vect{\Phi}^{\rm scatter}_c$ per
 camera $c$.
 % Similarly, the single-scattering albdeos $\varpi^{\rm aerosol}$ in
@@ -708,7 +668,7 @@ Here the operator $\odot$ denotes the Hadamard (element-wise) product.
 
 Compounding the attenuation of irradiance along both $[{\rm SR},k]$
 and $[{\rm LOS}_c,k]$, and scattering by voxel $k$ towards the camera
-(\cref{eq:beer-lambert,eq:tautotal}) the radiant power
+(\cref{eq:beer-lambert,eq:tautotal,eq:alphabasic}) the radiant power
 contributed by the voxel is
 \begin{equation}
   p_c(k)= L^{\rm TOA}
@@ -727,11 +687,11 @@ of all voxel contributions is
   \label{eq:pc}
 \end{equation}
 
-A camera pixel collects light from a narrow cone in the
+A camera sensor comprises $N_{\rm pix}$ pixels. Each pixel collects light from a narrow cone in the
 atmosphere. The cone contains or intersects some voxels, while being
-oblivious to all the rest.  Overall, light power captured at a pixel
-is a weighted sum of the power $p_c(k)$ from all voxels.  This sum is
-formulated by a matrix operation over ${\bm p}_c$:
+oblivious to all the rest.  Overall, light power captured at the pixel
+is a weighted sum of the power $p_c(k)$ radiating from all voxels.  This sum is
+formulated by a matrix operation ${\vect{\Pi}}_c$ over ${\bm p}_c$:
 \begin{equation}
   {\bm i}_c= {\vect{\Pi}}_c{\bm p}_c
   \;\;,
@@ -739,13 +699,13 @@ formulated by a matrix operation over ${\bm p}_c$:
 \end{equation}
 where ${\bm i}_c$ is the image, column-stacked to a vector $N_{\rm
   pix}$ long.  Combining
-\cref{eq:tautotal,eq:pc,eq:IcP}, the captured image is thus
+\cref{eq:tautotal,eq:pc,eq:IcP,eq:alpha_matrix}, the captured image is thus
 \begin{align}
-  {\bm i}_c= L^{\rm TOA} {\vect{\Pi}}_c \Big\{
-  [\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm aerosol}\sigma^{\rm
+  {\bm i}_c= L^{\rm TOA} {\vect{\Pi}}_c \left\{
+  \left[\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm aerosol}\sigma^{\rm
     aerosol} P^{\rm aerosol}_g(\vect{\Phi}^{\rm scatter}_c) \odot{\bm
-    n} ] \odot \exp[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm aerosol}
-  {\bm D}_c{\bm n})] \Big\} .
+    n} \right] \odot \exp\left[-(\vect{\tau}_c^{\rm air} + {\sigma}^{\rm aerosol}
+  {\bm D}_c{\bm n})\right] \right\} .
   \label{eq:bigIA}
 \end{align}
 
@@ -764,7 +724,9 @@ where ${\bm i}_c$ is the image, column-stacked to a vector $N_{\rm
     zenith angles.}
   \label{fig:simulation-results1}
 \end{figure}
-To demonstrate the model, we simulated some scenarios, whose details are as follows.\\
+To demonstrate the model, we simulated some scenarios, whose details are as follows.
+\\
+
 \noindent{\bf Geometry}: The sun is at zenith angle $\Phi^{\rm
   SR}=45^o$.  Its $L^{\rm TOA}$ is obtained
 from~\cite{BBradiance,sun_composition}, with respective red-green-blue
@@ -773,12 +735,13 @@ ratios of $L^{\rm TOA}_{\rm R}:L^{\rm TOA}_{\rm G}:L^{\rm TOA}_{\rm
 
 The atmospheric domain is described in \cref{fig:distributions}.
 We tested domain division to various grids, from $10\times10 \times
-20$ voxels, up to $50\times50 \times 1000$. The corresponding voxels
+20$ voxels, up to $50\times50 \times 100$. The corresponding voxels
 had width, length and thickness of $5{\rm km}\times 5{\rm km} \times
 0.5{\rm km}$ and $1{\rm km}\times 1{\rm km} \times 0.1{\rm km}$.  Each
-ground-based camera has nearly a hemispherical field of view, and low
+ground-based camera has a hemispherical field of view, and low
 resolution, $128 \rm{px} \times 128 \rm{px}$, as cloudless (yet hazy)
 sky images are rather smooth.
+\\
 
 \noindent{\bf Aerosol}: We used particle-type 6 from the aerosol list
 in Ref.~\cite{Martonchik2009}. This is a spherical non-absorbing
@@ -793,7 +756,7 @@ distributions using a product of two functions. To express the general
 trend of reduced density with altitude $h(k)$ of voxel $k$, we follow
 Ref.~\cite{Levi1980} and set the first function as
 \begin{align}
-  f_1[h(k)] = \sfrac{1} {n^{\rm sealevel}}
+  f_1[h(k)] = n^{\rm sealevel}
   \exp[-h(k)/H^\mathrm{aerosol}],
 \end{align}
 where $H^\mathrm{aerosol}=2$~\si{\km}. To express a clustered nature
@@ -816,8 +779,8 @@ The true aerosol distribution is then ${\bm n}^{\rm true}={\cal
 smoothing, obtained by narrow 3D Gaussian filtering. It expresses
 non-sharp boundaries of typical distributions. The {\em Haze Blobs}
 scene in \cref{fig:distributions}a uses two ellipsoids: one is 32km
-wide, 2.8km thick and centered at altitude 3.3km; the other is 24km
-wide, 2.1km thick and centered at altitude 6.6km. Horizontal widths
+wide, 2.8km thick and centered at altitude 2.5km; the other is 24km
+wide, 2.1km thick and centered at altitude 5km. Horizontal widths
 are much larger than the vertical thickness, in consistency with
 atmospheric scales. \cref{fig:simulation-results1} shows
 photographs of the {\em Haze Blobs} scene, as simulated by
@@ -840,15 +803,15 @@ The MC simulations rely on the same grid as
 pixel, photons are `launched' via the camera lens; then the photons
 are traced back through the atmosphere. Photons that happen to be
 back-traced to the Sun are counted, per pixel. In this model, RT takes
-the following steps, per pixel (\cref{fig:mcgrid}):
+the following steps, per pixel (\cref{fig:mcgrid}a):
 \begin{figure}
   \centering
   \yoavcomment{\def\svgwidth{\linewidth}\small{\input{images/mcgrid.pdf_tex}}}
-  \caption{\small [a] Multiple-scattering forward model by Monte
-    Carlo. [b] Photograph of the same sky and view point as in
-    \cref{fig:simulation-results1}, rendered using a MC model.  [c]
-    Cross section along the $X$-Axis of the MC simulation,
-    Single-Scattering simulation and a Single-Scattering image created
+  \caption{\small [a] Multiple-scattering forward model by MC.
+    [b] Photograph of the same sky and view point as in
+    \cref{fig:simulation-results1}[left], rendered using MC.
+    [c] Cross section along the $X$-Axis of the MC simulation,
+    single-scattering simulation and a single-scattering image created
     from the reconstructed distribution
     (\cref{sec:optimization-results}).}
   \label{fig:mcgrid}
@@ -858,7 +821,7 @@ the following steps, per pixel (\cref{fig:mcgrid}):
 direction ${\bm{\Theta}}$. This is the initial {\em ray}, denoted
 ${\cal R}_0$. The packet has intensity $I_0$.
 
-\noindent Per iteration $i$
+\noindent Per iteration $i$:
 
 \noindent ({\tt ii}) Find the distance on ray ${\cal R}_{i}$ to which
 the photon-packet propagates. To do this, \cref{eq:taurand}
@@ -870,13 +833,13 @@ $l^{\rm random}$ s.t.
   = \tau^{\rm random}
   \label{eq:MCextinct}
 \end{align}
-Distance $l^{\rm random}$ at ${\cal R}_{i}$ is 3D position ${\bf
+Distance $l^{\rm random}$ along ${\cal R}_{i}$ yields the 3D position ${\bf
   X}_{i}$.  If ${\bf X}_{i}$ is outside the atmospheric grid, the
 packet is terminated. If, in addition, ${\cal R}_{i}\parallel {\rm
   SR}$ , the packet is counted as contributing to the image pixel.
 
 \noindent ({\tt iii}) The type of particle (air molecule or aerosol)
-the photon-packet interacts with at ${\bf X}_{i}$ is determined
+that the photon-packet interacts with at point ${\bf X}_{i}$ is determined
 randomly according to their relative densities at the voxel containing
 ${\bf X}_{i}$.
 
@@ -887,8 +850,8 @@ following~\cite{Iwabuchi2006}.
 
 \noindent ({\tt v}) The photon-packet is scattered to a new direction,
 determined by inverse transform sampling, according to the phase
-function of the particle (Eqs.~\ref{eq:aerosol_scatter}
-or~\ref{eq:rayleighP}). This yields a new {\em ray}, denoted ${\cal
+function of the particle (Eqs.~(\ref{eq:aerosol_scatter})
+or~(\ref{eq:rayleighP})). This yields a new {\em ray}, denoted ${\cal
   R}_{i+1}$, emanating from ${\bf X}_{i}$. Local
 Estimation~\cite{marshak20053d} is used for calculating the amount of
 light back-traced to the sun at each scattering. The next iteration of
@@ -935,17 +898,17 @@ where
 Here $\MaskSun$ masks the area around the sun, as in real-world images
 it is indeed blocked.  In \cref{eq:objectiveA}, $\Psi({\bm n})$
 is a regularization term that expresses some prior knowledge on the
-distribution, while $\eta$ is a regularization weight.
+distribution, while $\eta$ is the regularization weight.
 
 Since aerosol distributions are usually fuzzy, useful regularization
-is by a {\em smoothness term}, which penalizes energy in second order
+is by a {\em smoothness term}, which penalizes for energy in the second order
 spatial derivatives (3D Laplacian), $\| \nabla^2{\bm
   n}\|^2_2$. Regularization is not required when data is sufficient
 and reliable. As seen in \cref{fig:groundgrid}, voxels at high
 altitude have good coverage by many cameras at multiple directions,
-while at low altitude voxels are mainly observed by local
+while low altitude voxels are mainly observed by local
 cameras. Hence, regularization can be weakened with altitude. We
-accomplished this weakening using a weight
+accomplish this weakening using a weight
 $w(k)=\exp\left[-h(k)/H^\mathrm{smooth}\right]$.  Overall we use
 \begin{equation}
   \label{eq:regularizer}
@@ -966,7 +929,7 @@ The gradient of $E$ with respect to ${\bm n}$ is
 \end{align}
 Here the matrix ${\bm J}_{{\bm i}_c}({\bm n})$ is the Jacobian of the
 vector ${\bm i}_c$ with respect to ${\bm n}$.  Element $(\Theta,k)$ of
-this matrix differentiates the intensity in pixel ${\bm \Theta}$ (in
+the Jacobian differentiates the intensity in pixel ${\bm \Theta}$ (in
 viewpoint $c$) with variation of the aerosol density at voxel $k$,
 i.e., $\partial i_c({\bm \Theta})/\partial{n(k)}$.
 
@@ -1062,13 +1025,13 @@ where
 \cref{sec:simul} describes simulated scenes at various grid
 resolutions.  Depending directly on the area grid finesse, $N_{\rm
   views}$ varied from 12 to 100.
-\begin{figure}
+\begin{figure}[h]
   \centering
   \yoavcomment{\includegraphics[width=\columnwidth]{images/results}}
   \caption{\small Reconstructions of the scenes shown in
     \cref{fig:distributions}. Color represents aerosol density. The
     density units are $10^{6}~{\rm particles}/{\rm m}^3.$ In [a,b],
-    Single-Scattering simulated images are used as input to the
+    single-scattering simulated images are used as input to the
     recovery.  In [c,d], MC simulated images are used as input for the
     recovery.  }
   \label{fig:results}
@@ -1077,7 +1040,7 @@ We applied the reconstruction algorithm to images created as described
 in \cref{sec:simul,sec:monte-carlo-simul}. We used the
 L-BFGS-B algorithm~\cite{BFGS} on a computer cluster. Each core was
 dedicated to rendering a modeled image. The algorithm was initialized
-by ${\bm n}=0$.  Satisfactory convergence occurred in several thousand
+by ${\bm n}=0$.  Satisfactory convergence occurred in several hundred
 iterations. Depending on the resolution it took between minutes to a
 couple of hours to complete, in total.
 
@@ -1094,7 +1057,7 @@ Errors in \cref{fig:results}a,b stem from random noise, which had
 been induced in the raw images. Errors are larger when MC is used to
 render the images, since high-order scattering is not accounted for in
 the algorithm of \cref{sec:inverse-problem}. The total estimation
-error can be quantifies by the aerosol mass that is over and under-estimated
+error can be quantified by the aerosol mass that is over and under-estimated
 in all voxels, relative to the total aerosol mass in the scene. Using the $\ell_1$ norm, 
 the total mass relative difference is
 $(\|\hat{\bm n}\|_1 - \|{\bm n}^{\rm true} \|_1) / \| {\bm n}^{\rm true} \|_1$.

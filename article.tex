@@ -594,62 +594,55 @@ variable. As a numerical approximation, assume that within any voxel,
 the molecular parameters $\{ \beta^{\rm air}(k),\alpha^{\rm air}(k)\}$
 and the aerosol density $n(k)$ are constants, e.g., corresponding to
 the value at each voxel center.  Following \cref{eq:tau}, the optical
-depths between the TOA and voxel $k$, and from voxel $k$ to camera $c$ are
+depths between the TOA and voxel $k$, and from voxel $k$ to camera $c$
+are
 % \begin{equation}
 %  \tau_{\rm SR}(k)= \sum_{q \in[{\rm SR},k]} \beta(q) l_{\rm SR}(q) \;\;.
 %  \label{eq:lSRn}
 %\end{equation}
 \begin{align}
-  \tau_{\rm SR}(k)&=
-  \sum_{q \in[{\rm SR},k]} l_{\rm SR}(q)
+  \tau_{\rm SR}(k)&= \sum_{q \in[{\rm SR},k]} l_{\rm SR}(q)
   [\beta^{\rm air}(q)+\sigma^{\rm aerosol} n(q)] \\
-  \tau_{{\rm LOS}_c}(k)&=
-  \sum_{m \in[{\rm SR},k]} l_{{\rm LOS}_c}(m)
+  \tau_{{\rm LOS}_c}(k)&= \sum_{m \in[{\rm SR},k]} l_{{\rm LOS}_c}(m)
   [\beta^{\rm air}(m)+\sigma^{\rm aerosol} n(m)].
   \label{eq:lSRn}
 \end{align}
-Let $\vect{\tau}_{\rm SR}$ and $\vect{\beta}^{\rm air}$ be 
-column stack vector
-representations of $\tau_{\rm SR}(k)$ and $\beta^{\rm air}(k)$, respectively.
- Then, we can write \cref{eq:lSRn} using
-matrix notation: 
-   \mbox{$\vect{\tau}_{\rm SR}=
-   \OpDistance^{\mathrm{Sun \rightarrow voxel}}\vect{\beta}^{\rm air} 
-   + \sigma^{\rm aerosol}\OpDistance^{\mathrm{Sun \rightarrow voxel}} {\DistUnknown}$},\
-and
-    \mbox{$\vect{\tau}_{{\rm LOS}_c}=
-   \OpDistance^{\mathrm{voxel \rightarrow cam}}\vect{\beta}^{\rm air}
-   + \sigma^{\rm aerosol}\OpDistance^{\mathrm{voxel \rightarrow cam}} {\DistUnknown}$}.
-The SR and LOS paths joining at each voxel 
-form a single path from the TOA to camera $c$.  
-Hence, in matrix notation, \cref{eq:tau} yields the total optical
-depths corresponding to LOSs (of camera $c$) and SRs that cross all
-voxels:
+Let $\vect{\tau}_{\rm SR}$ and $\vect{\beta}^{\rm air}$ be column
+stack vector representations of $\tau_{\rm SR}(k)$ and $\beta^{\rm
+  air}(k)$, respectively.  Then, we can write \cref{eq:lSRn} using
+matrix notation: \mbox{$\vect{\tau}_{\rm SR}= \OpDistance^{\mathrm{Sun
+      \rightarrow voxel}}\vect{\beta}^{\rm air} + \sigma^{\rm
+    aerosol}\OpDistance^{\mathrm{Sun \rightarrow voxel}}
+  {\DistUnknown}$},\ and \mbox{$\vect{\tau}_{{\rm LOS}_c}=
+  \OpDistance^{\mathrm{voxel \rightarrow cam}}\vect{\beta}^{\rm air} +
+  \sigma^{\rm aerosol}\OpDistance^{\mathrm{voxel \rightarrow cam}}
+  {\DistUnknown}$}.  The SR and LOS paths joining at each voxel form a
+single path from the TOA to camera $c$.  Hence, in matrix notation,
+\cref{eq:tau} yields the total optical depths corresponding to LOSs
+(of camera $c$) and SRs that cross all voxels:
 \begin{equation}
   \vect{\tau}_c= \vect{\tau}_c^{\rm air}
   + \sigma^{\rm aerosol} {\bm D}_c {\bm n}
   \;\;,
   \label{eq:tautotal}
 \end{equation}
-where   ${\bm D}_c=
-  {\bm D}^{\mathrm{Sun \rightarrow voxel}}+
-  {\bm D}^{\mathrm{voxel \rightarrow cam}}_c$
-and $\vect{\tau}_c^{\rm air}= {\bm D}_c \vect{\beta}^{\rm air}$.
+where ${\bm D}_c= {\bm D}^{\mathrm{Sun \rightarrow voxel}}+ {\bm
+  D}^{\mathrm{voxel \rightarrow cam}}_c$ and $\vect{\tau}_c^{\rm air}=
+{\bm D}_c \vect{\beta}^{\rm air}$.
   
 %
 %
-%and
-%$\vect{\tau}_{\rm SR}^{\rm air}$ be column stack vector
-%representations of $\tau_{\rm SR}(k)$ and $\tau_{\rm SR}^{\rm
-%  air}(k)$, respectively.
+% and $\vect{\tau}_{\rm SR}^{\rm air}$ be column stack vector
+% representations of $\tau_{\rm SR}(k)$ and $\tau_{\rm SR}^{\rm
+% air}(k)$, respectively.
 %
-%A similar analysis yields the optical depth along a LOS to voxel $k$,
-%$\tau_{{\rm LOS}_c}(k)$. It is expressed by element $k$ of
-%\mbox{$\vect{\tau}_{{\rm LOS}_c}=\vect{\tau}_{{\rm LOS}_c}^{\rm air} +
-%  \sigma^{\rm aerosol}\OpDistance^{\mathrm{voxel \rightarrow cam}}
-%  {\DistUnknown}$}.  The SR and LOS paths joining at each voxel can
-%form a single path from the TOA to camera $c$, yielding
-%\begin{equation}
+% A similar analysis yields the optical depth along a LOS to voxel
+% $k$, $\tau_{{\rm LOS}_c}(k)$. It is expressed by element $k$ of
+% \mbox{$\vect{\tau}_{{\rm LOS}_c}=\vect{\tau}_{{\rm LOS}_c}^{\rm air}
+% + \sigma^{\rm aerosol}\OpDistance^{\mathrm{voxel \rightarrow cam}}
+% {\DistUnknown}$}.  The SR and LOS paths joining at each voxel can
+% form a single path from the TOA to camera $c$, yielding
+% \begin{equation}
 %  {\bm D}_c=
 %  {\bm D}^{\mathrm{Sun \rightarrow voxel}}+
 %  {\bm D}^{\mathrm{voxel \rightarrow cam}}_c
@@ -661,9 +654,9 @@ and $\vect{\tau}_c^{\rm air}= {\bm D}_c \vect{\beta}^{\rm air}$.
 %  \label{eq:D_tau_total}
 %\end{equation}
 %Hence, in matrix notation, \cref{eq:tau} yields the total optical
-%depths corresponding to LOSs (of camera $c$) and SRs that cross all
-%voxels:
-%\begin{equation}
+% depths corresponding to LOSs (of camera $c$) and SRs that cross all
+% voxels:
+% \begin{equation}
 %  \vect{\tau}_c= \vect{\tau}_c^{\rm air}
 %  + \sigma^{\rm aerosol} {\bm D}_c {\bm n}
 %  \;\;.
@@ -1109,14 +1102,24 @@ $\epsilon=0.65$.
 \section{Discussion}
 \label{sec:conclusions}
 
-We describe a way to sense the 3D atmosphere. It can help 
-remote sensing departing from common 1D aerosol distribution models, in favor of detailed 3D RT analysis.  The paper describes both a novel data
-acquisition system concept for this recovery task (ground-based camera network), and a dedicated algorithm for reconstructing aerosol distributions. Using more prior knowledge on the nature of distributions will improve the recovery.  The estimation algorithm uses a single scattering model. This approximation is valid when the
-optical depth is small. However, as the MC simulation show, it is important to generalize this algorithm so that it explicitly incorporates high-order scattering in the scene, including the ground. This will certainly be needed for dense distributions as clouds.
+We describe a way to sense the 3D atmosphere. It can help remote
+sensing departing from common 1D aerosol distribution models, in favor
+of detailed 3D RT analysis.  The paper describes both a novel data
+acquisition system concept for this recovery task (ground-based camera
+network), and a dedicated algorithm for reconstructing aerosol
+distributions. Using more prior knowledge on the nature of
+distributions will improve the recovery.  The estimation algorithm
+uses a single scattering model. This approximation is valid when the
+optical depth is small. However, as the MC simulation show, it is
+important to generalize this algorithm so that it explicitly
+incorporates high-order scattering in the scene, including the
+ground. This will certainly be needed for dense distributions as
+clouds.
 
-To deploy such a system on a very large scale will require a long-term engineering effort. Camera specifications should be set to optimally recover a wide range of
-aerosol distributions. This requires a major theoretic and numerical
-research.  
+To deploy such a system on a very large scale will require a long-term
+engineering effort. Camera specifications should be set to optimally
+recover a wide range of aerosol distributions. This requires a major
+theoretic and numerical research.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%% Acknowledgments %%%%%%%%%%%%%%%%%%%%%
@@ -1125,10 +1128,12 @@ research.
 \section*{Acknowledgments}
 \label{sec:acknowledgments}
 
-We thank David~J. Diner for useful
-discussions. Yoav Schechner is a Landau Fellow - supported by the Taub
-Foundation. This work was conducted in the Ollendorff Minerva
-Center. Minerva is funded through the BMBF.
+We thank David~J. Diner for useful discussions. Yoav Schechner is a
+Landau Fellow - supported by the Taub Foundation. This work was
+conducted in the Ollendorff Minerva Center. Minerva is funded through
+the BMBF. Part of this work was per- formed at the Jet Propulsion
+Laboratory, California Institute of Technology, under contract with
+NASA.
 
 \end{document}
 

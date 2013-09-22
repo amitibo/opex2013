@@ -41,6 +41,7 @@
 %
 \usepackage[capitalise,poorman]{cleveref}
 \crefname{section}{Sec.}{Secs.}
+\Crefname{section}{Section}{Sections}
 \makeatletter
 \def\@@number#1{#1}
 \makeatother
@@ -782,7 +783,7 @@ scene in \cref{fig:distributions}(a) uses two ellipsoids: one is 32km
 wide, 2.8km thick and centered at altitude 2.5km; the other is 24km
 wide, 2.1km thick and centered at altitude 5km. Horizontal widths
 are much larger than the vertical thickness, in consistency with
-atmospheric scales. \cref{fig:simulation-results1} shows
+atmospheric scales. \Cref{fig:simulation-results1} shows
 photographs of the {\em Haze Blobs} scene, as simulated by
 \cref{eq:bigIA}.
 
@@ -858,7 +859,7 @@ light back-traced to the sun at each scattering. The next iteration of
 propagation (denoted {\tt ii} above) proceeds.
 
 The quality of MC increases with the number of photons launched.
-\cref{fig:mcgrid}(b) shows a photograph of the {\em Haze Blobs}
+\Cref{fig:mcgrid}(b) shows a photograph of the {\em Haze Blobs}
 scene, derived by the MC process, using \num{10000} photons per pixel,
 from the same viewpoint as \cref{fig:simulation-results1}[left].  A
 comparison of a sample horizontal cross section is shown in
@@ -1022,7 +1023,7 @@ where
 \section{Results}
 \label{sec:optimization-results}
 
-\cref{sec:simul} describes simulated scenes at various grid
+\Cref{sec:simul} describes simulated scenes at various grid
 resolutions.  Depending directly on the area grid finesse, $N_{\rm
   views}$ varied from 12 to 100.
 \begin{figure}[h]

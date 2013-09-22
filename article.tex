@@ -19,6 +19,7 @@
 \usepackage{xfrac}
 \usepackage{paralist}
 \usepackage{cite}
+\usepackage{soul}
 
 %\usepackage{ae} %%for Computer Modern fonts
 
@@ -67,6 +68,7 @@
 \newcommand{\derivsym}[1]{\,d{#1}}
 \newcommand{\yoavcomment}[1]{}
 \renewcommand{\yoavcomment}[1]{#1} % Comment to remove images
+\newcommand{\fix}[2]{\st{#1}\hl{#2}}
 
 %
 % Used symbols (only partial for now...)
@@ -420,9 +422,10 @@ expression. Specifically, the Henyey-Greenstein~\cite{Cornette1995}
 function is governed by an {\em anisotropy parameter} $g$:
 \begin{align}
   P^{\rm aerosol}_g(\Phi^{\rm scatter})\approx \frac{3}{8\pi} \frac{(1 -
-  g^2)(1+\mu^2)}{(2+g^2)(1 + g^2 - 2g\mu)^{\sfrac{3}{2}}}.
+  g^2)(1+\mu^2)}{(2+g^2)(1 + g^2 - 2g\mu)^{\sfrac{3}{2}}}
   \label{eq:aerosol_scatter}
 \end{align}
+\hl{where $\mu\equiv \cos \Phi^{\rm scatter}$}
 
 Scattering by air molecules follows the {\em Rayleigh} model. The
 phase function is
@@ -520,7 +523,8 @@ distribution (\cref{sec:inverse-problem}).
 \label{sec:single-scatt-model}
 
 As illustrated in \cref{fig:groundgrid,fig:distributions},
-The sky is discretized into a grid of $N_{\rm voxels}$ volume elements
+The sky is discretized into a grid of $N_{\rm voxels}$ \fix{volume
+  elements}{rectangular cuboid elements}
 (voxels), indexed by $k$, $m$ or $q$.
 \begin{figure}
   \centering
@@ -1046,7 +1050,13 @@ couple of hours to complete, in total.
 
 
 \cref{fig:results} shows estimation results, corresponding to the
-original distributions of \cref{fig:distributions}. In
+original distributions of \cref{fig:distributions}. 
+\hl{
+In these simulations the atmosphere domain was defined over a
+$20\times20 \times 40$ grid. Thirty six cameras were placed
+$\sim7$km apart on a $6\times6$ grid.
+}
+In
 \cref{fig:results}a,b, the single-scattering model was used both
 in rendering of the raw images, and in the estimation algorithm. In
 \cref{fig:results}c,d, the MC model (multiple scattering)
@@ -1092,8 +1102,11 @@ clouds.
 
 To deploy such a system on a very large scale will require a long-term
 engineering effort. Camera specifications~\cite{Pust2011} should be
-set to optimally recover a wide range of aerosol distributions. This
-requires a major theoretic and numerical research.
+set to optimally recover a wide range of aerosol distributions.
+\hl{The relation between the quantity and spatial distribution of
+  cameras and the quality of reconstruction should also be determined.}
+\fix{This requires}{These open questions require} a major theoretic
+ and numerical research.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%% Acknowledgments %%%%%%%%%%%%%%%%%%%%%

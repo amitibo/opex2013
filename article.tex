@@ -42,6 +42,7 @@
 %
 \usepackage[capitalise,poorman]{cleveref}
 \crefname{section}{Sec.}{Secs.}
+\Crefname{section}{Section}{Sections}
 \makeatletter
 \def\@@number#1{#1}
 \makeatother
@@ -107,7 +108,7 @@
 \title{Multi sky-view\\ 3D aerosol distribution recovery}
 
 \author{Amit~Aides,\authnote{1*} Yoav~Y.~Schechner,\authnote{1}
-  Vadim~Holodovsky\authnote{1}, Michael~J.~Garay\authnote{2} and Anthony~B.~Davis\authnote{2}}
+  Vadim~Holodovsky,\authnote{1} Michael~J.~Garay\authnote{2} and Anthony~B.~Davis\authnote{2}}
 
 \address{\affilnote{1}Electrical Engineering Department, Technion - Israel Institute of Technology, Haifa 32000, Israel\\
   \affilnote{2}Jet Propulsion Laboratory, California Institute of
@@ -158,11 +159,11 @@
 \bibitem{Stern2006}
 A.~Stern and B.~Javidi, \enquote{{Three-dimensional image sensing,
   visualization, and processing using integral imaging},} Proceedings of the
-  IEEE \textbf{94} (2006).
+  IEEE \textbf{94.3} (2006).
 
 \bibitem{kim}
 J.~Kim, D.~Lanman, Y.~Mukaigawa, and R.~Raskar, \enquote{{Descattering
-  transmission via angular filtering},} in \enquote{Proc. ECCV' 10,}
+  transmission via angular filtering},} in \emph{Proc. ECCV' 10,}
   (Springer-Verlag, Berlin, Heidelberg, 2010), pp. 86--99.
 
 \bibitem{Ng1948}
@@ -184,7 +185,7 @@ O.~V. Kalashnikova, M.~J. Garay, A.~B. Davis, D.~J. Diner, and J.~V.
 
 \bibitem{Mishchenko2007}
 M.~I. Mishchenko and I.~V. Geogdzhayev, \enquote{{Satellite remote sensing
-  reveals regional tropospheric aerosol trends.}} Optics express \textbf{15},
+  reveals regional tropospheric aerosol trends},} \opex \textbf{15},
   7423--38 (2007).
 
 \bibitem{Martonchikc}
@@ -196,13 +197,13 @@ J.~Martonchik, D.~D.~J. Diner, J.~M. David, R.~Kahn, T.~P. Ackerman, M.~M.
 
 \bibitem{Namer2009}
 E.~Namer, S.~Shwartz, and Y.~Y. Schechner, \enquote{{Skyless polarimetric
-  calibration and visibility enhancement.}} Optics express \textbf{17}, 472--93
+  calibration and visibility enhancement},} \opex \textbf{17}, 472--93
   (2009).
 
 \bibitem{Bluestone2001}
 A.~Bluestone, G.~Abdoulaev, C.~Schmitz, R.~Barbour, and A.~Hielscher,
   \enquote{{Three-dimensional optical tomography of hemodynamics in the human
-  head},} Optics express \textbf{9}, 272--86 (2001).
+  head},} \opex \textbf{9}, 272--86 (2001).
 
 \bibitem{ihrke}
 I.~Ihrke, K.~N. Kutulakos, H.~P. Lensch, M.~Magnor, and W.~Heidrich,
@@ -230,7 +231,7 @@ J.~Gregson, M.~Krimerman, M.~B. Hullin, and W.~Heidrich, \enquote{{Stochastic
 B.~R. Cosofret, D.~Konno, A.~Faghfouri, H.~S. Kindle, C.~M. Gittins, M.~L.
   Finson, T.~E. Janov, M.~J. Levreault, R.~K. Miyashiro, and W.~J. Marinelli,
   \enquote{{Imaging sensor constellation for tomographic chemical cloud
-  mapping},} Applied optics \textbf{48}, 1837--52 (2009).
+  mapping},} \ao \textbf{48}, 1837--52 (2009).
 
 \bibitem{Aviles2011}
 J.~A. Aviles, \enquote{{The Development and Validation of a First Generation
@@ -240,7 +241,7 @@ J.~A. Aviles, \enquote{{The Development and Validation of a First Generation
 
 \bibitem{Cornette1995}
 W.~M. Cornette and J.~G. Shanks, \enquote{{Physically reasonable analytic
-  expression for the single-scattering phase function: errata.}} Applied optics
+  expression for the single-scattering phase function: errata},} \ao
   \textbf{34}, 641 (1995).
 
 \bibitem{Levi1980}
@@ -248,13 +249,13 @@ L.~Levi, \emph{{Applied Optics}} (John Wiley \& Sons, Inc., 1980).
 
 \bibitem{devroye1986sample}
 L.~Devroye, \enquote{{Sample-based non-uniform random variate generation},} in
-  \enquote{Proceedings of the 18th conference on Winter simulation,}  (ACM,
+  \emph{Proceedings of the 18th conference on Winter simulation,}  (ACM,
   1986), pp. 260--265.
 
 \bibitem{Hong2004}
 S.-H. Hong, J.-S. Jang, and B.~Javidi, \enquote{{Three-dimensional volumetric
-  object reconstruction using computational integral imaging.}} Optics express
-  \textbf{12}, 483--91 (2004).
+  object reconstruction using computational integral imaging},} \opex
+  \textbf{12}, 483--491 (2004).
 
 \bibitem{BBradiance}
 M.~Charity, \enquote{{Blackbody color datafile},}  (2001), \url{http://www.vendian.org/mncharity/dir3/blackbody/UnstableURLs/bbr\_color.html}.
@@ -286,8 +287,8 @@ C.~Zhu, R.~H. Byrd, P.~Lu, and J.~Nocedal, \enquote{{Algorithm 778: L-BFGS-B:
 \bibitem{Pust2011}
 N.~J. Pust, A.~R. Dahlberg, M.~J. Thomas, and J.~a. Shaw, \enquote{{Comparison
   of full-sky polarization and radiance observations to radiative transfer
-  simulations which employ AERONET products.}} Optics express \textbf{19},
-  18602--13 (2011).
+  simulations which employ AERONET products},} \opex \textbf{19},
+  18602--18613 (2011).
 
 \end{thebibliography}
 
@@ -748,7 +749,7 @@ sky images are rather smooth.
 \\
 
 \noindent{\bf Aerosol}: We used particle-type 6 from the aerosol list
-in Ref.~\cite{Martonchik2009}. This is a spherical non-absorbing
+in~\cite{Martonchik2009}. This is a spherical non-absorbing
 sea-salt/organic particle, whose anisotropy parameter per color
 channel is $[g_{\rm R},g_{\rm G},g_{\rm B}]=[0.763,0.775,0.786]$. Its
 corresponding extinction cross sections are $[\sigma^{\rm
@@ -757,8 +758,8 @@ corresponding extinction cross sections are $[\sigma^{\rm
   B}]=[16.5,16.2,15.9]$~\si[sticky-per]{\per\micro\meter\squared}.  At
 all channels, $\varpi^{\rm aerosol}=1$. We simulated spatial
 distributions using a product of two functions. To express the general
-trend of reduced density with altitude $h(k)$ of voxel $k$, we follow
-Ref.~\cite{Levi1980} and set the first function as
+trend of reduced density with altitude $h(k)$ of voxel $k$, we
+follow~\cite{Levi1980} and set the first function as
 \begin{align}
   f_1[h(k)] = n^{\rm sealevel}
   \exp[-h(k)/H^\mathrm{aerosol}],
@@ -782,15 +783,15 @@ The true aerosol distribution is then ${\bm n}^{\rm true}={\cal
   S}\{{\bm f}_1\odot {\bm f}_2\}$, where ${\cal S}$ is 3D spatial
 smoothing, obtained by narrow 3D Gaussian filtering. It expresses
 non-sharp boundaries of typical distributions. The {\em Haze Blobs}
-scene in \cref{fig:distributions}a uses two ellipsoids: one is 32km
+scene in \cref{fig:distributions}(a) uses two ellipsoids: one is 32km
 wide, 2.8km thick and centered at altitude 2.5km; the other is 24km
 wide, 2.1km thick and centered at altitude 5km. Horizontal widths
 are much larger than the vertical thickness, in consistency with
-atmospheric scales. \cref{fig:simulation-results1} shows
+atmospheric scales. \Cref{fig:simulation-results1} shows
 photographs of the {\em Haze Blobs} scene, as simulated by
 \cref{eq:bigIA}.
 
-The {\em Haze Front} scene in \cref{fig:distributions}b uses an
+The {\em Haze Front} scene in \cref{fig:distributions}(b) uses an
 ellipsoid degenerated to an elliptic cylinder that partly enters the
 analyzed volume. It is 32km long (only part of which enters the
 volume), 4km thick and centered at altitude 5km. The front stretches
@@ -807,7 +808,7 @@ The MC simulations rely on the same grid as
 pixel, photons are `launched' via the camera lens; then the photons
 are traced back through the atmosphere. Photons that happen to be
 back-traced to the Sun are counted, per pixel. In this model, RT takes
-the following steps, per pixel (\cref{fig:mcgrid}a):
+the following steps, per pixel (\cref{fig:mcgrid}(a)):
 \begin{figure}
   \centering
   \yoavcomment{\def\svgwidth{\linewidth}\small{\input{images/mcgrid.pdf_tex}}}
@@ -862,11 +863,11 @@ light back-traced to the sun at each scattering. The next iteration of
 propagation (denoted {\tt ii} above) proceeds.
 
 The quality of MC increases with the number of photons launched.
-\cref{fig:mcgrid}b shows a photograph of the {\em Haze Blobs}
+\Cref{fig:mcgrid}(b) shows a photograph of the {\em Haze Blobs}
 scene, derived by the MC process, using \num{10000} photons per pixel,
 from the same viewpoint as \cref{fig:simulation-results1}[left].  A
 comparison of a sample horizontal cross section is shown in
-\cref{fig:mcgrid}c.
+\cref{fig:mcgrid}(c).
 
 
 
@@ -1026,7 +1027,7 @@ where
 \section{Results}
 \label{sec:optimization-results}
 
-\cref{sec:simul} describes simulated scenes at various grid
+\Cref{sec:simul} describes simulated scenes at various grid
 resolutions.  Depending directly on the area grid finesse, $N_{\rm
   views}$ varied from 12 to 100.
 \begin{figure}[h]
@@ -1049,21 +1050,21 @@ iterations. Depending on the resolution it took between minutes to a
 couple of hours to complete, in total.
 
 
-\cref{fig:results} shows estimation results, corresponding to the
+\Cref{fig:results} shows estimation results, corresponding to the
 original distributions of \cref{fig:distributions}. 
 \hl{
 In these simulations the atmosphere domain was defined over a
 $20\times20 \times 40$ grid. Thirty six cameras were placed
 $\sim7$km apart on a $6\times6$ grid.
 }
-In
-\cref{fig:results}a,b, the single-scattering model was used both
+In Figs.~\ref{fig:results}(a) and (b), the single-scattering model was
+used both
 in rendering of the raw images, and in the estimation algorithm. In
-\cref{fig:results}c,d, the MC model (multiple scattering)
+Figs.~\ref{fig:results}(c) and (d), the MC model (multiple scattering)
 rendered the raw images, over which the estimation algorithm
 ran. Overall, the distributions, the density order of magnitude and
 values are consistent.
-Errors in \cref{fig:results}a,b stem from random noise, which had
+Errors in Figs.~\ref{fig:results}(a) and (b) stem from random noise, which had
 been induced in the raw images. Errors are larger when MC is used to
 render the images, since high-order scattering is not accounted for in
 the algorithm of \cref{sec:inverse-problem}. The total estimation
@@ -1074,9 +1075,8 @@ $(\|\hat{\bm n}\|_1 - \|{\bm n}^{\rm true} \|_1) / \| {\bm n}^{\rm true} \|_1$.
 The overall mass is recovered, but for 6.5\% loss. For local errors,
  $\epsilon=\|
 \hat{\bm n} - {\bm n}^{\rm true} \|_1 / \| {\bm n}^{\rm true} \|_1$.
-  In
-\cref{fig:results}a,b, respectively $\epsilon=0.14$ and
-$\epsilon=0.20$.  In \cref{fig:results}c,d, both cases have
+  In Figs.~\ref{fig:results}(a) and (b), respectively $\epsilon=0.14$ and
+$\epsilon=0.20$.  In Figs.~\ref{fig:results}(c) and (d), both cases have
 $\epsilon=0.65$.
 
 

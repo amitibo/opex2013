@@ -1,0 +1,71 @@
+%% Creator: Inkscape 0.48.3.1, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'error_vs_cameras.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{500.73056641bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.79129289)%
+    \put(0,0){\includegraphics[width=\unitlength]{error_vs_cameras.pdf}}%
+    \put(0.19852236,0.79335964){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.84317016\unitlength}\raggedright Reconstruction Error vs. Cameras Quantity\end{minipage}}}%
+    \put(0.38146723,0.02006145){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.45377915\unitlength}\raggedright Cameras Quantity\end{minipage}}}%
+    \put(0.09205273,0.05313626){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.21472583\unitlength}\raggedright 0\end{minipage}}}%
+    \put(0.21768829,0.05310202){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.07252329\unitlength}\raggedright 5\end{minipage}}}%
+    \put(0.33752164,0.05310525){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06825722\unitlength}\raggedright 10\end{minipage}}}%
+    \put(0.46314337,0.05310515){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05545899\unitlength}\raggedright 15\end{minipage}}}%
+    \put(0.58973127,0.0531366){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.11945014\unitlength}\raggedright 20\end{minipage}}}%
+    \put(0.71536277,0.05312091){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.13367039\unitlength}\raggedright 25\end{minipage}}}%
+    \put(0.84103158,0.05310904){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06256912\unitlength}\raggedright 30\end{minipage}}}%
+    \put(0.96666219,0.0531425){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05830304\unitlength}\raggedright 35\end{minipage}}}%
+    \put(-0.00228359,0.37887587){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lt]{\begin{minipage}{0.16922102\unitlength}\raggedright Error\end{minipage}}}}%
+    \put(0.04082639,0.76390184){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.12513824\unitlength}\raggedright 2.5\end{minipage}}}%
+    \put(0.04097717,0.62594142){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.10807392\unitlength}\raggedright 2.0\end{minipage}}}%
+    \put(0.04079718,0.48802178){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.10380786\unitlength}\raggedright 1.5\end{minipage}}}%
+    \put(0.04098191,0.35012091){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.08247747\unitlength}\raggedright 1.0\end{minipage}}}%
+    \put(0.04079314,0.21217022){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.11091797\unitlength}\raggedright 0.5\end{minipage}}}%
+    \put(0.04093602,0.07421955){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.10665191\unitlength}\raggedright 0.0\end{minipage}}}%
+  \end{picture}%
+\endgroup%

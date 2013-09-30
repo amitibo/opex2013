@@ -995,20 +995,6 @@ we derive the Jacobian of \cref{eq:bigIA} in close-form,
   \label{eq:gradient2}
 \end{align}
 where
-% \begin{align}
-%   \label{eq:gradient3}
-%   {\bf A} &= \varpi^{\rm aerosol}
-%   \OpDiag{ P_g^{\rm aerosol}(\vect{\Phi}^{\rm scatter}_c)} \nonumber\\
-%   {\bf B} &= \transpose{{\bm D}_c} %\nonumber\\
-%%   & \;\;\;
-%   \OpDiag{[\tilde{\vect{\alpha}}^{\rm air}_c + \varpi^{\rm
-%   aerosol}\sigma^{\rm aerosol} P^{\rm aerosol}_g(\vect{\Phi}^{\rm
-%   scatter}_c) \odot{\bm n} ]}
-%    %   \nonumber \\
-%  %   \abbrev{C} &= \OpDiag{\exp[-(\vect{\tau}_c^{\rm air} +
-%  %   {\sigma}^{\rm
-%   %   aerosol} {\bm D}_c {\bm n})]} \transpose{{\vect{\Pi}}_c}
-% \end{align}
 \begin{equation}
   \label{eq:gradient3}
   {\bf A} = \varpi^{\rm aerosol}
@@ -1049,7 +1035,6 @@ by ${\bm n}=0$.  Satisfactory convergence occurred in several hundred
 iterations. Depending on the resolution it took between minutes to a
 couple of hours to complete, in total.
 
-
 \Cref{fig:results} shows estimation results, corresponding to the
 original distributions of \cref{fig:distributions}. 
 \hl{
@@ -1079,6 +1064,27 @@ The overall mass is recovered, but for 6.5\% loss. For local errors,
 $\epsilon=0.20$.  In Figs.~\ref{fig:results}(c) and (d), both cases have
 $\epsilon=0.65$.
 
+\hl{Optimal placement of cameras is an important aspect in realization
+of the suggested system. As a first step we would like to measure the effect of
+the distance between the cameras on the estimation quality. For this, we
+repeated the reconstruction algorithm, each time using a subset of varying size
+of the raw images. In each test the reconstruction algorithm was applied to $n_{views}$
+($<N_{views}$) images. The images were selected randomly from the total $N_{views}$ raw images.
+To eliminate the effect of incidental camera position, the test was repeated several
+times each time with a different $n_{views}$ subset.} \Cref{fig:error_vs_cameras}
+\hl{summarizes the results of these tests. In can be seen that a good estimation
+is achieved already when using $20$ cameras. Over an area of $50\times 50{\rm km}^2$,
+this quantity relates to placing the cameras $\sim11$km apart.}
+
+\begin{figure}[h]
+  \centering
+  \yoavcomment{\def\svgwidth{0.6\linewidth}\small{\input{images/error_vs_cameras.pdf_tex}}}
+  \caption{\small Local error measure as function of cameras
+    quantity. The blue error bars represent the error standard
+    deviation. The dashed horizontal line marks the reconstruction
+    error when all thirty six cameras are used.}
+  \label{fig:error_vs_cameras}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

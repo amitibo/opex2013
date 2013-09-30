@@ -3,46 +3,17 @@
 %%%%%%%%%%%%%%%%%%%%%%% preamble %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage{times}
 \usepackage{graphicx}
-\usepackage{epstopdf}
+
+%% fonts
+\usepackage{mathptmx,courier,textcomp}
+\usepackage[scaled=.92]{helvet}
+
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{url}
 \usepackage{bm}
-\usepackage{enumerate}
-\usepackage[]{todonotes} % Add option [disable] to hide all todo notes.
 \usepackage{xfrac}
-\usepackage{paralist}
-\usepackage{cite}
-\usepackage{soul}
-\usepackage{layouts}
 
-%\usepackage{ae} %%for Computer Modern fonts
-
-\usepackage{hyperref}
-\hypersetup{pdfborder={0 0 0}}
-
-%
-% subfiles is useful for having the abstract (and possible other
-% sections/chapters) as separate files.
-%
-\usepackage{subfiles}
-
-\usepackage[]{siunitx}
-
-%
-% The cleveref package seems very cool but currently it doesn't support hebrew
-% (babel) very well, so I just use if for single references.
-% As a work around I redefine the number definition as suggested in:
-% http://tex.stackexchange.com/questions/118235/using-the-cleveref-package-with-hebrew-and-babel
-%
-\usepackage[capitalise,poorman]{cleveref}
-\crefname{section}{Sec.}{Secs.}
-\Crefname{section}{Section}{Sections}
-\makeatletter
-\def\@@number#1{#1}
-\makeatother
 
 \DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
 

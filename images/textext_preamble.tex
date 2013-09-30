@@ -1,0 +1,88 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%% preamble %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{enumerate}
+\usepackage[]{todonotes} % Add option [disable] to hide all todo notes.
+\usepackage{xfrac}
+\usepackage{paralist}
+\usepackage{cite}
+\usepackage{soul}
+\usepackage{layouts}
+
+%\usepackage{ae} %%for Computer Modern fonts
+
+\usepackage{hyperref}
+\hypersetup{pdfborder={0 0 0}}
+
+%
+% subfiles is useful for having the abstract (and possible other
+% sections/chapters) as separate files.
+%
+\usepackage{subfiles}
+
+\usepackage[]{siunitx}
+
+%
+% The cleveref package seems very cool but currently it doesn't support hebrew
+% (babel) very well, so I just use if for single references.
+% As a work around I redefine the number definition as suggested in:
+% http://tex.stackexchange.com/questions/118235/using-the-cleveref-package-with-hebrew-and-babel
+%
+\usepackage[capitalise,poorman]{cleveref}
+\crefname{section}{Sec.}{Secs.}
+\Crefname{section}{Section}{Sections}
+\makeatletter
+\def\@@number#1{#1}
+\makeatother
+
+\DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
+
+
+%
+% Some new commands I use in this text
+%
+% Note:
+% Nice curly font is {\bm{\mathcal{D}}}
+%
+\newcommand{\Grad}[1]{\bm{\triangledown_{#1}}}
+\newcommand{\abbrev}[1]{\rm{#1}}
+\newcommand{\argmin}{\mathrm{arg}\min}
+\newcommand{\curly}[1]{\left\{#1\right\}}
+\newcommand{\roundy}[1]{\left(#1\right)}
+\newcommand{\recty}[1]{\left[#1\right]}
+\newcommand{\PartDeriv}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\vect}[1]{\bm{#1}}
+\newcommand{\mat}[1]{\bm{#1}}
+\newcommand{\transpose}[1]{{#1}^\intercal}
+\newcommand{\derivsym}[1]{\,d{#1}}
+\newcommand{\yoavcomment}[1]{}
+\renewcommand{\yoavcomment}[1]{#1} % Comment to remove images
+\newcommand{\fix}[2]{\st{#1}\hl{#2}}
+
+%
+% Used symbols (only partial for now...)
+%
+\newcommand{\OpSphere}{\mathbfcal{S}}
+\newcommand{\OpRot}{\mathbfcal{R}}
+\newcommand{\OpDistance}{\bm{D}}
+\newcommand{\OpCumsum}{\mathbfcal{C}}
+\newcommand{\OpInt}{\mathbfcal{I}}
+\newcommand{\OpCamera}{\mathbfcal{P}}
+\newcommand{\MaskSun}{\mathbfcal{M}}
+\newcommand{\Laplacian}{\mathbfcal{L}}
+\newcommand{\OpDiag}[1]{\mathbb{D}\left\{#1\right\}}
+\newcommand{\DistSet}{\mathcal{C}}
+\newcommand{\DistUnknown}{\vect{n}}
+\newcommand{\DistEstimated}{\hat{\vect{n}}}
+\newcommand{\CostFunc}[1]{E(#1)}
+
+

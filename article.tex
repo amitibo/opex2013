@@ -20,6 +20,7 @@
 \usepackage{paralist}
 \usepackage{cite}
 \usepackage{soul}
+\usepackage{layouts}
 
 %\usepackage{ae} %%for Computer Modern fonts
 
@@ -100,6 +101,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
+%\printinunitsof{in}\prntlen{\linewidth}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%% title page information %%%%%%%%%%%%%%%%%%
@@ -811,7 +813,7 @@ back-traced to the Sun are counted, per pixel. In this model, RT takes
 the following steps, per pixel (\cref{fig:mcgrid}(a)):
 \begin{figure}
   \centering
-  \yoavcomment{\def\svgwidth{\linewidth}\small{\input{images/mcgrid.pdf_tex}}}
+  \yoavcomment{\includegraphics{images/mcgrid.pdf}}
   \caption{\small [a] Multiple-scattering forward model by MC.
     [b] Photograph of the same sky and view point as in
     \cref{fig:simulation-results1}[left], rendered using MC.
@@ -869,7 +871,15 @@ from the same viewpoint as \cref{fig:simulation-results1}[left].  A
 comparison of a sample horizontal cross section is shown in
 \cref{fig:mcgrid}(c).
 
-
+\begin{figure}[h]
+  \centering
+  \yoavcomment{\includegraphics{images/cross_sections.pdf}}
+  \caption{\small Local error measure as function of cameras
+    quantity. The blue error bars represent the error standard
+    deviation. The dashed horizontal line marks the reconstruction
+    error when all thirty six cameras are used.}
+  \label{fig:error_vs_cameras}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1078,7 +1088,7 @@ this quantity relates to placing the cameras $\sim11$km apart.}
 
 \begin{figure}[h]
   \centering
-  \yoavcomment{\def\svgwidth{0.6\linewidth}\small{\input{images/error_vs_cameras.pdf_tex}}}
+  \yoavcomment{\includegraphics{images/error_vs_cameras.pdf}}
   \caption{\small Local error measure as function of cameras
     quantity. The blue error bars represent the error standard
     deviation. The dashed horizontal line marks the reconstruction

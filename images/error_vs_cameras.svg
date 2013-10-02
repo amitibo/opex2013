@@ -43,9 +43,9 @@
      id="namedview689"
      showgrid="false"
      inkscape:zoom="0.70710678"
-     inkscape:cx="-14.156943"
+     inkscape:cx="-176.7915"
      inkscape:cy="131.48598"
-     inkscape:window-x="-8"
+     inkscape:window-x="1912"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1"
@@ -580,8 +580,9 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="bars"
-     style="stroke-linecap:butt;stroke-linejoin:round;display:inline"
-     transform="translate(-131.34858,-102.5112)">
+     style="stroke-linecap:butt;stroke-linejoin:round;display:none"
+     transform="translate(-131.34858,-102.5112)"
+     sodipodi:insensitive="true">
     <g
        id="patch_3"
        style="stroke-linecap:butt;stroke-linejoin:round;display:inline"

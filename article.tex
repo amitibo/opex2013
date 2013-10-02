@@ -455,8 +455,8 @@ where $\lambda$ is the wavelength, in microns.
 \noindent {\bf Inverse transform sampling}: A tool for RT modeling is
 the Monte-Carlo (MC) method. MC considers scattering and extinction as
 random phenomena, that are sampled from their probability
-distributions. 
-Inverse transform sampling~\cite{devroye1986sample} is used for 
+distributions.
+Inverse transform sampling~\cite{devroye1986sample} is used for
 sampling random numbers that comply with a specified
 probability density function. Let $u$ be a random number drawn
 from a uniform distribution in the interval $[0,1]$. The number $u$
@@ -476,8 +476,9 @@ function, whose CDF is
 Thus a photon propagates to a random optical depth
 \begin{equation}
   \label{eq:taurand}
-  \tau^{\rm random}=F^{-1}(u)=-\ln(1-u).
+  \tau^{\rm random}=F^{-1}(u)=-\ln(1-u),
 \end{equation}
+where $F^{-1}$ denotes the inverse function of $F$.
 If the atmosphere is uniform, then from \cref{eq:tau} the photon
 reaches a random distance
 \begin{equation}
@@ -617,7 +618,7 @@ are
 Let ${\DistUnknown}$, $\vect{\tau}_{\rm SR}$ and $\vect{\beta}^{\rm air}$ be column
 stack vector representations of $n(k)$, $\tau_{\rm SR}(k)$ and $\beta^{\rm
   air}(k)$, respectively.  Then, we can write \cref{eq:lSRn} using
-matrix notation: 
+matrix notation:
 \begin{align}
   \vect{\tau}_{\rm SR} &= \OpDistance^{\mathrm{Sun
       \rightarrow voxel}}\vect{\beta}^{\rm air} + \sigma^{\rm
@@ -642,7 +643,7 @@ single path from the TOA to camera $c$.  Hence, in matrix notation,
 where ${\bm D}_c= {\bm D}^{\mathrm{Sun \rightarrow voxel}}+ {\bm
   D}^{\mathrm{voxel \rightarrow cam}}_c$ and $\vect{\tau}_c^{\rm air}=
 {\bm D}_c \vect{\beta}^{\rm air}$.
-  
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Scattering}
@@ -864,7 +865,7 @@ The quality of MC increases with the number of photons launched.
 \Cref{fig:mcgrid}(b) shows a photograph of the {\em Haze Blobs}
 scene, derived by the MC process, using \num{10000} photons per pixel,
 from the same viewpoint as \cref{fig:simulation-results1}[left].
-Comparison of \hl{horizontal and vertical cross sections along 
+Comparison of \hl{horizontal and vertical cross sections along
 matching MC and single-scattering simulated images are} shown in
 \cref{fig:cross_sections}(a) and \cref{fig:cross_sections}(b).
 \hl{The cross sections indicate fair correspondence between
@@ -1065,7 +1066,7 @@ iterations. Depending on the resolution it took between minutes to a
 couple of hours to complete, in total.
 
 \Cref{fig:results} shows estimation results, corresponding to the
-original distributions of \cref{fig:distributions}. 
+original distributions of \cref{fig:distributions}.
 \hl{
 In these simulations the atmosphere domain was defined over a
 $20\times20 \times 40$ grid. Thirty six cameras were placed
@@ -1083,7 +1084,7 @@ been induced in the raw images. Errors are larger when MC is used to
 render the images, since high-order scattering is not accounted for in
 the algorithm of \cref{sec:inverse-problem}. The total estimation
 error can be quantified by the aerosol mass that is over and under-estimated
-in all voxels, relative to the total aerosol mass in the scene. Using the $\ell_1$ norm, 
+in all voxels, relative to the total aerosol mass in the scene. Using the $\ell_1$ norm,
 the total mass relative difference is
 $(\|\hat{\bm n}\|_1 - \|{\bm n}^{\rm true} \|_1) / \| {\bm n}^{\rm true} \|_1$.
 The overall mass is recovered, but for 6.5\% loss. For local errors,
@@ -1121,7 +1122,7 @@ algorithm is based, is valid when the optical depth of the medium is small.}
 % \begin{figure}[h]
 %   \centering
 %   \yoavcomment{\includegraphics{images/high_density_results.pdf}}
-%   \caption{\small (a) and (b) show MC simulations of low and 
+%   \caption{\small (a) and (b) show MC simulations of low and
 %     high density scenes, respectively. (c) shows the reconstruction of
 %     the high density scene.}
 %   \label{fig:high_density}

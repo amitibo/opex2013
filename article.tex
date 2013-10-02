@@ -21,6 +21,8 @@
 \usepackage{cite}
 \usepackage{soul}
 \usepackage{layouts}
+\usepackage{booktabs}
+\usepackage{colortbl}
 
 %\usepackage{ae} %%for Computer Modern fonts
 
@@ -88,6 +90,8 @@
 \newcommand{\DistUnknown}{\vect{n}}
 \newcommand{\DistEstimated}{\hat{\vect{n}}}
 \newcommand{\CostFunc}[1]{E(#1)}
+
+\definecolor{Gray}{gray}{0.9}
 
 %
 % For the title
@@ -1114,13 +1118,41 @@ of $N_{\rm views}< 36$. All rendered images used MC.
 Diminishing returns are obtained beyond $N_{\rm views}\approx 20$, which corresponds to $\approx 11$km separation between neighboring viewpoints.\\
 
 \noindent{\bf Aerosol characteristics}: We used the {\em Haze blobs} scene, but varied the  
-aerosol characteristics. Compared to the aerosol described in Sec.~\ref{sec:simul}, we tested two variations. In one variation, the phase function was isotropic, i.e., 
+aerosol characteristics. Compared to the aerosol described in \cref{sec:simul}, we tested two variations. In one variation, the phase function was isotropic, i.e., 
 $[g_{\rm R},g_{\rm G},g_{\rm B}]=[0,0,0]$. In the other variation, the aerosol is partly absorbing: its single scattering albedo per color channel is 
 $[\varpi^{\rm aerosol}_{\rm R},\varpi^{\rm aerosol}_{\rm G},\varpi^{\rm aerosol}_{\rm B}]=
 [0.69,0.74,0.78]$.  All rendered images used MC, and recovery used $N_{\rm views}=36$.
-Sample results are shown in Fig.~\ref{fig:variations}(a,b,c,d) and in Table~\ref{tbl:mass}.\\
+Sample results are shown in Figs.~\ref{fig:simulation_particles}(a)--(d) and in Table~\ref{tbl:mass}.\\
 
-\noindent{\bf Density scale}: We used the aerosol {\em Haze blobs} distribution and characteristics as described in Sec.~\ref{sec:simul}, but increased the aerosol density tenfold everywhere. This significantly increases the effects of high order scattering, as shown in Fig.~\ref{fig:cross_sections}(b) and Fig.~\ref{fig:variations}(e). Consequently, $\epsilon$ increases, when using $N_{\rm views}=36$. Still, Fig.~\ref{fig:variations}(f) shows that the spatial distribution outlines are recovered similarly to the other tests.
+\newcolumntype{g}{>{\columncolor{Gray}}r}
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{cccccg}
+    \toprule
+    Haze Scene & Forward Model& Density & Isotropic PF & Absorbing & $\epsilon$ \\
+    \midrule
+    Front & Single & Low & & & 0.18 \\
+     & MC & Low & & & 0.65 \\
+    \cmidrule(r){1-5}
+    Blobs & Single & Low & & & 0.14 \\
+     & MC & Low & & & 0.65 \\
+     & MC & Low & $\surd$  & & 0.49 \\
+     & MC & Low & & $\surd$ & 0.83 \\
+     & MC & High & & & 0.98 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Local error for the various simulations}
+  \label{tbl:mass}
+\end{table}
+
+\noindent{\bf Density scale}: We used the aerosol {\em Haze blobs} distribution
+and characteristics as described in Sec.~\ref{sec:simul}, but increased the
+aerosol density tenfold everywhere. This significantly increases the effects
+of high order scattering, as shown in \cref{fig:cross_sections}(b) and
+\cref{fig:simulation_particles}(c). Consequently, $\epsilon$ increases,
+when using $N_{\rm views}=36$. Still, \cref{fig:reconstructions}(c) shows
+that the spatial distribution outlines are recovered similarly to the other
+tests.
 
 %\hl{Thickening the aerosols density ten folds in the} {\em Haze Blobs} \hl{scene
 %resulted in a larger local error, i.e. $\epsilon=0.98$ (compared to $\epsilon=0.65$).
@@ -1132,7 +1164,7 @@ Sample results are shown in Fig.~\ref{fig:variations}(a,b,c,d) and in Table~\ref
   \caption{\small (a) and (b) show MC simulations of low and
     high density scenes, respectively. (c) shows the reconstruction of
     the high density scene.}
-  \label{fig:high_density}
+  \label{fig:simulation_particles}
 \end{figure}
 \begin{figure}[h]
   \centering
@@ -1140,7 +1172,7 @@ Sample results are shown in Fig.~\ref{fig:variations}(a,b,c,d) and in Table~\ref
   \caption{\small (a) and (b) show MC simulations of low and
     high density scenes, respectively. (c) shows the reconstruction of
     the high density scene.}
-  \label{fig:high_density}
+  \label{fig:reconstructions}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

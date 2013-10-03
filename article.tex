@@ -819,7 +819,7 @@ the following steps, per pixel (\cref{fig:mcgrid}a):
   \yoavcomment{\includegraphics{images/mcgrid.pdf}}
   \caption{\small [a] Multiple-scattering forward model by MC.
     [b] Photograph of the same sky and view point as in
-    \cref{fig:simulation-results1}[left], rendered using MC.}
+    \cref{fig:simulation-results1}(a), rendered using MC.}
   \label{fig:mcgrid}
 \end{figure}
 
@@ -866,21 +866,26 @@ propagation (denoted {\tt ii} above) proceeds.
 The quality of MC increases with the number of photons launched.
 \Cref{fig:mcgrid}(b) shows a photograph of the {\em Haze Blobs}
 scene, derived by the MC process, using \num{10000} photons per pixel,
-from the same viewpoint as \cref{fig:simulation-results1}[left].
+from the same viewpoint as \cref{fig:simulation-results1}(a).
 Figure~\ref{fig:cross_sections} plots the intensity profile in two lateral
-cross sections of the viewed field, extracted from the images in \cref{fig:simulation-results1}[left] and \cref{fig:mcgrid}(b).
+cross sections of the viewed field, extracted from the images in
+\cref{fig:simulation-results1}(d) and the corresponding MC derived photograph.
 These plots demonstrate consistency in these cases, for most pixels.
 \begin{figure}[t]
   \centering
   \yoavcomment{\includegraphics{images/cross_sections.pdf}}
-  \caption{\small Cross sections along the $X$-axis [a] and $Y$-axis [b] of
-    and images rendered by either single-scattering and MC. The corresponding
-    images appear in \cref{fig:simulation-results1}[left] and \cref{fig:mcgrid}(b).}
+  \caption{\small Cross-sections along the $X$-axis of photographs rendered
+    by the single-scattering and MC forward models. 
+    (a) cross sections of low density simulations (\cref{fig:simulation-results1}(d)
+    and \cref{fig:simulation_particles}(a)). (b) cross sections of
+    high density simulations (\cref{fig:simulation_particles}(d)).
+  }
   \label{fig:cross_sections}
 \end{figure}
 
 \Cref{fig:scatter_order} shows the contribution by successive
-scattering orders. They are derived from the MC image. Photons contributing to an image pixel are accumulated in steps {\tt ii},{\tt v} above.
+scattering orders. They are derived from the MC image. Photons contributing
+to an image pixel are accumulated in steps {\tt ii},{\tt v} above.
 The contributing photons that stem from just a single scattering event yield \cref{fig:scatter_order}(a). Similarly, contributing photons that had experienced exactly  two or three scattering events yield respectively \cref{fig:scatter_order}(b) and
 \cref{fig:scatter_order}(c). Clearly, first-order scatter is responsible
 for most of the energy in the MC image. Radiance by higher order scattering
@@ -889,7 +894,7 @@ towards the horizon the probability of high order scattering increases.
 \begin{figure}[bt]
   \centering
   \yoavcomment{\includegraphics{images/scatter_order.pdf}}
-  \caption{\small Separation of the image shown in \cref{fig:mcgrid}(b) to contribution by successive orders of scattering: (a) first  order, (b) second order and (c) third scattering order.}
+  \caption{\small Separation of the image shown in \cref{fig:mcgrid}(b) to contribution by successive orders of scattering: (a) first , (b) second, (c) third and (d) forth scattering order.}
   \label{fig:scatter_order}
 \end{figure}
 
@@ -1141,7 +1146,7 @@ Sample results are shown in Figs.~\ref{fig:simulation_particles}(a)--(d) and in 
      & MC & High & & & 0.98 \\
     \bottomrule
   \end{tabular}
-  \caption{Local error for the various simulations}
+  \caption{Local error for the various reconstruction simulations}
   \label{tbl:mass}
 \end{table}
 

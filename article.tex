@@ -725,6 +725,15 @@ where ${\bm i}_c$ is the image, column-stacked to a vector $N_{\rm
 \section{Examples}
 \label{sec:simul}
 
+\begin{figure}
+  \centering
+  \yoavcomment{\includegraphics[width=\linewidth]{images/single_images.pdf}}
+  \caption{\small Different viewpoints of a sky that includes {\em
+      Haze Blobs}. Images are rendered using the single-scattering model.
+    A yellow dot marks the Sun location. Dashed white circles mark
+    zenith angles.}
+  \label{fig:simulation-results1}
+\end{figure}
 To demonstrate the model, we simulated some scenarios, whose details are as follows.
 \\
 
@@ -784,15 +793,6 @@ wide, 2.8km thick and centered at altitude 2.5km; the other is 24km
 wide, 2.1km thick and centered at altitude 5km. Horizontal widths
 are much larger than the vertical thickness, in consistency with
 atmospheric scales. \Cref{fig:simulation-results1} shows
-\begin{figure}
-  \centering
-  \yoavcomment{\includegraphics[width=\linewidth]{images/single_images.pdf}}
-  \caption{\small Different viewpoints of a sky that includes {\em
-      Haze Blobs}. Images are rendered using the single-scattering model.
-    A yellow dot marks the Sun location. Dashed white circles mark
-    zenith angles.}
-  \label{fig:simulation-results1}
-\end{figure}
 photographs of the {\em Haze Blobs} scene, as simulated by
 \cref{eq:bigIA}.
 
@@ -846,8 +846,9 @@ packet is terminated. If, in addition, ${\cal R}_{i}\parallel {\rm
 
 \noindent ({\tt iii}) The type of particle (air molecule or aerosol)
 that the photon-packet interacts with at point ${\bf X}_{i}$ is determined
-randomly according to their relative densities at the voxel containing
-${\bf X}_{i}$.
+randomly by the relative \hl{scattering coefficients
+($\vect{\alpha}^{\rm air}$ and $\vect{\alpha}^{\rm aerosol}$} respectively)
+at the voxel containing ${\bf X}_{i}$.
 
 \noindent ({\tt iv}) If it is an aerosol, the photon-packet intensity
 is attenuated to $I_{i+1}=\varpi^{\rm aerosol}I_{i}$. If $I_{i+1}$ is
@@ -1074,9 +1075,9 @@ original distributions of \cref{fig:distributions}.
   \yoavcomment{\includegraphics{images/results}}
   \caption{\small Reconstructions of the scenes shown in
     \cref{fig:distributions}. Color represents aerosol density. The
-    density units are $10^{6}~{\rm particles}/{\rm m}^3.$ In [a,b],
+    density units are $10^{6}~{\rm particles}/{\rm m}^3.$ In (a) and (b)
     single-scattering simulated images are used as input to the
-    recovery.  In [c,d], MC simulated images are used as input for the
+    recovery.  In (c) and (d), MC simulated images are used as input for the
     recovery.  }
   \label{fig:results}
 \end{figure}
@@ -1166,17 +1167,24 @@ tests.
 \begin{figure}[h]
   \centering
   \yoavcomment{\includegraphics{images/simulation_particles.pdf}}
-  \caption{\small (a) and (b) show MC simulations of low and
-    high density scenes, respectively. (c) shows the reconstruction of
-    the high density scene.}
+  \caption{\small MC simulations of the {\em Haze Blobs} scene
+    with varying density scales and aerosol characteristics
+    (described in \cref{sec:optimization-results}). All images
+    correspond to the same viewpoint of
+    \ref{fig:simulation-results1}(d). (a) low density scale
+    (b) absorbing particle, (c) isotropic particle and (d) high
+    density scale.
+  }
   \label{fig:simulation_particles}
 \end{figure}
 \begin{figure}[h]
   \centering
   \yoavcomment{\includegraphics{images/reconstructions.pdf}}
-  \caption{\small (a) and (b) show MC simulations of low and
-    high density scenes, respectively. (c) shows the reconstruction of
-    the high density scene.}
+  \caption{\small 
+    Reconstructions of the scenes shown in
+    \cref{fig:simulation_particles}(b)--(d).
+    (1a absorbing particle, (b) isotropic particle and (c) high
+    density scale scenes, respectively.}
   \label{fig:reconstructions}
 \end{figure}
 
@@ -1198,7 +1206,7 @@ optical depth is small. However, as the MC simulation show, it is
 important to generalize this algorithm so that it explicitly
 incorporates high-order scattering in the scene, including the
 ground. This will certainly be needed for dense distributions as
-clouds. \Cref{fig:scatter_order}(b) \hl{suggests that incorporating
+clouds. \Cref{fig:scatter_order} \hl{suggests that incorporating
 the second order of scattering might be sufficient for most situations.}
 
 To deploy such a system on a very large scale will require a long-term

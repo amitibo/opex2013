@@ -79,7 +79,7 @@ We appreciate the reviewer's comment. We address it below.
 
 \begin{enumerate}
 
-\item \textcolor{blue}{ ``The paper can be devided in two parts, one
+\item \textcolor{blue}{ ``The paper can be divided in two parts, one
     for computing single scattering, the other for multiple
     scattering. While the first part can be treated by a simple
     inverse transformation sampling as presented by the authors, the
@@ -88,7 +88,23 @@ We appreciate the reviewer's comment. We address it below.
     scattering. I feel the authors should dedicate some time to review
     this second part, that is more realistic."}
 
-  {}
+  {
+    The reviewer raises a good point. Inverting the radiation transfer
+    in the presence of multiple-scattering is the ``Holy Grail''
+    of RT researchers. As far as we know there are no methods to
+    solve this problem in the general case of non-homogeneous 3D
+    atmosphere. Solutions are known only for a limited set of 
+    situations.
+    
+    In this article we describe a novel data acquisition system
+    and suggest a method to recover the 3D atmosphere based on
+    the single-scattering approximation. Following the reviewer's
+    suggestion we checked the limitations of the approximation
+    by testing it in situations prone to high order of scatterings.
+    Figures~5(b), 9(d) and 10(c) shows the results of applying
+    out algorithm in a scene with dense aerosols distribution.
+    Section~8 further discusses this experiment.
+  }
 
 \end{enumerate}
 
@@ -108,21 +124,26 @@ reviewer for his general approval. Below we address his/her comments:
 \item \textcolor{blue}{``I don’t understand Eq 9. If $F(u) =
     1-\exp(-u)$ how is $\nicefrac{1}{F} = -\ln(1-u)$?''}
 
-  {There is no contradiction. The notation $F^{-1}$ refers to the
-    inverse function of function $F$ and not to $\nicefrac{1}{F}$}
+  {The notation $F^{-1}$ refers to the inverse function
+   of function $F$ and not to $\nicefrac{1}{F}$.}
 
 %%%%%%%%%%%%%%%%
 \item \textcolor{blue}{ ``Maybe define $\mu$ and voxel''}
 
-  {Following the reviewer's comment, we have defined $\mu$ after
-    Eq.~5, and revised the definition of the term ``voxel''. }
+  {We thank the reviewer for turning our attention to this.
+   We replaced $\mu$ in Eq.~5 with its definition,
+   $\cos \Phi^{\rm scatter})$. We revised the definition
+   of the term ``voxel'', at the beginning of Sec.~4.}
 
 %%%%%%%%%%%%%%%%
 
 \item \textcolor{blue}{ ``How do you predefine the voxels
     vertically?''}
 
-  {}
+  {
+    We now explain our vertical division of the atmosphere at the
+    beginning of Sec.~5.
+  }
 
 %%%%%%%%%%%%%%%%
 
@@ -131,14 +152,21 @@ reviewer for his general approval. Below we address his/her comments:
     clear idea of how your method works and which aerosol properties
     hinder or favor retrieval.''}
 
-  {}
+  {
+    We appreciate the reviewer's comment. The issue raised by the
+    reviewer is now discussed in Sec.~8. We also added Table~1 and
+    Figs.~9 and 10, which show results of varying different properties
+    of the aerosols and their distribution.
+  }
 
 %%%%%%%%%%%%%%%%
 
 \item \textcolor{blue}{ ``How many cameras in which distance do you
     need to obtain feasible results for the case of Sec. 5?''}
 
-  {}
+  {Following this comment, we tested  repeated the reconstruction
+   simulations many times, each time varying the distance between
+   cameras. The results are described in Sec.~8 and Fig.~8.}
 
 \end{enumerate}
 

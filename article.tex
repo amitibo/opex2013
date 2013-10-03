@@ -871,21 +871,21 @@ The quality of MC increases with the number of photons launched.
 scene, derived by the MC process, using \num{10000} photons per pixel,
 from the same viewpoint as \cref{fig:simulation-results1}(a).
 \Cref{fig:cross_sections} plots the intensity profile
-along a horizontal cross section of the viewed field, 
+along a horizontal cross section of the viewed field,
 comparing photographs simulated using the single-scattering and the  MC forward models.
 \Cref{fig:cross_sections}(a) compares photographs \cref{fig:simulation-results1}(d)
 and \cref{fig:simulation_particles}(a) of the {\em Haze Blobs} scene.
 This plot demonstrates consistency in this scene, for most pixels.
 \Cref{fig:cross_sections}(b) compares photographs of the {\em Haze Blobs} scene
 where the aerosol density was increased ten folds (see \cref{sec:optimization-results}
-and the corresponding MC photograph \cref{fig:simulation_particles}(d)). 
+and the corresponding MC photograph \cref{fig:simulation_particles}(d)).
 In this plot the single-scattering and MC cross sections diverge
 due to the effect of the high order scattering.
 \begin{figure}[t]
   \centering
   \yoavcomment{\includegraphics{images/cross_sections.pdf}}
   \caption{\small Cross-sections along the $X$-axis of photographs rendered
-    by the single-scattering and MC forward models. 
+    by the single-scattering and MC forward models.
     (a) cross sections of the {\em Haze Blobs} scene (\cref{fig:simulation-results1}(d)
     and \cref{fig:simulation_particles}(a)). (b) cross sections of
     the increased aerosol density scene (\cref{fig:simulation_particles}(d)).
@@ -1106,14 +1106,14 @@ render the images, since high-order scattering is not accounted for in
   \centering
   \begin{tabular}{cccccgg}
     \toprule
-    Scene      & Forward        & Aerosol density & Isotropic       & Absorbing & $\epsilon$ & Mass \\
-               & model          & order           & Phase function? & aerosol?  &            & diff. \\
+    Scene      & Forward        & Aerosol          & Isotropic       & Absorbing & $\epsilon$ & Mass \\
+               & model          & density order    & Phase function? & aerosol?  &            & diff. \\
      \midrule
-    Haze Front & Single scatter & $10^{6}$         &                 &           & 0.18       & 1.1\%  \\
-               & Monte Carlo    & $10^{6}$         &                 &           & 0.65       & 14\%  \\
+    Haze       & Single scatter & $10^{6}$         &                 &           & 0.18       & 1.1\%  \\
+    Front      & Monte Carlo    & $10^{6}$         &                 &           & 0.65       & 14\%  \\
     \cmidrule(r){1-5}
-    Haze Blobs & Single scatter & $10^{6}$         &                 &           & 0.14       & 0\%  \\
-               & Monte Carlo    & $10^{6}$         &                 &           & 0.65       & 6.7\%  \\
+    Haze       & Single scatter & $10^{6}$         &                 &           & 0.14       & 0\%  \\
+    Blobs      & Monte Carlo    & $10^{6}$         &                 &           & 0.65       & 6.7\%  \\
                & Monte Carlo    & $10^{6}$         & $\surd$         &           & 0.49       & 2\%  \\
                & Monte Carlo    & $10^{6}$         &                 & $\surd$   & 0.83       & 9.6\%  \\
                & Monte Carlo    & $10^{7}$         &                 &           & 0.98       & 23\%  \\
@@ -1151,7 +1151,7 @@ $[\varpi^{\rm aerosol}_{\rm R},\varpi^{\rm aerosol}_{\rm G},\varpi^{\rm aerosol}
     high. (b) Partly absorbing aerosol. (c) Aerosol having an isotropic phase function. (d) High aerosol density.}
   \label{fig:simulation_particles}
 \end{figure}
-Recovery results using $N_{\rm views}=36$ are shown in Figs.~\ref{fig:reconstructions}(a,b) 
+Recovery results using $N_{\rm views}=36$ are shown in Figs.~\ref{fig:reconstructions}(a,b)
 \begin{figure}[h]
   \centering
   \yoavcomment{\includegraphics{images/reconstructions.pdf}}
@@ -1182,17 +1182,17 @@ of detailed 3D RT analysis.  The paper describes both a novel data
 acquisition system concept for this recovery task (ground-based camera
 network), and a dedicated algorithm for reconstructing aerosol
 distributions. Using more prior knowledge on the nature of
-distributions will improve the recovery.  
+distributions will improve the recovery.
 
 The estimation algorithm
 uses a single scattering model. This approximation is valid when the
 optical depth is small. However, as MC simulations show, it is
-important to generalize the recovery algorithm so that high-order scattering 
-is included in it. Such generalization would be computationally complex: 
+important to generalize the recovery algorithm so that high-order scattering
+is included in it. Such generalization would be computationally complex:
 in our tests, the MC forward model was slower by 2-3 orders of magnitude
 than a single-scattering analytic model. Thus, inverting a 3D multiple-scattering
 model requires research into numerical schemes for increasing the solution
-efficiency of both forward and inverse problems.  
+efficiency of both forward and inverse problems.
 The remote sensing community has devised several approaches to better approximate
 multiple-scattering problems, mainly in 1D scenes (e.g. successive
 orders of scattering and discrete ordinates method). We may tap into some of these approaches.

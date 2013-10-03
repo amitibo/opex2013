@@ -1035,7 +1035,7 @@ where
 \section{Recovery simulations}
 \label{sec:optimization-results}
 
-To demonstrate recovery, we performed simulations. We tested how results are affected by the following variations:
+To demonstrate recovery, we performed simulations, and tested effects of the following variations:
 $\{1\}$ Multiple or only single scatter in the forward model;
 $\{2\}$ Spatial distribution;
 $\{3\}$ Density of viewpoints;
@@ -1043,15 +1043,15 @@ $\{4\}$ Aerosol characteristics;
 $\{5\}$ Density scale.
 
 In all cases, images were created as described
-in \cref{sec:simul,sec:monte-carlo-simul}. These images served as input to the reconstruction algorithm. The optimization used an L-BFGS-B solver~\cite{BFGS} on a computer cluster. Each computer core was dedicated to rendering a modeled image. The algorithm was initialized
+in \cref{sec:simul,sec:monte-carlo-simul}. These images served as input to the reconstruction algorithm. The optimization used an L-BFGS-B solver~\cite{BFGS} on a computer cluster. Each computer core was dedicated to rendering a modeled image. The optimization was initialized
 by ${\bm n}=0$.  Satisfactory convergence occurred in several hundred
 iterations. Depending on the resolution it took between minutes to a
 couple of hours to complete, in total. The total estimation
 error can be quantified by the aerosol mass that is over and under-estimated
 in all voxels, relative to the total aerosol mass in the scene. Using the $\ell_1$ norm,
 the total mass relative difference is
-$(\|\hat{\bm n}\|_1 - \|{\bm n}^{\rm true} \|_1) / \| {\bm n}^{\rm true} \|_1$. 
-To also sense local errors, we use 
+$(\|\hat{\bm n}\|_1 - \|{\bm n}^{\rm true} \|_1) / \| {\bm n}^{\rm true} \|_1$.
+To also sense local errors, we use
  $\epsilon=\|
 \hat{\bm n} - {\bm n}^{\rm true} \|_1 / \| {\bm n}^{\rm true} \|_1$.
 %  In Figs.~\ref{fig:results}(a) and (b), respectively $\epsilon=0.14$ and
@@ -1061,7 +1061,7 @@ These results are listed in Table~\ref{tbl:mass}. \\
 
 
 
-\noindent{\bf Forward models and distributions}: 
+\noindent{\bf Forward models and distributions}:
 \Cref{fig:results} shows estimation results, corresponding to the
 original distributions of \cref{fig:distributions}.
 \begin{figure}[h]
@@ -1075,105 +1075,86 @@ original distributions of \cref{fig:distributions}.
     recovery.  }
   \label{fig:results}
 \end{figure}
-\hl{
-In these simulations the atmosphere domain was defined over a
-$20\times20 \times 40$ grid. Thirty six cameras were placed
-$\sim7$km apart on a $6\times6$ grid.
-}
+Here, the atmosphere domain was defined over a
+$20\times20 \times 40$ grid. Cameras were placed
+$\sim 7$km apart on a $6\times6$ grid.
 In Figs.~\ref{fig:results}(a) and (b), the single-scattering model was
 used both in rendering of the raw images, and in the estimation algorithm. In
 Figs.~\ref{fig:results}(c) and (d), the MC model (multiple scattering)
-rendered the raw images, over which the estimation algorithm
-ran. Overall, the distributions, the density order of magnitude and
+rendered the raw images, over which our recovery (Sec.~\ref{sec:inverse-problem}) was tested. Overall, the distributions, the density order of magnitude and
 values are consistent.
 Errors in Figs.~\ref{fig:results}(a) and (b) stem from random noise, which had
 been induced in the raw images. Errors are larger when MC is used to
 render the images, since high-order scattering is not accounted for in
 the algorithm of \cref{sec:inverse-problem}.
-The overall mass is recovered, but for 6.5\% loss. \\
-
-% at various grid
-%resolutions.  Depending directly on the area grid finesse, $N_{\rm
-%  views}$ varied from 12 to 100.
-%
-%
-%For local errors,
-% $\epsilon=\|
-%\hat{\bm n} - {\bm n}^{\rm true} \|_1 / \| {\bm n}^{\rm true} \|_1$.
-%  In Figs.~\ref{fig:results}(a) and (b), respectively $\epsilon=0.14$ and
-%$\epsilon=0.20$.  In Figs.~\ref{fig:results}(c) and (d), both cases have
-%$\epsilon=0.65$.
-
-\noindent{\bf Density of viewpoints}: Keeping the domain and scene ({\em Haze blobs}) fixed, we
-repeated the reconstruction many times, each time using a different subset of the above mentioned 36 simulated cameras. Each test randomly selected viewpoints, for various fixed values
-of $N_{\rm views}< 36$. All rendered images used MC.
-\Cref{fig:error_vs_cameras} plots $\epsilon$ as a function $N_{\rm views}$. 
-\begin{figure}[t]
-  \centering
-  \yoavcomment{\includegraphics{images/error_vs_cameras.pdf}}
-  \caption{\small Relative error $\epsilon$ measure as function of the number of
-    cameras. Bars represent the standard deviation of $\epsilon$, over our random tests.}
-  \label{fig:error_vs_cameras}
-\end{figure}
-Diminishing returns are obtained beyond $N_{\rm views}\approx 20$, which corresponds to $\approx 11$km separation between neighboring viewpoints.\\
-
-\noindent{\bf Aerosol characteristics}: We used the {\em Haze blobs} scene, but varied the  
-aerosol characteristics. Compared to the aerosol described in \cref{sec:simul}, we tested two variations. In one variation, the phase function was isotropic, i.e., 
-$[g_{\rm R},g_{\rm G},g_{\rm B}]=[0,0,0]$. In the other variation, the aerosol is partly absorbing: its single scattering albedo per color channel is 
-$[\varpi^{\rm aerosol}_{\rm R},\varpi^{\rm aerosol}_{\rm G},\varpi^{\rm aerosol}_{\rm B}]=
-[0.69,0.74,0.78]$.  All rendered images used MC, and recovery used $N_{\rm views}=36$.
-Sample results are shown in Figs.~\ref{fig:simulation_particles}(a)--(d) and in Table~\ref{tbl:mass}.\\
-
 \newcolumntype{g}{>{\columncolor{Gray}}r}
 \begin{table}[htbp]
   \centering
   \begin{tabular}{cccccg}
     \toprule
-    Haze Scene & Forward Model& Density & Isotropic PF & Absorbing & $\epsilon$ \\
-    \midrule
-    Front & Single & Low & & & 0.18 \\
-     & MC & Low & & & 0.65 \\
+    Scene  & Forward & Aerosol & Isotropic     & Absorbing & $\epsilon$ \\
+           & model&   density & Phase function? & aerosol?   & \\
+     \midrule
+    Haze Front & Single scatter & Low & & & 0.18 \\
+          & Monte Carlo & Low & & & 0.65 \\
     \cmidrule(r){1-5}
-    Blobs & Single & Low & & & 0.14 \\
-     & MC & Low & & & 0.65 \\
-     & MC & Low & $\surd$  & & 0.49 \\
-     & MC & Low & & $\surd$ & 0.83 \\
-     & MC & High & & & 0.98 \\
+    Haze Blobs & Single scatter & Low & & & 0.14 \\
+     & Monte Carlo & Low & & & 0.65 \\
+     & Monte Carlo & Low & $\surd$  & & 0.49 \\
+     & Monte Carlo & Low & & $\surd$ & 0.83 \\
+     & Monte Carlo & High & & & 0.98 \\
     \bottomrule
   \end{tabular}
-  \caption{Local error for the various simulations}
+  \caption{Relative error measure in various simulations}
   \label{tbl:mass}
 \end{table}
+The overall mass is recovered, but for 6.5\% loss. \\
+
+
+\noindent{\bf Density of viewpoints}: Keeping the domain and scene ({\em Haze blobs}) fixed, we
+repeated the reconstruction many times, each time using a different subset of the above mentioned 36 simulated cameras. Each test randomly selected viewpoints, for various fixed values
+of $N_{\rm views}< 36$. All rendered images used MC.
+\Cref{fig:error_vs_cameras} plots $\epsilon$ as a function $N_{\rm views}$.
+\begin{figure}[t]
+  \centering
+  \yoavcomment{\includegraphics{images/error_vs_cameras.pdf}}
+  \caption{\small The relative error $\epsilon$ measure decreases with the number of
+    cameras. Bars represent the standard deviation of $\epsilon$, over our random tests.}
+  \label{fig:error_vs_cameras}
+\end{figure}
+Diminishing returns are obtained beyond $N_{\rm views}\approx 20$, which corresponds to $\approx 11$km separation between neighboring viewpoints.\\
+
+\noindent{\bf Aerosol characteristics}: We used the {\em Haze blobs} scene, but varied the
+aerosol characteristics. Compared to the aerosol described in \cref{sec:simul}, we tested two variations. In one variation, the phase function was isotropic, i.e.,
+$[g_{\rm R},g_{\rm G},g_{\rm B}]=[0,0,0]$. In the other variation, the aerosol is partly absorbing: its single scattering albedo per color channel is
+$[\varpi^{\rm aerosol}_{\rm R},\varpi^{\rm aerosol}_{\rm G},\varpi^{\rm aerosol}_{\rm B}]=
+[0.69,0.74,0.78]$.  All rendered images used MC (See Figs.~\ref{fig:simulation_particles}(a)--(c)).
+\begin{figure}[h]
+  \centering
+  \yoavcomment{\includegraphics{images/simulation_particles.pdf}}
+  \caption{\small Images simulated by MC, from the same viewpoint, but different
+  aerosol characteristics. (a) Haze blobs, characterized in Sec.~\ref{sec:simul}.
+    high. (b) Partly absorbing aerosol. (c) Aerosol having an isotropic phase function. (d) High aerosol density.}
+  \label{fig:simulation_particles}
+\end{figure}
+Recovery results using $N_{\rm views}=36$ are shown in Figs.~\ref{fig:reconstructions}(a,b) 
+\begin{figure}[h]
+  \centering
+  \yoavcomment{\includegraphics{images/reconstructions.pdf}}
+  \caption{\small  Recovered distributions when the aerosol is either party absorbing (a),
+    isotropic (b) or highly dense (c).}
+  \label{fig:reconstructions}
+\end{figure}
+and in Table~\ref{tbl:mass}.\\
 
 \noindent{\bf Density scale}: We used the aerosol {\em Haze blobs} distribution
 and characteristics as described in Sec.~\ref{sec:simul}, but increased the
 aerosol density tenfold everywhere. This significantly increases the effects
 of high order scattering, as shown in \cref{fig:cross_sections}(b) and
-\cref{fig:simulation_particles}(c). Consequently, $\epsilon$ increases,
+\cref{fig:simulation_particles}(d). Consequently, $\epsilon$ increases,
 when using $N_{\rm views}=36$. Still, \cref{fig:reconstructions}(c) shows
 that the spatial distribution outlines are recovered similarly to the other
 tests.
-
-%\hl{Thickening the aerosols density ten folds in the} {\em Haze Blobs} \hl{scene
-%resulted in a larger local error, i.e. $\epsilon=0.98$ (compared to $\epsilon=0.65$).
-%This admits to the fact that the single-scattering model, on which the reconstruction
-%algorithm is based, is valid when the optical depth of the medium is small.}
-\begin{figure}[h]
-  \centering
-  \yoavcomment{\includegraphics{images/simulation_particles.pdf}}
-  \caption{\small (a) and (b) show MC simulations of low and
-    high density scenes, respectively. (c) shows the reconstruction of
-    the high density scene.}
-  \label{fig:simulation_particles}
-\end{figure}
-\begin{figure}[h]
-  \centering
-  \yoavcomment{\includegraphics{images/reconstructions.pdf}}
-  \caption{\small (a) and (b) show MC simulations of low and
-    high density scenes, respectively. (c) shows the reconstruction of
-    the high density scene.}
-  \label{fig:reconstructions}
-\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1182,22 +1163,22 @@ tests.
 \label{sec:conclusions}
 
 We describe a way to sense the 3D atmosphere. It can help remote
-sensing departing from common 1D aerosol distribution models, in favor
+sensing depart from common 1D aerosol distribution models, in favor
 of detailed 3D RT analysis.  The paper describes both a novel data
 acquisition system concept for this recovery task (ground-based camera
 network), and a dedicated algorithm for reconstructing aerosol
 distributions. Using more prior knowledge on the nature of
-distributions will improve the recovery.  The estimation algorithm
-uses a single scattering model. This approximation is valid when the
-optical depth is small. However, as the MC simulation show, it is
-important to generalize this algorithm so that it explicitly
-incorporates high-order scattering in the scene, including the
-ground. This will certainly be needed for dense distributions as
-clouds. \Cref{fig:scatter_order}(b) \hl{suggests that incorporating
-the second order of scattering might be sufficient for most situations.}
+distributions will improve the recovery.  
 
-To deploy such a system on a very large scale will require a long-term
-engineering effort. Camera specifications~\cite{Pust2011} should be
+The estimation algorithm
+uses a single scattering model. This approximation is valid when the
+optical depth is small. However, as MC simulations show, it is
+important to generalize the recovery algorithm so that high-order scattering 
+is included in it. Such generalization would be computationally complex: 
+in our tests, the MC forward model was slower by 2-3 orders of magnitude than a single-scattering analytic model. Thus, inverting a 3D multiple-scattering model requires research into
+numerical schemes for increasing the solution efficiency of both forward and inverse problems.  
+The remote sensing community has devised several approaches to better approximate multiple-scattering problems, mainly in 1D scenes. These include successive orders of scattering, DISORT..... We may tap into some of these approaches.
+Deploying an experimental system will be needed: camera specifications~\cite{Pust2011} should be
 set to optimally recover a wide range of aerosol distributions.
 \hl{The relation between the quantity and spatial distribution of
   cameras and the quality of reconstruction should also be determined.}
@@ -1210,6 +1191,9 @@ set to optimally recover a wide range of aerosol distributions.
 
 \section*{Acknowledgments}
 \label{sec:acknowledgments}
+
+BSF!!!!
+
 
 We thank David~J. Diner for useful discussions. Yoav Schechner is a
 Landau Fellow - supported by the Taub Foundation. This work was

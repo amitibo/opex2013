@@ -530,7 +530,7 @@ distribution (\cref{sec:inverse-problem}).
 \label{sec:single-scatt-model}
 
 As illustrated in \cref{fig:groundgrid,fig:distributions},
-The sky is discretized into a grid of $N_{\rm voxels}$ rectangular cuboid volume elements
+the sky is discretized into a grid of $N_{\rm voxels}$ rectangular cuboid volume elements
 (voxels), indexed by $k$, $m$ or $q$.
 \begin{figure}
   \centering
@@ -545,15 +545,15 @@ The sky is discretized into a grid of $N_{\rm voxels}$ rectangular cuboid volume
 \end{figure}
 In a \emph{single-scattering} model, any SR changes direction only
 once on the way to a camera. This model is valid in atmospheres that
-are not very dense: inside fog and clouds this model does not
-apply. In this model, RT has three steps (\cref{fig:groundgrid}):
-({\tt i}) Attenuation of a SR propagating from the top of the
-atmosphere (TOA) to voxel $k$. ~({\tt ii}) Light scattering at voxel
-$k$, towards a camera. ~({\tt iii}) Light attenuation on the LOS from
+are not very dense (inside fog and clouds this model does not
+apply). Here, RT has three steps (\cref{fig:groundgrid}):
+({\tt i})~Attenuation of a SR propagating from the top of the
+atmosphere (TOA) to voxel $k$. ~({\tt ii})~Light scattering at voxel
+$k$, towards a camera. ~({\tt iii})~Light attenuation on the LOS from
 voxel $k$ to the camera.~~ Steps~{\tt i},{\tt iii} involve the optical
-depth along the light path to and from voxel $k$, as analyzed in
-\cref{sec:optical-depth}.  Step~{\tt ii} involves the scattering
-coefficient at voxel $k$, described in \cref{sec:scattering}.
+depth along the light path to and from voxel $k$ (analyzed in
+\cref{sec:optical-depth}).  Step~{\tt ii} involves the scattering
+coefficient at voxel $k$ (\cref{sec:scattering}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -678,8 +678,7 @@ Here the operator $\odot$ denotes the Hadamard (element-wise) product.
 
 Compounding the attenuation of irradiance along both $[{\rm SR},k]$
 and $[{\rm LOS}_c,k]$, and scattering by voxel $k$ towards the camera
-(\cref{eq:beer-lambert,eq:tautotal,eq:alphabasic}) the radiant power
-contributed by the voxel is
+(\cref{eq:beer-lambert,eq:tautotal,eq:alphabasic}) the voxel contributes radiant power
 \begin{equation}
   p_c(k)= L^{\rm TOA}
   [\tilde{\alpha}^{\rm air}_c(k) + \tilde{\alpha}^{\rm aerosol}_c(k)]
@@ -748,8 +747,9 @@ We tested domain division to various grids, from $10\times10 \times
 20$ voxels, up to $50\times50 \times 100$. The corresponding voxels
 had width, length and thickness of $5{\rm km}\times 5{\rm km} \times
 0.5{\rm km}$ and $1{\rm km}\times 1{\rm km} \times 0.1{\rm km}$.
-\hl{We use finer vertical resolution to provide for higher variability
-of air and aerosols distribution in the vertical dimension.} Each
+In all cases, the vertical resolution was higher than horizontal, via use
+of voxels that are vertically thin but laterally wide. This expresses the natural 
+higher variability of air and aerosols in the vertical dimension. Each
 ground-based camera has a hemispherical field of view, and low
 resolution, $128 \rm{px} \times 128 \rm{px}$, as cloudless (yet hazy)
 sky images are rather smooth.
@@ -841,18 +841,18 @@ $l^{\rm random}$ s.t.
   = \tau^{\rm random}
   \label{eq:MCextinct}
 \end{align}
-Distance $l^{\rm random}$ along ${\cal R}_{i}$ yields the 3D position ${\bf
+Distance $l^{\rm random}$ along ${\cal R}_{i}$ yields 3D position ${\bf
   X}_{i}$.  If ${\bf X}_{i}$ is outside the atmospheric grid, the
 packet is terminated. If, in addition, ${\cal R}_{i}\parallel {\rm
   SR}$ , the packet is counted as contributing to the image pixel.
 
 \noindent ({\tt iii}) The type of particle (air molecule or aerosol)
 that the photon-packet interacts with at point ${\bf X}_{i}$ is determined
-randomly by the relative \hl{scattering coefficients
-($\vect{\alpha}^{\rm air}$ and $\vect{\alpha}^{\rm aerosol}$} respectively)
-at the voxel containing ${\bf X}_{i}$.
+randomly. The relative probabilities of this random step are set by the respective extinction coefficients
+($\beta^{\rm air}$ vs. $\beta^{\rm aerosol}$) at the voxel containing ${\bf X}_{i}$.
 
-\noindent ({\tt iv}) If it is an aerosol, the photon-packet intensity
+
+\noindent ({\tt iv}) If the particle is an aerosol, the photon-packet intensity
 is attenuated to $I_{i+1}=\varpi^{\rm aerosol}I_{i}$. If $I_{i+1}$ is
 lower than a threshold, the packet is stochastically terminated,
 following~\cite{Iwabuchi2006}.
@@ -862,7 +862,7 @@ determined by inverse transform sampling, according to the phase
 function of the particle (Eqs.~\ref{eq:aerosol_scatter}
 or~\ref{eq:rayleighP}). This yields a new {\em ray}, denoted ${\cal
   R}_{i+1}$, emanating from ${\bf X}_{i}$. Local
-Estimation~\cite{marshak20053d} is used for calculating the amount of
+estimation~\cite{marshak20053d} derives the amount of
 light back-traced to the sun at each scattering. The next iteration of
 propagation (denoted {\tt ii} above) proceeds.
 
@@ -885,26 +885,27 @@ due to the effect of the high order scattering.
   \centering
   \yoavcomment{\includegraphics{images/cross_sections.pdf}}
   \caption{\small Cross-sections along the $X$-axis of photographs rendered
-    by the single-scattering and MC forward models.
+    by the single-scattering (dotted) and MC (solid line) forward models.
     (a) cross sections of the {\em Haze Blobs} scene (\cref{fig:simulation-results1}(d)
-    and \cref{fig:simulation_particles}(a)). (b) cross sections of
-    the increased aerosol density scene (\cref{fig:simulation_particles}(d)).
+    and \cref{fig:simulation_particles}(a)). The difference between the models is much more pronounced (b) 
+    when the scatterers are ten times denser, corresponding to \cref{fig:simulation_particles}(d).
   }
   \label{fig:cross_sections}
 \end{figure}
 
 \Cref{fig:scatter_order} shows the contribution by successive
 scattering orders. They are derived from the MC image. Photons contributing
-to an image pixel are accumulated in steps {\tt ii},{\tt v} above.
+to any pixel are accumulated in steps {\tt ii},{\tt v} above.
 The contributing photons that stem from just a single scattering event yield \cref{fig:scatter_order}(a). Similarly, contributing photons that had experienced exactly  two or three scattering events yield respectively \cref{fig:scatter_order}(b) and
-\cref{fig:scatter_order}(c). Clearly, first-order scatter is responsible
-for most of the energy in the MC image. Radiance by higher order scattering
+\cref{fig:scatter_order}(c). First-order scatter yields
+most of the energy in the MC image. Radiance by higher order scattering
 is mostly evident at the horizon. A horizontal LOS passes through a long and dense part of the atmosphere, while a vertical LOS cuts short through the dense, lower part. Hence,
 towards the horizon the probability of high order scattering increases.
 \begin{figure}[bt]
   \centering
   \yoavcomment{\includegraphics{images/scatter_order.pdf}}
-  \caption{\small Separation of the image shown in \cref{fig:mcgrid}(b) to contribution by successive orders of scattering: (a) first , (b) second, (c) third and (d) forth scattering order.}
+  \caption{\small Separation of the image shown in \cref{fig:mcgrid}(b) to contributionS
+   by successive orders of scattering: (a) first , (b) second, (c) third and (d) forth scattering order.}
   \label{fig:scatter_order}
 \end{figure}
 
@@ -937,9 +938,9 @@ where
     \MaskSun[{\bm i}^{\rm measured}_c - {\bm i}_c({\bm n})]
   \right\|^2_2  + \eta \Psi({\bm n}).
 \end{equation}
-Here $\MaskSun$ masks the area around the sun, as in real-world images
-it is indeed blocked. We mask the horizon, by using a camera whose field of view is a bit smaller than hemispherical. This reduces the influence of image regions that are more strongly affected by high-order scattering (\cref{fig:scatter_order}(b)). Consequently,
-the fit of the image formation model focuses on the bulk image region, where the single scattering model is more valid.  In \cref{eq:objectiveA}, $\Psi({\bm n})$
+Here $\MaskSun$ masks the area around the sun: in real-world images
+it is indeed blocked. We mask the horizon, by using a camera whose field of view is a little narrower than hemispherical. This reduces the influence of LOSs that are more strongly affected by high-order scattering (\cref{fig:scatter_order}(b)). Consequently,
+the fit of the imaging model focuses on the bulk image region, where the single scattering model is more valid.  In \cref{eq:objectiveA}, $\Psi({\bm n})$
 is a regularization term that expresses some prior knowledge on the
 distribution, while $\eta$ is the regularization weight.
 
@@ -947,8 +948,8 @@ Since aerosol distributions are usually fuzzy, useful regularization
 is by a {\em smoothness term}, which penalizes for energy in the second order
 spatial derivatives (3D Laplacian), $\| \nabla^2{\bm
   n}\|^2_2$. Regularization is not required when data is sufficient
-and reliable. As seen in \cref{fig:groundgrid}, voxels at high
-altitude have good coverage by many cameras at multiple directions,
+and reliable.  Voxels at high
+altitude have good coverage by many cameras at multiple directions (\cref{fig:groundgrid}),
 while low altitude voxels are mainly observed by local
 cameras. Hence, regularization can be weakened with altitude. We
 accomplish this weakening using a weight
@@ -1065,7 +1066,7 @@ couple of hours to complete, in total. The total estimation
 error can be quantified by the aerosol mass that is over and under-estimated
 in all voxels, relative to the total aerosol mass in the scene. Using the $\ell_1$ norm,
 the total mass relative difference is
-$(\|\hat{\bm n}\|_1 - \|{\bm n}^{\rm true} \|_1) / \| {\bm n}^{\rm true} \|_1$.
+$\delta_{\rm mass}=(\|\hat{\bm n}\|_1 - \|{\bm n}^{\rm true} \|_1) / \| {\bm n}^{\rm true} \|_1$.
 To also sense local errors, we use
  $\epsilon=\|
 \hat{\bm n} - {\bm n}^{\rm true} \|_1 / \| {\bm n}^{\rm true} \|_1$.
@@ -1079,13 +1080,13 @@ These results are listed in Table~\ref{tbl:mass}. \\
 \noindent{\bf Forward models and distributions}:
 \Cref{fig:results} shows estimation results, corresponding to the
 original distributions of \cref{fig:distributions}.
-\begin{figure}[h]
+\begin{figure}[t]
   \centering
   \yoavcomment{\includegraphics{images/results}}
-  \caption{\small Reconstructions of the scenes shown in
-    \cref{fig:distributions}. Color represents aerosol density. The
-    density units are $10^{6}~{\rm particles}/{\rm m}^3.$ In (a) and (b)
-    single-scattering simulated images are used as input to the
+  \caption{\small Recoveries of scenes shown in
+    \cref{fig:distributions}. Color represents aerosol density, in
+    units of $10^{6}~{\rm particles}/{\rm m}^3.$ In (a) and (b)
+    images simulated by single-scattering are used as input for the
     recovery.  In (c) and (d), MC simulated images are used as input for the
     recovery.  }
   \label{fig:results}
@@ -1102,33 +1103,33 @@ Errors in Figs.~\ref{fig:results}(a) and (b) stem from random noise, which had
 been induced in the raw images. Errors are larger when MC is used to
 render the images, since high-order scattering is not accounted for in
 \newcolumntype{g}{>{\columncolor{Gray}}r}
-\begin{table}[htbp]
+\begin{table}[t]
   \centering
   \begin{tabular}{cccccgg}
     \toprule
-    Scene      & Forward        & Aerosol          & Isotropic       & Absorbing & $\epsilon$ & Mass \\
-               & model          & density order    & Phase function? & aerosol?  &            & diff. \\
+    Haze      & Forward        & Aerosol          & Isotropic       & Absorbing & $\epsilon~~$ & $\delta_{\rm mass}$ \\
+    scene     & model          & density [$1/{\rm m}^3$]    & phase function? & aerosol?  &            &  \\
      \midrule
-    Haze       & Single scatter & $10^{6}$         &                 &           & 0.18       & 1.1\%  \\
-    Front      & Monte Carlo    & $10^{6}$         &                 &           & 0.65       & 14\%  \\
+    Front       & Single scatter & ${\mathcal{O}}(10^{6})$         &                 &           & 18\%       & 1.1\%  \\
+               & Monte Carlo    & ${\mathcal{O}}(10^{6})$         &                 &           & 65\%       & 14\%  \\
     \cmidrule(r){1-5}
-    Haze       & Single scatter & $10^{6}$         &                 &           & 0.14       & 0\%  \\
-    Blobs      & Monte Carlo    & $10^{6}$         &                 &           & 0.65       & 6.7\%  \\
-               & Monte Carlo    & $10^{6}$         & $\surd$         &           & 0.49       & 2\%  \\
-               & Monte Carlo    & $10^{6}$         &                 & $\surd$   & 0.83       & 9.6\%  \\
-               & Monte Carlo    & $10^{7}$         &                 &           & 0.98       & 23\%  \\
+     Blobs       & Single scatter & ${\mathcal{O}}(10^{6})$         &                 &           & 14\%       & 0\%  \\
+               & Monte Carlo    & ${\mathcal{O}}(10^{6})$         &                 &           & 65\%       & 6.7\%  \\
+               & Monte Carlo    & ${\mathcal{O}}(10^{6})$         & $\surd$         &           & 49\%       & 2\%  \\
+               & Monte Carlo    & ${\mathcal{O}}(10^{6})$         &                 & $\surd$   & 83\%       & 9.6\%  \\
+               & Monte Carlo    & ${\mathcal{O}}(10^{7})$         &                 &           & 98\%       & 23\%  \\
     \bottomrule
   \end{tabular}
-  \caption{Relative error measure in various simulations}
+  \caption{Relative errors in various simulations. Here ${\mathcal{O}}$ denotes order of magnitude.}
   \label{tbl:mass}
 \end{table}
 the algorithm of \cref{sec:inverse-problem}. \\
 
 
 \noindent{\bf Density of viewpoints}: Keeping the domain and scene ({\em Haze blobs}) fixed, we
-repeated the reconstruction many times, each time using a different subset of the above mentioned 36 simulated cameras. Each test randomly selected viewpoints, for various fixed values
+repeated the reconstruction many times, each using a different subset of the above mentioned 36 simulated cameras. Each test randomly selected viewpoints, for various fixed values
 of $N_{\rm views}< 36$. All rendered images used MC.
-\Cref{fig:error_vs_cameras} plots $\epsilon$ as a function $N_{\rm views}$.
+\Cref{fig:error_vs_cameras} plots the performance.
 \begin{figure}[t]
   \centering
   \yoavcomment{\includegraphics{images/error_vs_cameras.pdf}}
@@ -1136,30 +1137,33 @@ of $N_{\rm views}< 36$. All rendered images used MC.
     cameras. Bars represent the standard deviation of $\epsilon$, over our random tests.}
   \label{fig:error_vs_cameras}
 \end{figure}
-Diminishing returns are obtained beyond $N_{\rm views}\approx 20$, which corresponds to $\approx 11$km separation between neighboring viewpoints.\\
+Diminishing returns are obtained beyond $N_{\rm views}\approx 20$, which corresponds to $\approx 11$km separation between neighboring viewpoints. These tests point to fundamental questions about spatial-angular sampling: how spatially dense should cameras be, and how dense should a camera's field of view be sampled (in pixels)? This likely depends on the finesse of atmospheric structure sought, and the level of optical diffusion achieved by various aerosols. The novel tomography domain introduced here thus raises new important questions that will   require extensive further research.\\
 
 \noindent{\bf Aerosol characteristics}: We used the {\em Haze blobs} scene, but varied the
 aerosol characteristics. Compared to the aerosol described in \cref{sec:simul}, we tested two variations. In one variation, the phase function was isotropic, i.e.,
 $[g_{\rm R},g_{\rm G},g_{\rm B}]=[0,0,0]$. In the other variation, the aerosol is partly absorbing: its single scattering albedo per color channel is
 $[\varpi^{\rm aerosol}_{\rm R},\varpi^{\rm aerosol}_{\rm G},\varpi^{\rm aerosol}_{\rm B}]=
 [0.69,0.74,0.78]$.  All rendered images used MC (See Figs.~\ref{fig:simulation_particles}(a)--(c)).
-\begin{figure}[h]
+\begin{figure}[b]
   \centering
   \yoavcomment{\includegraphics{images/simulation_particles.pdf}}
   \caption{\small Images simulated by MC, from the same viewpoint, but different
-  aerosol characteristics. (a) Haze blobs, characterized in Sec.~\ref{sec:simul}.
-    high. (b) Partly absorbing aerosol. (c) Aerosol having an isotropic phase function. (d) High aerosol density.}
+  aerosol characteristics. (a) Haze blobs, characterized in Sec.~\ref{sec:simul}. 
+  (b) Partly absorbing aerosol. (c) Aerosol having an isotropic phase function. (d) High aerosol density.}
   \label{fig:simulation_particles}
 \end{figure}
 Recovery results using $N_{\rm views}=36$ are shown in Figs.~\ref{fig:reconstructions}(a,b)
-\begin{figure}[h]
+\begin{figure}[b]
   \centering
   \yoavcomment{\includegraphics{images/reconstructions.pdf}}
   \caption{\small  Recovered distributions when the aerosol is either party absorbing (a),
-    isotropic (b) or highly dense (c).}
+    has isotropic phase function (b) or has high density (c).}
   \label{fig:reconstructions}
 \end{figure}
-and in Table~\ref{tbl:mass}.\\
+and in Table~\ref{tbl:mass}. The results indicate that if the aerosol's phase function has smaller anisotropy, recovery of the aerosol's density is easier. We hypothesise that tomography is better served by scattering isotropy, since then significant radiance from any voxel reach cameras in a wide range of directions. This may make back-projection (recovery from cameras to voxels) more accurate. On the other hand, if the phase function is strongly peaked around one direction, most cameras would not receive much radiance. 
+
+ 
+ that have mo\\
 
 \noindent{\bf Density scale}: We used the aerosol {\em Haze blobs} distribution
 and characteristics as described in Sec.~\ref{sec:simul}, but increased the
@@ -1194,14 +1198,14 @@ than a single-scattering analytic model. Thus, inverting a 3D multiple-scatterin
 model requires research into numerical schemes for increasing the solution
 efficiency of both forward and inverse problems.
 The remote sensing community has devised several approaches to better approximate
-multiple-scattering problems, mainly in 1D scenes (e.g. successive
-orders of scattering and discrete ordinates method). We may tap into some of these approaches.
+multiple-scattering problems, mainly in one-dimensional models (e.g., successive
+orders of scattering and discrete ordinates methods). We may tap into some of these approaches.
 Deploying an experimental system will be needed: camera specifications~\cite{Pust2011}
 should be set to optimally recover a wide range of aerosol distributions.
-\hl{The relation between the quantity and spatial distribution of
-  cameras and the quality of reconstruction should also be determined.}
-\fix{This requires}{These open questions require} a major theoretic
- and numerical research.
+%\hl{The relation between the quantity and spatial distribution of
+%  cameras and the quality of reconstruction should also be determined.}
+%\fix{This requires}{These open questions require} a major theoretic
+% and numerical research.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%% Acknowledgments %%%%%%%%%%%%%%%%%%%%%
@@ -1210,15 +1214,12 @@ should be set to optimally recover a wide range of aerosol distributions.
 \section*{Acknowledgments}
 \label{sec:acknowledgments}
 
-BSF!!!!
+
+We are grateful to David~J. Diner for fruitful discussions and his support at all levels. We thank the reviewers for useful comments. Yoav Schechner is a Landau Fellow - supported by the Taub Foundation. This work is supported by the US-Israel Binational Science Foundation (BSF grant 2012202) and conducted in the Ollendorff Minerva Center. Minerva is funded through the BMBF. Part of this work is performed at the Jet Propulsion
+Laboratory, California Institute of Technology, under contract with NASA. 
+%The work in Caltech was partly supported by ONR-Global grant  N62909-10-1-4056.
 
 
-We thank David~J. Diner for useful discussions. Yoav Schechner is a
-Landau Fellow - supported by the Taub Foundation. This work was
-conducted in the Ollendorff Minerva Center. Minerva is funded through
-the BMBF. Part of this work was performed at the Jet Propulsion
-Laboratory, California Institute of Technology, under contract with
-NASA.
 
 \end{document}
 

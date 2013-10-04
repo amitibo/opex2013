@@ -1137,7 +1137,7 @@ of $N_{\rm views}< 36$. All rendered images used MC.
     cameras. Bars represent the standard deviation of $\epsilon$, over our random tests.}
   \label{fig:error_vs_cameras}
 \end{figure}
-Diminishing returns are obtained beyond $N_{\rm views}\approx 20$, which corresponds to $\approx 11$km separation between neighboring viewpoints. These tests point to fundamental questions about spatial-angular sampling: how spatially dense should cameras be, and how dense should a camera's field of view be sampled (in pixels)? This likely depends on the finesse of atmospheric structure sought, and the level of optical diffusion achieved by various aerosols. The novel tomography domain introduced here thus raises new important questions that will   require extensive further research.\\
+Diminishing returns are obtained beyond $N_{\rm views}\approx 20$, which corresponds to $\approx 11$km separation between neighboring viewpoints. These tests point to fundamental questions about spatial-angular sampling: how spatially dense should cameras be, and how dense should a camera's field of view be sampled (in pixels)? This likely depends on the finesse of atmospheric structure sought, and the level of optical diffusion achieved by various aerosols. The novel tomography domain introduced here thus raises new theoretical questions that will   require extensive further research.\\
 
 \noindent{\bf Aerosol characteristics}: We used the {\em Haze blobs} scene, but varied the
 aerosol characteristics. Compared to the aerosol described in \cref{sec:simul}, we tested two variations. In one variation, the phase function was isotropic, i.e.,
@@ -1160,10 +1160,7 @@ Recovery results using $N_{\rm views}=36$ are shown in Figs.~\ref{fig:reconstruc
     has isotropic phase function (b) or has high density (c).}
   \label{fig:reconstructions}
 \end{figure}
-and in Table~\ref{tbl:mass}. The results indicate that if the aerosol's phase function has smaller anisotropy, recovery of the aerosol's density is easier. We hypothesise that tomography is better served by scattering isotropy, since then significant radiance from any voxel reach cameras in a wide range of directions. This may make back-projection (recovery from cameras to voxels) more accurate. On the other hand, if the phase function is strongly peaked around one direction, most cameras would not receive much radiance. 
-
- 
- that have mo\\
+and in Table~\ref{tbl:mass}. The results indicate that if the aerosol's phase function has smaller anisotropy, recovery of the aerosol's density is easier. We hypothesise that tomography is better served by scattering isotropy, since then significant radiance from any voxel reach cameras in a wide range of directions. This may make back-projection (recovery from cameras to voxels) more accurate. On the other hand, if the phase function is too strongly peaked around one direction, most cameras would not receive much scattered radiance from a voxel, undermining tomography. A very broad research is needed to verify and quantify such dependencies.\\
 
 \noindent{\bf Density scale}: We used the aerosol {\em Haze blobs} distribution
 and characteristics as described in Sec.~\ref{sec:simul}, but increased the
@@ -1181,7 +1178,7 @@ tests.
 \label{sec:conclusions}
 
 We describe a way to sense the 3D atmosphere. It can help remote
-sensing depart from common 1D aerosol distribution models, in favor
+sensing depart from common one-dimensional aerosol distribution models, in favor
 of detailed 3D RT analysis.  The paper describes both a novel data
 acquisition system concept for this recovery task (ground-based camera
 network), and a dedicated algorithm for reconstructing aerosol
@@ -1199,7 +1196,7 @@ model requires research into numerical schemes for increasing the solution
 efficiency of both forward and inverse problems.
 The remote sensing community has devised several approaches to better approximate
 multiple-scattering problems, mainly in one-dimensional models (e.g., successive
-orders of scattering and discrete ordinates methods). We may tap into some of these approaches.
+orders of scattering and the discrete ordinates method). We may tap into some of these approaches.
 Deploying an experimental system will be needed: camera specifications~\cite{Pust2011}
 should be set to optimally recover a wide range of aerosol distributions.
 %\hl{The relation between the quantity and spatial distribution of

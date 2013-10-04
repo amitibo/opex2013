@@ -796,7 +796,7 @@ wide, 2.1km thick and centered at altitude 5km. Horizontal widths
 are much larger than the vertical thickness, in consistency with
 atmospheric scales. \Cref{fig:simulation-results1} shows
 photographs of the {\em Haze Blobs} scene, as simulated by
-\cref{eq:bigIA}.
+\cref{eq:bigIA}. \hl{Figs. 6.3 to Fig. 6.14 in every comparison, for display purposes both images underwent same contrast streching operations, and used the same colormap}.
 
 The {\em Haze Front} scene in \cref{fig:distributions}(b) uses an
 ellipsoid degenerated to an elliptic cylinder that partly enters the
@@ -1107,17 +1107,17 @@ render the images, since high-order scattering is not accounted for in
   \centering
   \begin{tabular}{cccccgg}
     \toprule
-    Haze      & Forward        & Aerosol          & Isotropic       & Absorbing & $\epsilon~~$ & $\delta_{\rm mass}$ \\
-    scene     & model          & density [$1/{\rm m}^3$]    & phase function? & aerosol?  &            &  \\
-     \midrule
-    Front       & Single scatter & ${\mathcal{O}}(10^{6})$         &                 &           & 18\%       & 1.1\%  \\
-               & Monte Carlo    & ${\mathcal{O}}(10^{6})$         &                 &           & 65\%       & 14\%  \\
-    \cmidrule(r){1-5}
-     Blobs       & Single scatter & ${\mathcal{O}}(10^{6})$         &                 &           & 14\%       & 0\%  \\
-               & Monte Carlo    & ${\mathcal{O}}(10^{6})$         &                 &           & 65\%       & 6.7\%  \\
-               & Monte Carlo    & ${\mathcal{O}}(10^{6})$         & $\surd$         &           & 49\%       & 2\%  \\
-               & Monte Carlo    & ${\mathcal{O}}(10^{6})$         &                 & $\surd$   & 83\%       & 9.6\%  \\
-               & Monte Carlo    & ${\mathcal{O}}(10^{7})$         &                 &           & 98\%       & 23\%  \\
+    Haze   & Forward        & Aerosol                 & Isotropic       & Absorbing & $\delta_{\rm mass}$ & $\epsilon~~$ \\
+    scene  & model          & density [$1/{\rm m}^3$] & phase function? & aerosol?  &                     &              \\
+     \midrule                                                                                             
+    Front  & Single scatter & ${\mathcal{O}}(10^{6})$ &                 &           & 1.1\%               & 18\%         \\
+           & Monte Carlo    & ${\mathcal{O}}(10^{6})$ &                 &           & -14\%               & 65\%         \\
+    \cmidrule(r){1-5}                                                                                     
+     Blobs & Single scatter & ${\mathcal{O}}(10^{6})$ &                 &           & 0\%                 & 14\%         \\
+           & Monte Carlo    & ${\mathcal{O}}(10^{6})$ &                 &           & 6.7\%               & 65\%         \\
+           & Monte Carlo    & ${\mathcal{O}}(10^{6})$ & $\surd$         &           & -2\%                & 49\%         \\
+           & Monte Carlo    & ${\mathcal{O}}(10^{6})$ &                 & $\surd$   & 9.6\%               & 83\%         \\
+           & Monte Carlo    & ${\mathcal{O}}(10^{7})$ &                 &           & 23\%                & 98\%         \\
     \bottomrule
   \end{tabular}
   \caption{Relative errors in various simulations. Here ${\mathcal{O}}$ denotes order of magnitude.}

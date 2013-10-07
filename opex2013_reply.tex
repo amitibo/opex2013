@@ -2,7 +2,57 @@
 \usepackage{graphicx}
 \usepackage{color}
 \usepackage{datetime}
+\usdate
 \usepackage{nicefrac}
+
+%% fonts
+\usepackage{mathptmx,courier,textcomp}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{xfrac}
+
+
+\DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
+
+
+%
+% Some new commands I use in this text
+%
+% Note:
+% Nice curly font is {\bm{\mathcal{D}}}
+%
+\newcommand{\Grad}[1]{\bm{\triangledown_{#1}}}
+\newcommand{\abbrev}[1]{\rm{#1}}
+\newcommand{\argmin}{\mathrm{arg}\min}
+\newcommand{\curly}[1]{\left\{#1\right\}}
+\newcommand{\roundy}[1]{\left(#1\right)}
+\newcommand{\recty}[1]{\left[#1\right]}
+\newcommand{\PartDeriv}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\vect}[1]{\bm{#1}}
+\newcommand{\mat}[1]{\bm{#1}}
+\newcommand{\transpose}[1]{{#1}^\intercal}
+\newcommand{\derivsym}[1]{\,d{#1}}
+\newcommand{\yoavcomment}[1]{}
+\renewcommand{\yoavcomment}[1]{#1} % Comment to remove images
+\newcommand{\fix}[2]{\st{#1}\hl{#2}}
+
+%
+% Used symbols (only partial for now...)
+%
+\newcommand{\OpSphere}{\mathbfcal{S}}
+\newcommand{\OpRot}{\mathbfcal{R}}
+\newcommand{\OpDistance}{\bm{D}}
+\newcommand{\OpCumsum}{\mathbfcal{C}}
+\newcommand{\OpInt}{\mathbfcal{I}}
+\newcommand{\OpCamera}{\mathbfcal{P}}
+\newcommand{\MaskSun}{\mathbfcal{M}}
+\newcommand{\Laplacian}{\mathbfcal{L}}
+\newcommand{\OpDiag}[1]{\mathbb{D}\left\{#1\right\}}
+\newcommand{\DistSet}{\mathcal{C}}
+\newcommand{\DistUnknown}{\vect{n}}
+\newcommand{\DistEstimated}{\hat{\vect{n}}}
+\newcommand{\CostFunc}[1]{E(#1)}
 
 
 \topmargin      -0.0truein%do not change
@@ -64,9 +114,9 @@ Amit Aides, corresponding author.\\
 
 {\Large Changes Following the Comments by the Reviewers}\\
 
-We would like to thank the reviewers for their general approval. In
-the following we describe the changes made to the manuscript following
-their remarks. Each reviewer's comment is summarized (colored in
+We would like to thank the reviewers for their general approval and useful
+suggestions. In the following we describe the changes made to the manuscript
+following their remarks. Each comment is summarized (colored in
 blue), followed by our reply.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -88,24 +138,38 @@ We appreciate the reviewer's comment. We address it below.
     this second part, that is more realistic."}
 
   {
-    The reviewer raises a good point. Inverting the radiation transfer
-    in the presence of multiple-scattering is the ``Holy Grail''
-    of RT researchers. As far as we know there are no methods to
-    solve this problem in the general case of non-homogeneous 3D
-    atmosphere. Solutions are known only for a limited set of 
-    situations.
-    
     In this article we describe a novel data acquisition system
     and suggest a method to recover the 3D atmosphere based on
     the single-scattering approximation. Following the reviewer's
-    suggestion we checked the limitations of the approximation
-    by testing it in situations prone to high order of scatterings.
-    Figures~5(b), 9(d) and 10(c) shows the results of applying
-    out algorithm in a scene with dense aerosols distribution.
-    Section~8 further discusses this experiment.
+    suggestion we expanded our reference to the implications
+    of high order scattering on our method.
+
+    We added the new Fig.~5. In this figure we visually demonstrate
+    the extents to which the single-scattering approximation is valid
+    and to which it is not.
+
+    The newly added Fig.~6 shows the contribution of each scattering order to
+    the final MC image. Figure~6 makes clear that there are regions in
+    the image that are affected by multiple scattering more than others.
+    The two new paragraphs at the end of Sec.~6 reference the issues
+    raised by Fig.~5 and Fig.~6.
+
+    In the top of p.~10 we added a new description of $MaskSun$. We use
+    $MaskSun$ to mask the regions in the image which are dominated 
+    by multi-scattering as shown by Fig.~6. This method improves the
+    results of the reconstruction algorithm.
+
+    We test our reconstruction algorithm on a new scene where we
+    increase the aerosol density tenfold. This significantly increases the
+    effects of high order scattering. The results are shown in 
+    Figs.~9(d) and 10(c), and reported in Table~1.
+    Paragraph ``Density scale'' in Sec.~8 summarizes this experiment.
+    Further discussion is given in Sec.~9.
   }
 
 \end{enumerate}
+
+\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % REVIEWER II
@@ -124,15 +188,18 @@ reviewer for his general approval. Below we address his/her comments:
     1-\exp(-u)$ how is $\nicefrac{1}{F} = -\ln(1-u)$?''}
 
   {The notation $F^{-1}$ refers to the inverse function
-   of function $F$ and not to $\nicefrac{1}{F}$.}
+   of function $F$ and not to $\nicefrac{1}{F}$. Following the
+   reviewer's comment we added a clarification in the ``Inverse
+   transform sampling'' paragraph on p.~4. }
 
 %%%%%%%%%%%%%%%%
 \item \textcolor{blue}{ ``Maybe define $\mu$ and voxel''}
 
   {We thank the reviewer for turning our attention to this.
    We replaced $\mu$ in Eq.~5 with its definition,
-   $\cos \Phi^{\rm scatter})$. We revised the definition
-   of the term ``voxel'', at the beginning of Sec.~4.}
+   $\cos \Phi^{\rm scatter}$. We revised the definition
+   of the term ``voxel'', at the beginning of Sec.~4 of the
+   article.}
 
 %%%%%%%%%%%%%%%%
 
@@ -152,10 +219,10 @@ reviewer for his general approval. Below we address his/her comments:
     hinder or favor retrieval.''}
 
   {
-    We appreciate the reviewer's comment. The issue raised by the
-    reviewer is now discussed in Sec.~8. We also added Table~1 and
-    Figs.~9 and 10, which show results of varying different properties
-    of the aerosols and their distribution.
+    We appreciate the reviewer's comment. We added new simulations to
+    test the effect of varying different properties of the aerosols.
+    These experiments are detailed in Sec.~8. The results are shown
+    in Figs.~9 and 10 and reported in Table.~1.
   }
 
 %%%%%%%%%%%%%%%%
@@ -163,9 +230,10 @@ reviewer for his general approval. Below we address his/her comments:
 \item \textcolor{blue}{ ``How many cameras in which distance do you
     need to obtain feasible results for the case of Sec. 5?''}
 
-  {Following this comment, we tested  repeated the reconstruction
+  {Following this comment, we repeated the reconstruction
    simulations many times, each time varying the distance between
-   cameras. The results are described in Sec.~8 and Fig.~8.}
+   cameras. These tests are described in the paragraph ``Density of viewpoints''
+   in Sec.~8. The results are shown in Fig.~8.}
 
 \end{enumerate}
 

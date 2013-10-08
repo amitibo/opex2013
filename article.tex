@@ -556,14 +556,14 @@ the sky is discretized into a grid of $N_{\rm voxels}$ \rl{rectangular cuboid} v
 In a \emph{single-scattering} model, any SR changes direction only
 once on the way to a camera. This model is valid in atmospheres that
 are not very dense (inside fog and clouds this model does not
-apply). \fix{In this model}{Here}, RT has three steps (\cref{fig:groundgrid}):
+apply). \rl{Here}, RT has three steps (\cref{fig:groundgrid}):
 ({\tt i})~Attenuation of a SR propagating from the top of the
 atmosphere (TOA) to voxel $k$. ~({\tt ii})~Light scattering at voxel
 $k$, towards a camera. ~({\tt iii})~Light attenuation on the LOS from
 voxel $k$ to the camera.~~ Steps~{\tt i},{\tt iii} involve the optical
-depth along the light path to and from voxel $k$ \del{as} (analyzed in
+depth along the light path to and from voxel $k$ (analyzed in
 \cref{sec:optical-depth}).  Step~{\tt ii} involves the scattering
-coefficient at voxel $k$ \del{described in} (\cref{sec:scattering}).
+coefficient at voxel $k$ (\cref{sec:scattering}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -688,7 +688,7 @@ Here the operator $\odot$ denotes the Hadamard (element-wise) product.
 
 Compounding the attenuation of irradiance along both $[{\rm SR},k]$
 and $[{\rm LOS}_c,k]$, and scattering by voxel $k$ towards the camera
-(\cref{eq:beer-lambert,eq:tautotal,eq:alphabasic}) the \fix{the radiant power contributed by is}{voxel contributes} radiant power
+(\cref{eq:beer-lambert,eq:tautotal,eq:alphabasic}) the \rl{voxel contributes} radiant power
 \begin{equation}
   p_c(k)= L^{\rm TOA}
   [\tilde{\alpha}^{\rm air}_c(k) + \tilde{\alpha}^{\rm aerosol}_c(k)]
@@ -837,10 +837,7 @@ the following steps, per pixel (\cref{fig:mcgrid}a):
   \caption{\small [a] Multiple-scattering forward model by MC.
     [b] Photograph of the same sky and view point as in
     \cref{fig:simulation-results1}(a), rendered using MC.
-    \del{[c] Cross section along the $X$-Axis of the MC simulation,
-    single-scattering simulation and a single-scattering image created
-    from the reconstructed distribution
-    (Sec.~\ref{sec:optimization-results})}.}
+    }
   \label{fig:mcgrid}
 \end{figure}
 
@@ -860,19 +857,18 @@ $l^{\rm random}$ s.t.
   = \tau^{\rm random}
   \label{eq:MCextinct}
 \end{align}
-Distance $l^{\rm random}$ along ${\cal R}_{i}$ yields \del{the} 3D position ${\bf
+Distance $l^{\rm random}$ along ${\cal R}_{i}$ yields 3D position ${\bf
   X}_{i}$.  If ${\bf X}_{i}$ is outside the atmospheric grid, the
 packet is terminated. If, in addition, ${\cal R}_{i}\parallel {\rm
   SR}$ , the packet is counted as contributing to the image pixel.
 
 \noindent ({\tt iii}) The type of particle (air molecule or aerosol)
 that the photon-packet interacts with at point ${\bf X}_{i}$ is determined
-randomly \fix{according to their relative densities at the voxel containing
-${\bf X}_{i}$.}{The relative probabilities of this random step are set by the respective extinction coefficients
+randomly \rl{The relative probabilities of this random step are set by the respective extinction coefficients
 ($\beta^{\rm air}$ vs. $\beta^{\rm aerosol}$) at the voxel containing ${\bf X}_{i}$.}
 
 
-\noindent ({\tt iv}) If \fix{it}{the particle} is an aerosol, the photon-packet intensity
+\noindent ({\tt iv}) If \rl{the particle} is an aerosol, the photon-packet intensity
 is attenuated to $I_{i+1}=\varpi^{\rm aerosol}I_{i}$. If $I_{i+1}$ is
 lower than a threshold, the packet is stochastically terminated,
 following~\cite{Iwabuchi2006}.
@@ -882,17 +878,15 @@ determined by inverse transform sampling, according to the phase
 function of the particle (Eqs.~\ref{eq:aerosol_scatter}
 or~\ref{eq:rayleighP}). This yields a new {\em ray}, denoted ${\cal
   R}_{i+1}$, emanating from ${\bf X}_{i}$. Local
-estimation~\cite{marshak20053d} \fix{is used for calculating}{derives} the amount of
+estimation~\cite{marshak20053d} \rl{derives} the amount of
 light back-traced to the sun at each scattering. The next iteration of
 propagation (denoted {\tt ii} above) proceeds.
 
 The quality of MC increases with the number of photons launched.
 \Cref{fig:mcgrid}(b) shows a photograph of the {\em Haze Blobs}
 scene, derived by the MC process, using \num{10000} photons per pixel,
-from the same viewpoint as \cref{fig:simulation-results1}(a). \fix{A
-comparison of a sample horizontal cross section is shown in
-Fig.~\ref{fig:mcgrid}c.}
-{Figure~\ref{fig:cross_sections} plots the intensity profile
+from the same viewpoint as \cref{fig:simulation-results1}(a). 
+\rl{Figure~\ref{fig:cross_sections} plots the intensity profile
 along a horizontal cross section of the viewed field,
 comparing photographs simulated using the single-scattering and the  MC forward models.
 Figure~\ref{fig:cross_sections}(a) compares photographs Fig.~\ref{fig:simulation-results1}(d)
@@ -964,7 +958,7 @@ where
     \MaskSun[{\bm i}^{\rm measured}_c - {\bm i}_c({\bm n})]
   \right\|^2_2  + \eta \Psi({\bm n}).
 \end{equation}
-Here $\MaskSun$ masks the area around the sun: \del{as} in real-world images
+Here $\MaskSun$ masks the area around the sun: in real-world images
 it is indeed blocked. \rl{We mask the horizon, by using a camera whose
 field of view is a little narrower than hemispherical. This reduces
 the influence of LOSs that are more strongly affected by high-order
@@ -978,7 +972,7 @@ Since aerosol distributions are usually fuzzy, useful regularization
 is by a {\em smoothness term}, which penalizes for energy in the second order
 spatial derivatives (3D Laplacian), $\| \nabla^2{\bm
   n}\|^2_2$. Regularization is not required when data is sufficient
-and reliable. \del{As seen in Fig.~\ref{fig:groundgrid},}Voxels at high
+and reliable. Voxels at high
 altitude have good coverage by many cameras at multiple directions (\cref{fig:groundgrid}),
 while low altitude voxels are mainly observed by local
 cameras. Hence, regularization can be weakened with altitude. We
@@ -1113,11 +1107,10 @@ original distributions of Fig.~\ref{fig:distributions}.}
 \begin{figure}[t]
   \centering
   \yoavcomment{\includegraphics{images/results}}
-  \caption{\small \fix{Reconstructions of the}{Recoveries of} scenes shown in
-    \cref{fig:distributions}. Color represents aerosol density\fix{. The density units are}{, in
-    units of} $10^{6}~{\rm particles}/{\rm m}^3.$ In \fix{[a,b],
-    single-scattering simulated images}{(a) and (b)
-    images simulated by single-scattering} are used as input \fix{to}{for} the
+  \caption{\small \rl{Recoveries of} scenes shown in
+    \cref{fig:distributions}. Color represents aerosol density\rl{, in
+    units of} $10^{6}~{\rm particles}/{\rm m}^3.$ In \rl{(a) and (b)
+    images simulated by single-scattering} are used as input \rl{for} the
     recovery.  In (c) and (d), MC simulated images are used as input for the
     recovery.  }
   \label{fig:results}
@@ -1225,7 +1218,7 @@ tests.}
 \label{sec:conclusions}
 
 We describe a way to sense the 3D atmosphere. It can help remote
-sensing depart from common \fix{1D}{one-dimensional} aerosol distribution models, in favor
+sensing depart from common \rl{one-dimensional} aerosol distribution models, in favor
 of detailed 3D RT analysis.  The paper describes both a novel data
 acquisition system concept for this recovery task (ground-based camera
 network), and a dedicated algorithm for reconstructing aerosol
@@ -1234,16 +1227,8 @@ distributions will improve the recovery.
 
 The estimation algorithm
 uses a single scattering model. This approximation is valid when the
-optical depth is small. However, as \del{the} MC simulations show, it is
-important to generalize \st{is algorithm so that it explicitly
-incorporates high-order scattering in the scene, including the
-ground. This will certainly be needed for dense distributions as
-clouds.}
-
-\st{To deploy such a system on a very large scale will require a long-term
-engineering effort. Camera specifications}~\cite{Pust2011}\st{should be
-set to optimally recover a wide range of aerosol distributions. This
-requires a major theoretic and numerical research.}
+optical depth is small. However, as MC simulations show, it is
+important to generalize 
 \rl{the recovery algorithm so that high-order scattering
 is included in it. Such generalization would be computationally complex:
 in our tests, the MC forward model was slower by 2-3 orders of magnitude
@@ -1268,12 +1253,7 @@ Deploying an experimental system will be needed: camera specifications}~\cite{Pu
 \label{sec:acknowledgments}
 
 
-\fix{We thank David~J. Diner for useful discussions. Yoav Schechner is a
-Landau Fellow - supported by the Taub Foundation. This work was
-conducted in the Ollendorff Minerva Center. Minerva is funded through
-the BMBF. Part of this work was performed at the Jet Propulsion
-Laboratory, California Institute of Technology, under contract with
-NASA.}{We are grateful to David~J. Diner for fruitful discussions and his support at all
+\rl{We are grateful to David~J. Diner for fruitful discussions and his support at all
 levels. We thank the reviewers for useful comments. Yoav Schechner is a Landau
 Fellow - supported by the Taub Foundation. This work is supported by the
 US-Israel Binational Science Foundation (BSF grant 2012202) and conducted in the

@@ -24,6 +24,8 @@
 \usepackage{booktabs}
 \usepackage{colortbl}
 \usepackage{endnotes}
+\usepackage{xcolor}
+\usepackage[normalem]{ulem}
 
 %\usepackage{ae} %%for Computer Modern fonts
 
@@ -73,7 +75,15 @@
 \newcommand{\derivsym}[1]{\,d{#1}}
 \newcommand{\yoavcomment}[1]{}
 \renewcommand{\yoavcomment}[1]{#1} % Comment to remove images
-\newcommand{\fix}[2]{\st{#1}\hl{#2}}
+
+%
+% Red-lined version settings
+%
+\newcommand{\del}[1]{\sout{#1}}
+\newcommand{\rl}[1]{\uwave{#1}}
+\newcommand{\fix}[2]{\del{#1}\rl{#2}}
+\newcommand{\rleq}[1]{%
+  \colorbox{red!50}{$\displaystyle#1$}}
 
 %
 % Used symbols (only partial for now...)

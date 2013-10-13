@@ -746,7 +746,7 @@ where ${\bm i}_c$ is the image, column-stacked to a vector $N_{\rm
   \label{fig:simulation-results1}
 \end{figure}
 \Cref{fig:simulation-results1} shows examples of photographs rendered
-using the single-scattering model. To create these photographs we
+using the single-scattering model. To create such photographs we
 simulated several scenarios, whose details are as follows.
 \\
 
@@ -813,7 +813,7 @@ photographs of the {\em Haze Blobs} scene, as simulated by
 \cref{eq:bigIA}. For clarity of display, the brightness of the
 displayed pictures in this paper underwent the same standard
 contrast enhancement (stretching), including gamma-correction.
-The recovery algorithms, of course, uses the raw (not brightness
+The recovery algorithm, of course, uses the raw (not brightness
 enhanced) images.
 
 
@@ -884,18 +884,14 @@ or~\ref{eq:rayleighP}). This yields a new {\em ray}, denoted ${\cal
 estimation~\cite{marshak20053d} derives the amount of
 light back-traced to the sun at each scattering. The next iteration of
 propagation (denoted {\tt ii} above) proceeds.
+
+The quality of MC increases with the number of photons launched.
+\Cref{fig:mcgrid}(b) shows a photograph of the {\em Haze Blobs}
+scene, derived by the MC process, using \num{10000} photons per pixel,
+from the same viewpoint as \cref{fig:simulation-results1}(a).
+Similarly, \cref{fig:simulation_particles}(a) corresponds to the same
+viewpoint as \cref{fig:simulation-results1}(d).
 \begin{figure}[t]
-  \centering
-  \yoavcomment{\includegraphics{images/cross_sections.pdf}}
-  \caption{\small Cross-sections along the $X$-axis of photographs rendered
-    by the single-scattering (dotted) and MC (solid line) forward models.
-    (a) cross sections of the {\em Haze Blobs} scene (described in \cref{sec:simul}).
-    The difference between the models is much more pronounced (b) 
-    when the scatterers are ten times denser (see \cref{sec:optimization-results}).
-  }
-  \label{fig:cross_sections}
-\end{figure}
-\begin{figure}[b]
   \centering
   \yoavcomment{\includegraphics{images/simulation_particles.pdf}}
   \caption{\small Images simulated by MC, from the same viewpoint, but different
@@ -905,22 +901,6 @@ propagation (denoted {\tt ii} above) proceeds.
   (c) are given in \cref{sec:optimization-results}.}
   \label{fig:simulation_particles}
 \end{figure}
-
-The quality of MC increases with the number of photons launched.
-\Cref{fig:mcgrid}(b) shows a photograph of the {\em Haze Blobs}
-scene, derived by the MC process, using \num{10000} photons per pixel,
-from the same viewpoint as \cref{fig:simulation-results1}(a).
-\Cref{fig:cross_sections} plots the intensity profile
-along a horizontal cross section of the viewed field,
-comparing photographs simulated using the single-scattering and the  MC forward models.
-\Cref{fig:cross_sections}(a) compares photographs \cref{fig:simulation-results1}(d)
-and \cref{fig:simulation_particles}(a) of the {\em Haze Blobs} scene.
-This plot demonstrates consistency in this scene, for most pixels.
-\Cref{fig:cross_sections}(b) compares photographs of the {\em Haze Blobs} scene
-where the aerosol density was increased ten folds (see \cref{sec:optimization-results}
-and the corresponding MC photograph, \cref{fig:simulation_particles}(d)).
-In this plot the single-scattering and MC cross sections diverge
-due to the effect of the high order scattering.
 \Cref{fig:scatter_order} shows the contribution by successive
 scattering orders. They are derived from the MC image. Photons contributing
 to any pixel are accumulated in steps {\tt ii} and {\tt v} above.
@@ -939,6 +919,29 @@ order scattering increases.
   \caption{\small Separation of the image shown in \cref{fig:mcgrid}(b) to contributions
    by successive orders of scattering: (a) first , (b) second, (c) third and (d) forth scattering order.}
   \label{fig:scatter_order}
+\end{figure}
+
+\Cref{fig:cross_sections} plots the intensity profile
+along a horizontal cross section of the viewed field,
+comparing photographs simulated using the single-scattering and the  MC forward models.
+\Cref{fig:cross_sections}(a) is extracted from \cref{fig:simulation-results1}(d)
+and \cref{fig:simulation_particles}(a) of the {\em Haze Blobs} scene.
+This plot demonstrates consistency in this scene, for most pixels.
+\Cref{fig:cross_sections}(b) plots the same profiles,
+where the aerosol density was increased tenfold (see \cref{sec:optimization-results}
+and the corresponding MC photograph, \cref{fig:simulation_particles}(d)).
+In \cref{fig:cross_sections}(b) the plots differ more than in \cref{fig:cross_sections}(a),
+due to high order scattering.
+\begin{figure}[t]
+  \centering
+  \yoavcomment{\includegraphics{images/cross_sections.pdf}}
+  \caption{\small Cross-sections along the $X$-axis of photographs rendered
+    by the single-scattering (dotted) and MC (solid line) forward models.
+    (a) cross sections of the {\em Haze Blobs} scene (described in \cref{sec:simul}).
+    The difference between the models is much more pronounced (b) 
+    when the scatterers are ten times denser (see \cref{sec:optimization-results}).
+  }
+  \label{fig:cross_sections}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

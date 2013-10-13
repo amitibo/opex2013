@@ -27,8 +27,8 @@
 
 %\usepackage{ae} %%for Computer Modern fonts
 
-\usepackage{hyperref}
-\hypersetup{pdfborder={0 0 0}}
+%\usepackage[bookmarks=false]{hyperref}
+%\hypersetup{pdfborder={0 0 0}}
 
 %
 % subfiles is useful for having the abstract (and possible other
@@ -134,12 +134,13 @@
 \begin{abstract}
   Aerosols affect climate, health and aviation.  Currently, their
   retrieval assumes a plane-parallel atmosphere and solely vertical
-  radiative transfer (RT). We propose a principle to estimate the
+  radiative transfer. We propose a principle to estimate the
   aerosol distribution as it really is: a three dimensional (3D)
-  volume, using visible light.  The principle is a type of
+  volume.  The principle is a type of
   tomography. The process involves wide angle integral imaging of the
-  sky on a very large scale.  We formulate an image formation model
-  based on 3D RT. Model inversion is done using optimization methods,
+  sky on a very large scale. The sensing can use an array of cameras in visible light.
+  We formulate an image formation model
+  based on 3D radiative transfer. Model inversion is done using optimization methods,
   exploiting a closed-form gradient which we derive for the model-fit
   cost function.  The tomography model is distinct, as the radiation
   source is unidirectional and uncontrolled, while off-axis scattering
@@ -246,10 +247,10 @@ J.~A. Aviles, \enquote{{The Development and Validation of a First Generation
   Electron Density Breast Images Using Monte Carlo Simulation},} Ph.D. thesis
   (2011).
 
-\bibitem{Cornette1995}
+\bibitem{cornette1992physically}
 W.~M. Cornette and J.~G. Shanks, \enquote{{Physically reasonable analytic
-  expression for the single-scattering phase function: errata},} \ao
-  \textbf{34}, 641 (1995).
+  expression for the single-scattering phase function},} \ao
+  \textbf{31}, 3152--3160 (1992).
 
 \bibitem{Levi1980}
 L.~Levi, \emph{{Applied Optics}} (John Wiley \& Sons, Inc., 1980).
@@ -327,7 +328,7 @@ visibility around flight paths.
 In remote sensing~\cite{Mishchenko2007}, imaging through air
 is associated with {\em atmospheric correction}, based on {\em aerosol
   retrieval}. In this discipline, the atmosphere is often assumed to
-be plane-parallel, using one-dimensional vertical RT. Consequently
+be plane-parallel, using one-dimensional vertical radiative transfer (RT). Consequently
 state-of-the-art aerosol retrieval is done in distinct large lateral
 blocks~\cite{Martonchikc} with limited height
 resolution~\cite{kalashnikova}. We, however, seek 3D
@@ -426,7 +427,7 @@ is
   \label{eq:alphabasic}
 \end{align}
 The phase function is often approximated by a parametric
-expression. Specifically, the Henyey-Greenstein~\cite{Cornette1995}
+expression. Specifically, the Henyey-Greenstein~\cite{cornette1992physically}
 function is governed by an {\em anisotropy parameter} $g$:
 \begin{align}
   P^{\rm aerosol}_g(\Phi^{\rm scatter})\approx \frac{3}{8\pi} \frac{(1 -g^2)
@@ -797,11 +798,11 @@ wide, 2.1km thick and centered at altitude 5km. Horizontal widths
 are much larger than the vertical thickness, in consistency with
 atmospheric scales. \Cref{fig:simulation-results1} shows
 photographs of the {\em Haze Blobs} scene, as simulated by
-\cref{eq:bigIA}. \endnote{For clarity of display, the brightness of the
+\cref{eq:bigIA}. For clarity of display, the brightness of the
 displayed pictures in this paper underwent the same standard
 contrast enhancement (stretching), including gamma-correction.
 The recovery algorithms, of course, have used the raw (not brightness
-enhanced) images.}
+enhanced) images.
 
 
 The {\em Haze Front} scene in \cref{fig:distributions}(b) uses an
@@ -879,12 +880,10 @@ from the same viewpoint as \cref{fig:simulation-results1}(a).
 \Cref{fig:cross_sections} plots the intensity profile
 along a horizontal cross section of the viewed field,
 comparing photographs simulated using the single-scattering and the  MC forward models.
-\Cref{fig:cross_sections}(a) compares photographs \cref{fig:simulation-results1}(d)
-and \cref{fig:simulation_particles}(a) of the {\em Haze Blobs} scene.
+\Cref{fig:cross_sections}(a) compares photographs of the {\em Haze Blobs} scene described in \cref{sec:simul}.
 This plot demonstrates consistency in this scene, for most pixels.
 \Cref{fig:cross_sections}(b) compares photographs of the {\em Haze Blobs} scene
-where the aerosol density was increased ten folds (see \cref{sec:optimization-results}
-and the corresponding MC photograph \cref{fig:simulation_particles}(d)).
+where the aerosol density was increased ten folds (see \cref{sec:optimization-results}).
 In this plot the single-scattering and MC cross sections diverge
 due to the effect of the high order scattering.
 \begin{figure}[t]
@@ -892,9 +891,9 @@ due to the effect of the high order scattering.
   \yoavcomment{\includegraphics{images/cross_sections.pdf}}
   \caption{\small Cross-sections along the $X$-axis of photographs rendered
     by the single-scattering (dotted) and MC (solid line) forward models.
-    (a) cross sections of the {\em Haze Blobs} scene (\cref{fig:simulation-results1}(d)
-    and \cref{fig:simulation_particles}(a)). The difference between the models is much more pronounced (b) 
-    when the scatterers are ten times denser, corresponding to \cref{fig:simulation_particles}(d).
+    (a) cross sections of the {\em Haze Blobs} scene (described in \cref{sec:simul}).
+    The difference between the models is much more pronounced (b) 
+    when the scatterers are ten times denser (see \cref{sec:optimization-results}).
   }
   \label{fig:cross_sections}
 \end{figure}
@@ -922,7 +921,7 @@ order scattering increases.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Inverse Problem}
+\section{Inverse problem}
 \label{sec:inverse-problem}
 
 When the type of aerosol above an area is known~\cite{Martonchik2009},
@@ -1248,8 +1247,6 @@ Fellow - supported by the Taub Foundation. This work is supported by the
 US-Israel Binational Science Foundation (BSF grant 2012202) and conducted in the
 Ollendorff Minerva Center. Minerva is funded through the BMBF. This work was supported
 by NASA's Earth Science Technology Office Advanced Information Systems Technology Program. 
-
-\theendnotes
 
 \end{document}
 

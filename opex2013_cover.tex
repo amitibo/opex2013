@@ -1,0 +1,114 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{datetime}
+\usdate
+\usepackage{nicefrac}
+
+%% fonts
+\usepackage{mathptmx,courier,textcomp}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{xfrac}
+
+
+\DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
+
+
+%
+% Some new commands I use in this text
+%
+% Note:
+% Nice curly font is {\bm{\mathcal{D}}}
+%
+\newcommand{\Grad}[1]{\bm{\triangledown_{#1}}}
+\newcommand{\abbrev}[1]{\rm{#1}}
+\newcommand{\argmin}{\mathrm{arg}\min}
+\newcommand{\curly}[1]{\left\{#1\right\}}
+\newcommand{\roundy}[1]{\left(#1\right)}
+\newcommand{\recty}[1]{\left[#1\right]}
+\newcommand{\PartDeriv}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\vect}[1]{\bm{#1}}
+\newcommand{\mat}[1]{\bm{#1}}
+\newcommand{\transpose}[1]{{#1}^\intercal}
+\newcommand{\derivsym}[1]{\,d{#1}}
+\newcommand{\yoavcomment}[1]{}
+\renewcommand{\yoavcomment}[1]{#1} % Comment to remove images
+\newcommand{\fix}[2]{\st{#1}\hl{#2}}
+
+%
+% Used symbols (only partial for now...)
+%
+\newcommand{\OpSphere}{\mathbfcal{S}}
+\newcommand{\OpRot}{\mathbfcal{R}}
+\newcommand{\OpDistance}{\bm{D}}
+\newcommand{\OpCumsum}{\mathbfcal{C}}
+\newcommand{\OpInt}{\mathbfcal{I}}
+\newcommand{\OpCamera}{\mathbfcal{P}}
+\newcommand{\MaskSun}{\mathbfcal{M}}
+\newcommand{\Laplacian}{\mathbfcal{L}}
+\newcommand{\OpDiag}[1]{\mathbb{D}\left\{#1\right\}}
+\newcommand{\DistSet}{\mathcal{C}}
+\newcommand{\DistUnknown}{\vect{n}}
+\newcommand{\DistEstimated}{\hat{\vect{n}}}
+\newcommand{\CostFunc}[1]{E(#1)}
+
+
+\topmargin      -0.0truein%do not change
+\oddsidemargin   0.0truein%do not change
+\evensidemargin  0.0truein%do not change
+\textheight     8.5truein%do not change
+\textwidth      6.3truein%do not change
+
+\parskip 0.3cm
+\parindent=0pt
+
+%\pagestyle{empty}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vspace*{.5cm} \hrule
+
+\def\sender{
+  \it{Amit Aides}\\
+  \scriptsize{Dept. of Electrical Engineering, Technion - Israel Inst.~Technology, Haifa 32000, Israel.}\\
+  \scriptsize{Tel No.: (+972) 54-4526416}\hspace{5pt}\\
+  \scriptsize{E-mail: amitibo@tx.technion.ac.il} } {\sender}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vspace{0.5cm}
+\noindent
+To:\\
+Production Editor, Optics Express\\[0.6cm]
+
+\begin{flushright}
+  \today
+\end{flushright}
+
+\vspace{0.3cm} \noindent
+
+Dear production editor,
+
+Thank you for accepting our manuscript for publication.
+We have applied the required formatting changes. In order to correct
+the citation order of Fig. 9, we moved the figure into section 6 of
+the article. This change required us to re-arange the order of figures
+in this section (section 6) and make minor changes to the body of 
+the text.
+We made minor textual corrections in several other locations, to smooth
+the flow. Specifically, in the abstract we moved the reference of
+"visibile light" from sentence 3 to sentence 6; we refer to Fig.3
+in the begining of Sec.5; we inserted our prior footnote into the main text
+of Sec.5; and we wrote a corrected ackowlegements.
+
+Is it possible to receive the proof, before you publish, so we
+verify and approve that all is in order?\\
+
+\vspace{0.2cm} Sincerely,
+
+\vspace{0.6cm}
+Amit Aides, corresponding author.\\
+
+\end{document}

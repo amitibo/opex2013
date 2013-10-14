@@ -8,7 +8,7 @@
 \usepackage{opex3}
 \usepackage{times}
 \usepackage{graphicx}
-\graphicspath{{./images/}}
+%\graphicspath{{./images/}}
 \usepackage{epstopdf}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -370,7 +370,7 @@ optimization that minimizes a cost function. We derive the gradient of
 this cost function, to enable efficient optimization.
 \begin{figure*}[t!]
   \begin{center}
-    \yoavcomment{\includegraphics[width=\linewidth]{images/groundtomog24.pdf}}
+    \yoavcomment{\includegraphics[width=\linewidth]{groundtomog24.pdf}}
   \end{center}
   \caption{\small Integral (lightfield) imaging through a volumetric
     distribution in the atmosphere, using ground-based cameras.}
@@ -546,7 +546,7 @@ the sky is discretized into a grid of $N_{\rm voxels}$ rectangular cuboid volume
 (voxels), indexed by $k$, $m$ or $q$.
 \begin{figure}
   \centering
-  \yoavcomment{\includegraphics[width=\columnwidth]{images/distributions}}
+  \yoavcomment{\includegraphics[width=\columnwidth]{distributions}}
   \caption{\small Simulated 3D aerosol distributions: [a] {\em Haze
       blobs} and [b] {\em Haze Front}.  Here, an aerosol density unit
     is $10^{6}~{\rm particles}/{\rm m}^3.$ The atmopsheric domain has
@@ -738,7 +738,7 @@ where ${\bm i}_c$ is the image, column-stacked to a vector $N_{\rm
 
 \begin{figure}
   \centering
-  \yoavcomment{\includegraphics[width=\linewidth]{images/single_images.pdf}}
+  \yoavcomment{\includegraphics[width=\linewidth]{single_images.pdf}}
   \caption{\small Different viewpoints of a sky that includes {\em
       Haze Blobs}. Images are rendered using the single-scattering model.
     A yellow dot marks the Sun location. Dashed white circles mark
@@ -837,7 +837,7 @@ back-traced to the Sun are counted, per pixel. In this model, RT takes
 the following steps, per pixel (\cref{fig:mcgrid}a):
 \begin{figure}
   \centering
-  \yoavcomment{\includegraphics{images/mcgrid.pdf}}
+  \yoavcomment{\includegraphics{mcgrid.pdf}}
   \caption{\small [a] Multiple-scattering forward model by MC.
     [b] Photograph of the same sky and view point as in
     \cref{fig:simulation-results1}(a), rendered using MC.}
@@ -893,7 +893,7 @@ Similarly, \cref{fig:simulation_particles}(a) corresponds to the same
 viewpoint as \cref{fig:simulation-results1}(d).
 \begin{figure}[t]
   \centering
-  \yoavcomment{\includegraphics{images/simulation_particles.pdf}}
+  \yoavcomment{\includegraphics{simulation_particles.pdf}}
   \caption{\small Images simulated by MC, from the same viewpoint, but different
   aerosol characteristics. (a) Haze blobs, characterized in Sec.~\ref{sec:simul}. 
   (b) Partly absorbing aerosol. (c) Aerosol having an isotropic phase function.
@@ -915,7 +915,7 @@ the dense, lower part. Hence, toward the horizon the probability of high
 order scattering increases.
 \begin{figure}[bt]
   \centering
-  \yoavcomment{\includegraphics{images/scatter_order.pdf}}
+  \yoavcomment{\includegraphics{scatter_order.pdf}}
   \caption{\small Separation of the image shown in \cref{fig:mcgrid}(b) to contributions
    by successive orders of scattering: (a) first , (b) second, (c) third and (d) forth scattering order.}
   \label{fig:scatter_order}
@@ -934,7 +934,7 @@ In \cref{fig:cross_sections}(b) the plots differ more than in \cref{fig:cross_se
 due to high order scattering.
 \begin{figure}[t]
   \centering
-  \yoavcomment{\includegraphics{images/cross_sections.pdf}}
+  \yoavcomment{\includegraphics{cross_sections.pdf}}
   \caption{\small Cross-sections along the $X$-axis of photographs rendered
     by the single-scattering (dotted) and MC (solid line) forward models.
     (a) cross sections of the {\em Haze Blobs} scene (described in \cref{sec:simul}).
@@ -1140,7 +1140,7 @@ These results are listed in Table~\ref{tbl:mass}. \\
 original distributions of \cref{fig:distributions}.
 \begin{figure}[b]
   \centering
-  \yoavcomment{\includegraphics{images/results}}
+  \yoavcomment{\includegraphics{results}}
   \caption{\small Recoveries of scenes shown in
     \cref{fig:distributions}. Color represents aerosol density, in
     units of $10^{6}~{\rm particles}/{\rm m}^3.$ In (a) and (b)
@@ -1170,7 +1170,7 @@ of $N_{\rm views}< 36$. All rendered images used MC.
 \Cref{fig:error_vs_cameras} plots the performance.
 \begin{figure}[t]
   \centering
-  \yoavcomment{\includegraphics{images/error_vs_cameras.pdf}}
+  \yoavcomment{\includegraphics{error_vs_cameras.pdf}}
   \caption{\small The relative error $\epsilon$ measure decreases with the number of
     cameras. Bars represent the standard deviation of $\epsilon$, over our random tests.}
   \label{fig:error_vs_cameras}
@@ -1193,7 +1193,7 @@ Recovery results using $N_{\rm views}=36$ are shown in Figs.~\ref{fig:reconstruc
 and \ref{fig:reconstructions}(b)
 \begin{figure}[b]
   \centering
-  \yoavcomment{\includegraphics{images/reconstructions.pdf}}
+  \yoavcomment{\includegraphics{reconstructions.pdf}}
   \caption{\small  Recovered distributions when the aerosol is either party absorbing (a),
     has isotropic phase function (b) or has high density (c).}
   \label{fig:reconstructions}

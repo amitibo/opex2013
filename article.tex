@@ -1113,13 +1113,32 @@ To also sense local errors, we use
 %$\epsilon=0.20$.  In Figs.~\ref{fig:results}(c) and (d), both cases have
 %$\epsilon=0.65$.
 These results are listed in Table~\ref{tbl:mass}. \\
-
-
+\newcolumntype{g}{>{\columncolor{Gray}}r}
+\begin{table}[bt]
+  \centering
+  \begin{tabular}{cccccgg}
+    \toprule
+    Haze   & Forward        & Aerosol                 & Isotropic       & Absorbing & $\delta_{\rm mass}$ & $\epsilon~~$ \\
+    scene  & model          & density [$1/{\rm m}^3$] & phase function? & aerosol?  &                     &              \\
+     \midrule                                                                                             
+    Front  & Single scatter & ${\mathcal{O}}(10^{6})$ &                 &           & -1.1\%               & 18\%         \\
+           & Monte Carlo    & ${\mathcal{O}}(10^{6})$ &                 &           & 14\%               & 65\%         \\
+    \cmidrule(r){1-5}                                                                                     
+     Blobs & Single scatter & ${\mathcal{O}}(10^{6})$ &                 &           & 0\%                 & 14\%         \\
+           & Monte Carlo    & ${\mathcal{O}}(10^{6})$ &                 &           & -6.7\%               & 65\%         \\
+           & Monte Carlo    & ${\mathcal{O}}(10^{6})$ & $\surd$         &           & 2\%                & 49\%         \\
+           & Monte Carlo    & ${\mathcal{O}}(10^{6})$ &                 & $\surd$   & -5.7\%               & 80\%         \\
+           & Monte Carlo    & ${\mathcal{O}}(10^{7})$ &                 &           & -23\%                & 98\%         \\
+    \bottomrule
+  \end{tabular}
+  \caption{Relative errors in various simulations. Here ${\mathcal{O}}$ denotes order of magnitude.}
+  \label{tbl:mass}
+\end{table}
 
 \noindent{\bf Forward models and distributions}:
 \Cref{fig:results} shows estimation results, corresponding to the
 original distributions of \cref{fig:distributions}.
-\begin{figure}[t]
+\begin{figure}[b]
   \centering
   \yoavcomment{\includegraphics{images/results}}
   \caption{\small Recoveries of scenes shown in
@@ -1141,27 +1160,6 @@ Overall, the distributions, the density order of magnitude and values are consis
 Errors in Figs.~\ref{fig:results}(a) and \ref{fig:results}(b) stem from random noise, which had
 been induced in the raw images. Errors are larger when MC is used to
 render the images, since high-order scattering is not accounted for in
-\newcolumntype{g}{>{\columncolor{Gray}}r}
-\begin{table}[t]
-  \centering
-  \begin{tabular}{cccccgg}
-    \toprule
-    Haze   & Forward        & Aerosol                 & Isotropic       & Absorbing & $\delta_{\rm mass}$ & $\epsilon~~$ \\
-    scene  & model          & density [$1/{\rm m}^3$] & phase function? & aerosol?  &                     &              \\
-     \midrule                                                                                             
-    Front  & Single scatter & ${\mathcal{O}}(10^{6})$ &                 &           & -1.1\%               & 18\%         \\
-           & Monte Carlo    & ${\mathcal{O}}(10^{6})$ &                 &           & 14\%               & 65\%         \\
-    \cmidrule(r){1-5}                                                                                     
-     Blobs & Single scatter & ${\mathcal{O}}(10^{6})$ &                 &           & 0\%                 & 14\%         \\
-           & Monte Carlo    & ${\mathcal{O}}(10^{6})$ &                 &           & -6.7\%               & 65\%         \\
-           & Monte Carlo    & ${\mathcal{O}}(10^{6})$ & $\surd$         &           & 2\%                & 49\%         \\
-           & Monte Carlo    & ${\mathcal{O}}(10^{6})$ &                 & $\surd$   & -5.7\%               & 80\%         \\
-           & Monte Carlo    & ${\mathcal{O}}(10^{7})$ &                 &           & -23\%                & 98\%         \\
-    \bottomrule
-  \end{tabular}
-  \caption{Relative errors in various simulations. Here ${\mathcal{O}}$ denotes order of magnitude.}
-  \label{tbl:mass}
-\end{table}
 the algorithm of \cref{sec:inverse-problem}. \\
 
 
